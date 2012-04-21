@@ -4,10 +4,12 @@
 #include "defines.h"
 #include "text.h"
 
+
 class FrameRate
 {
     private:
         unsigned int ticks;
+        unsigned int ticksControl;
         unsigned int frames;
         float fps;
     public:
@@ -32,8 +34,19 @@ class FrameRate
         FrameRate()
         {
             ticks = glutGet(GLUT_ELAPSED_TIME);
+            ticksControl = glutGet(GLUT_ELAPSED_TIME);
             frames = 0;
             fps = 0;
+        }
+
+        void regulaFPS()
+        {
+            unsigned int step = 1000.0f/FRAMES_PER_SECOND;
+            unsigned int decorrido = glutGet(GLUT_ELAPSED_TIME) - ticksControl;
+            if(decorrido < step )
+                Sleep( step - decorrido);
+
+            ticksControl = glutGet(GLUT_ELAPSED_TIME);
         }
 };
 

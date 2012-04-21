@@ -27,8 +27,8 @@ float deltaMouseY = 0.0f;
 float deltaMove = 0.0f;
 float deltaMoveLado = 0.0f;
 
-float velocidadeMove = 0.2f;
-float velocidadeVira = 0.1f;
+float velocidadeMove = 1.0f;
+float velocidadeVira = 0.5f;
 int xOrigem = -1;
 int yOrigem = -1;
 
@@ -123,6 +123,39 @@ void teclasNormais(unsigned char key, int x, int y)
             angleY = 0;
             calculaDirecao();
             break;
+        case 'Z':
+        case 'z':
+            cameraY += 2;
+            break;
+        case 'X':
+        case 'x':
+            cameraY -= 2;
+            break;
+        case 'C':
+        case 'c':
+            cameraX = 6;
+            break;
+        case 'V':
+        case 'v':
+            cameraY = 1;
+            break;
+        case 'B':
+        case 'b':
+            cameraZ = 6;
+            break;
+        case 'F':
+        case 'f':
+        {
+            GLboolean isFog = false;
+            glGetBooleanv(GL_FOG, &isFog);
+            if (isFog)
+                glDisable(GL_FOG);
+            else
+                glEnable(GL_FOG);
+
+            break;
+
+        }
         default:break;
     }
 }
@@ -155,8 +188,10 @@ void teclasEspeciais(int key, int x, int y )
 {
     switch(key)
     {
-        case GLUT_KEY_UP: deltaMove = 0.5f; break;
-        case GLUT_KEY_DOWN: deltaMove = -0.5f; break;
+        case GLUT_KEY_UP: deltaMove = velocidadeMove; break;
+        case GLUT_KEY_DOWN: deltaMove = -velocidadeMove; break;
+        case GLUT_KEY_LEFT: deltaAngleX = -velocidadeVira; break;
+        case GLUT_KEY_RIGHT: deltaAngleX = velocidadeVira; break;
         default: break;
     }
 }
@@ -213,81 +248,6 @@ void moveMouse(int x, int y)
 }
 
 
-
-void MazeHARDCORE()
-{
-    glColor3f(0.3f, 0.9f, 0.2f);
-    glPushMatrix();
-        glTranslated(0,5,0);
-        glutSolidCube(10);
-        glTranslated(10,0,0);
-        glutSolidCube(10);
-        glTranslated(10,0,0);
-        glutSolidCube(10);
-        glTranslated(0,0,10);
-        glutSolidCube(10);
-        glTranslated(0,0,10);
-        glutSolidCube(10);
-        glTranslated(-10,0,0);
-        glutSolidCube(10);
-        glTranslated(0,0,10);
-        glutSolidCube(10);
-        glTranslated(0,0,10);
-        glutSolidCube(10);
-
-        glTranslated(0,0,10);
-        glutSolidCube(10);
-        glTranslated(-10,0,0);
-        glutSolidCube(10);
-        glTranslated(-10,0,0);
-        glutSolidCube(10);
-        glTranslated(0,0,-10);
-        glutSolidCube(10);
-        glTranslated(0,0,-10);
-        glutSolidCube(10);
-        glTranslated(0,0,-10);
-        glutSolidCube(10);
-
-
-        glTranslated(-10,0,0);
-        glutSolidCube(10);
-        glTranslated(0,0,10);
-        glutSolidCube(10);
-        glTranslated(0,0,10);
-        glutSolidCube(10);
-        glTranslated(-10,0,0);
-        glutSolidCube(10);
-        glTranslated(-10,0,0);
-        glutSolidCube(10);
-
-        glTranslated(0,0,-10);
-        glutWireCube(10);
-        glTranslated(0,0,-10);
-        glutSolidCube(10);
-        glTranslated(0,0,-10);
-        glutSolidCube(10);
-        glTranslated(-10,0,0);
-        glutSolidCube(10);
-
-        glTranslated(0,0,-10);
-        glutSolidCube(10);
-
-
-
-        glTranslated(10,0,0);
-        glutSolidCube(10);
-
-        glTranslated(10,0,0);
-        glutSolidCube(10);
-
-        glTranslated(10,0,0);
-        glutSolidCube(10);
-        glTranslated(10,0,0);
-        glutSolidCube(10);
-
-    glPopMatrix();
-}
-
 FrameRate fps;
 void desenhaTela(void)
 {
@@ -328,6 +288,8 @@ void desenhaTela(void)
 
 
     fps.execute();
+    fps.regulaFPS();
+
     renderText2dOrtho(10,10,0,"FPS: %.2f",fps.getFPS());
 
     glutSwapBuffers();
@@ -407,6 +369,7 @@ int main(int argc, char* args[])
     glutKeyboardFunc(teclasNormais);
     glutKeyboardUpFunc(teclasNormaisUp);
     glutSpecialFunc(teclasEspeciais);
+    glutSpecialUpFunc(teclasEspeciaisSoltar);
     glutMotionFunc(moveMouse);
     glutMouseFunc(mouseButton);
 

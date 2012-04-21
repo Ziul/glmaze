@@ -29,6 +29,9 @@
 #define TAMANHO_BLOCO           12
 #define COR_PAREDE              0.1f, 0.9f, 0.2f
 #define COR_CHAO                0.0f, 0.5f, 0.5f
+#define FRAMES_PER_SECOND       70
+
+
 
 //Tamanho da tela atual
 extern float wScreen;

@@ -5,14 +5,6 @@
 		<Option title="Projeto - Labirinto" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<MakeCommands>
-			<Build command="$make -f $makefile $target" />
-			<CompileFile command="$make -f $makefile $file" />
-			<Clean command="$make -f $makefile clean$target" />
-			<DistClean command="$make -f $makefile distclean$target" />
-			<AskRebuildNeeded command="$make -q -f $makefile $target" />
-			<SilentBuild command="$make -s -f $makefile $target" />
-		</MakeCommands>
 		<Build>
 			<Target title="Debug">
 				<Option output="Projeto - Labirinto" prefix_auto="1" extension_auto="1" />
@@ -41,8 +33,16 @@
 		</Compiler>
 		<Unit filename="defines.cpp" />
 		<Unit filename="defines.h" />
+		<Unit filename="entidade.cpp" />
+		<Unit filename="entidade.h" />
+		<Unit filename="framerate.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="map.cpp" />
 		<Unit filename="map.h" />
+		<Unit filename="notas.txt" />
+		<Unit filename="text.h" />
+		<Unit filename="tile.cpp" />
+		<Unit filename="tile.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

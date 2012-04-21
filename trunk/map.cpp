@@ -93,18 +93,18 @@ bool Map::load(char* filename)
     MAP_HEIGHT = MAP_WIDTH = 0;
 
     //Pega o tamanho do mapa, quanto por quantos blocos
-    fscanf(file, "%d-%d\n", &MAP_WIDTH, &MAP_HEIGHT);
+    int error = fscanf(file, "%d-%d\n", &MAP_WIDTH, &MAP_HEIGHT);
 
     for (int y = 0; y < MAP_HEIGHT; y++)
     {
         for (int x = 0; x < MAP_WIDTH; x++)
         {
             Tile tempTile;
-            fscanf(file, "[%d] ",&tempTile.typeId);
+            error = fscanf(file, "[%d] ",&tempTile.typeId);
 
             listaTiles.push_back(tempTile);
         }
-        fscanf(file, "\n");
+        error = fscanf(file, "\n");
     }
     fclose(file);
     return true;
