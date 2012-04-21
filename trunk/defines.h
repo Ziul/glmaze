@@ -17,19 +17,18 @@
         #include <GL/gl.h>
         #include <GL/glut.h>
         #include <GL/glu.h>
-        #define Sleep(x) sleep(x)
+        #define Sleep(x) usleep(x*1000000)
     #endif
 #endif
 
 #define SCREEN_WIDTH            640
 #define SCREEN_HEIGHT           480
 
-#define FRAMES_PER_SECOND       70
+#define FRAMES_PER_SECOND       70.0f
 
 #define TAMANHO_BLOCO           12
 #define COR_PAREDE              0.1f, 0.9f, 0.2f
 #define COR_CHAO                0.0f, 0.5f, 0.5f
-#define FRAMES_PER_SECOND       70
 
 
 
