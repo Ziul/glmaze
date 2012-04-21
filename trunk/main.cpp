@@ -66,6 +66,19 @@ void calculaDirecao()
 
     angleX += deltaAngleX;
 
+    //corrige angulo
+    if ( angleX+angleOffsetX >= 360 )
+        angleX -= 360;
+    if ( angleX+angleOffsetX < 0)
+        angleX += 360;
+
+    //Só permite rotacionar 180 graus em Y
+    if ( angleY+angleOffsetY >= 90 )
+        angleY = 90-angleOffsetY;
+    if ( angleY+angleOffsetY <= -90)
+        angleY = -(90+angleOffsetY);
+
+
     lookX = sin( (angleX+angleOffsetX)*M_PI/180);
     lookZ = -cos( (angleX+angleOffsetX)*M_PI/180);
 

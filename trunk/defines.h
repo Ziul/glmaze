@@ -21,10 +21,10 @@
     #endif
 #endif
 
-#define SCREEN_WIDTH            640
-#define SCREEN_HEIGHT           480
+#define SCREEN_WIDTH            800
+#define SCREEN_HEIGHT           600
 
-#define FRAMES_PER_SECOND       70.0f
+#define FRAMES_PER_SECOND       60.0f
 
 #define TAMANHO_BLOCO           12
 #define COR_PAREDE              0.1f, 0.9f, 0.2f

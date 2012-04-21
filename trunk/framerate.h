@@ -17,7 +17,7 @@ class FrameRate
         {
             unsigned int decorrido = glutGet(GLUT_ELAPSED_TIME) - ticks;
             frames++;
-            if (decorrido >= 1000)
+            if (decorrido > 1000)
             {
                 fps = ((float)frames*1000.0f/(float)decorrido);
 
