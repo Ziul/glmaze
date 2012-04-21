@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -pedantic $(GLFLAGS) -I./
+CFLAGS = -Wall -pedantic $(GLFLAGS) -I./ -O3 -Os -g
 
 ifeq ($(USER),luiz)
 #Linux OS
@@ -23,5 +23,8 @@ clean:
 run: all
 	echo "executando..."
 	./prog *.ply
+
+check:
+	$(CC) luiz.cpp maze.cpp -o testing
 	
 .SILENT:
