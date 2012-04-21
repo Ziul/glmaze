@@ -1,6 +1,8 @@
 #include "defines.h"
 #include <math.h>
 
+#include "map.h"
+
 float angle = 0.0f;
 
 float lookX = 0.5f;
