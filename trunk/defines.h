@@ -20,6 +20,10 @@
 #define SCREEN_WIDTH            640
 #define SCREEN_HEIGHT           480
 
+#define TAMANHO_BLOCO           12
+#define COR_PAREDE              0.1f, 0.9f, 0.2f
+#define COR_CHAO                0.0f, 0.5f, 0.5f
+
 //Tamanho da tela atual
 extern float wScreen;
 extern float hScreen;

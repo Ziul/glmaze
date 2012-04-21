@@ -3,15 +3,15 @@
 
 #include "map.h"
 
-float angle = 0.0f;
+float angle = 90.0f;
 
 float lookX = 0.5f;
 float lookY = 0.0f;
 float lookZ = -1.0f;
 
-float cameraX = 0.0f;
+float cameraX = TAMANHO_BLOCO/2;
 float cameraY = 5.0f;
-float cameraZ = 30.0f;
+float cameraZ = TAMANHO_BLOCO/2;
 
 float deltaAngle = 0.0f;
 float deltaMove = 0.0f;
@@ -20,6 +20,7 @@ float deltaMoveLado = 0.0f;
 float velocidadeMove = 0.2f;
 float velocidadeVira = 0.1f;
 int xOrigem;
+
 
 void changeSize(int w, int h)
 {
@@ -166,31 +167,9 @@ void calculaMovimentoLateral(float delta)
     cameraZ += delta * (lateralZ) * 0.1f;
 
 }
-void desenhaTela(void)
+
+void MazeHARDCORE()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    GLfloat posicaoLuz[4] = {-200.0, 100.0, 0.0, 0.0 };
-    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
-
-    glMatrixMode(GL_MODELVIEW);
-
-    glLoadIdentity();
-
-    if (deltaMove)
-        calculaMovimento(deltaMove);
-    if (deltaAngle)
-        calculaDirecao(deltaAngle);
-    if (deltaMoveLado)
-        calculaMovimentoLateral(deltaMoveLado);
-
-    gluLookAt(  cameraX      , cameraY      , cameraZ,
-                cameraX+lookX, cameraY+lookY, cameraZ+lookZ,
-                0.0f   , 1.0f,    0.0f);
-
-
-
-
     glColor3f(0.3f, 0.9f, 0.2f);
     glPushMatrix();
         glTranslated(0,5,0);
@@ -260,17 +239,43 @@ void desenhaTela(void)
         glTranslated(10,0,0);
         glutSolidCube(10);
 
-
-
     glPopMatrix();
+}
+void desenhaTela(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    GLfloat posicaoLuz[4] = {-200.0, 100.0, 0.0, 0.0 };
+    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
+
+    glMatrixMode(GL_MODELVIEW);
+
+    glLoadIdentity();
+
+    if (deltaMove)
+        calculaMovimento(deltaMove);
+    if (deltaAngle)
+        calculaDirecao(deltaAngle);
+    if (deltaMoveLado)
+        calculaMovimentoLateral(deltaMoveLado);
+
+    gluLookAt(  cameraX      , cameraY      , cameraZ,
+                cameraX+lookX, cameraY+lookY, cameraZ+lookZ,
+                0.0f   , 1.0f,    0.0f);
+
+    //MazeHARDCORE();
 
 
-    glColor3f(0.9f, 0.9f, 0.9f);
+
+    Map::MapControl.render();
+
+
+    glColor3f(0.9f, 0.9f, 0.0f);
     glBegin(GL_QUADS);
-        glVertex3f(-100.0f, 0.0f, -100.0f);
-        glVertex3f(-100.0f, 0.0f, 100.0f);
-        glVertex3f(100.0f, 0.0f, 100.0f);
-        glVertex3f(100.0f, 0.0f, -100.0f);
+            glVertex3f(0.0f, 1.0f, 0.0f);
+            glVertex3f(0.0f, 1.0f, TAMANHO_BLOCO);
+            glVertex3f(TAMANHO_BLOCO, 1.0f, TAMANHO_BLOCO);
+            glVertex3f(TAMANHO_BLOCO, 1.0f, 0.0f);
     glEnd();
 
 
@@ -321,6 +326,16 @@ void inicializa(void)
     glEnable(GL_DEPTH_TEST);
     //Reduz quantidade de triangulos desenhados.
     glEnable(GL_CULL_FACE);
+
+    GLfloat fog_color[4] = {0.1,0.1,0.1,1.0};
+    glFogfv(GL_FOG_COLOR, fog_color);
+    glFogf(GL_FOG_START, 0.0f );
+    glFogf(GL_FOG_END, 30.0f );
+    glFogi(GL_FOG_MODE, GL_LINEAR);
+
+    glEnable(GL_FOG);
+
+    Map::MapControl.load((char*) "test.txt");
 
     calculaDirecao(0.0f);
 }

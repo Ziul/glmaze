@@ -9,7 +9,7 @@
 #ifndef __TILE_H_
 #define __TILE_H_
 
-#define TAMANHO_PADRAO 20;
+#include "defines.h"
 
 enum
 {
@@ -24,9 +24,7 @@ class Tile
     public:
         int typeId;
 
-        float tamanhoX;
-        float tamanhoY;
-        float tamanhoZ;
+        float tamanho;
 
         Tile();
 

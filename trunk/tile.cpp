@@ -2,5 +2,5 @@
 
 Tile::Tile()
 {
-    tamanhoX = tamanhoY = tamanhoZ = TAMANHO_PADRAO;
+    tamanho = TAMANHO_BLOCO;
 }
