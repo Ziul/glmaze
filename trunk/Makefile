@@ -1,4 +1,4 @@
-CC = gcc
+CC = g++
 CFLAGS = -Wall -pedantic $(GLFLAGS) -I./
 
 ifeq ($(USER),luiz)
@@ -10,9 +10,9 @@ else
 GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee
 endif
 
-all:*.c
+all:*.cpp
 	echo -n "compillando..."
-	$(CC) *.c -o prog $(CFLAGS) 
+	$(CC) *.cpp -o prog $(CFLAGS) 
 	echo "ok" 
 
 #	$(CC) *.c -c $(CFLAGS) 
