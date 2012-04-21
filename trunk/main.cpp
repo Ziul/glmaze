@@ -2,6 +2,8 @@
 #include <math.h>
 
 #include "map.h"
+#include "text.h"
+#include "framerate.h"
 
 float angleX = 90.0f;
 float angleY = 0.0f;
@@ -285,6 +287,8 @@ void MazeHARDCORE()
 
     glPopMatrix();
 }
+
+FrameRate fps;
 void desenhaTela(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -323,6 +327,8 @@ void desenhaTela(void)
     glEnd();
 
 
+    fps.execute();
+    renderText2dOrtho(10,10,0,"FPS: %.2f",fps.getFPS());
 
     glutSwapBuffers();
 }
