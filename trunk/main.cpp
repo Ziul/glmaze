@@ -3,7 +3,10 @@
 
 #include "map.h"
 
-float angle = 90.0f;
+float angleX = 90.0f;
+float angleY = 0.0f;
+float angleOffsetX = 0;
+float angleOffsetY = 0;
 
 float lookX = 0.5f;
 float lookY = 0.0f;
@@ -13,13 +16,19 @@ float cameraX = TAMANHO_BLOCO/2;
 float cameraY = 5.0f;
 float cameraZ = TAMANHO_BLOCO/2;
 
-float deltaAngle = 0.0f;
+float deltaAngleX = 0.0f; //Angulo de rotação da direção horizontal
+float deltaAngleY = 0.0f; //Vertical
+
+float deltaMouseX = 0.0f;
+float deltaMouseY = 0.0f;
+
 float deltaMove = 0.0f;
 float deltaMoveLado = 0.0f;
 
 float velocidadeMove = 0.2f;
 float velocidadeVira = 0.1f;
-int xOrigem;
+int xOrigem = -1;
+int yOrigem = -1;
 
 
 void changeSize(int w, int h)
@@ -48,6 +57,35 @@ void changeSize(int w, int h)
     hScreen = h;
 }
 
+void calculaDirecao()
+{
+
+    angleX += deltaAngleX;
+
+    lookX = sin( (angleX+angleOffsetX)*M_PI/180);
+    lookZ = -cos( (angleX+angleOffsetX)*M_PI/180);
+
+    lookY = sin( (angleY+angleOffsetY)*M_PI/180);
+}
+
+void calculaMovimento(float delta)
+{
+    //Adiciona ao movimento
+    //Fator delta vezes direção. 0.1f para ajustar velocidade.
+    cameraX += delta * lookX * 0.1f;
+    cameraZ += delta * lookZ * 0.1f;
+}
+void calculaMovimentoLateral(float delta)
+{
+    float lateralX = sin( (angleX-90)*M_PI/180);
+    float lateralZ = -cos( (angleX-90)*M_PI/180);
+    //Adiciona ao movimento
+    //Fator delta vezes direção. 0.1f para ajustar velocidade.
+    cameraX += delta * (lateralX) * 0.1f;
+    cameraZ += delta * (lateralZ) * 0.1f;
+
+}
+
 void teclasNormais(unsigned char key, int x, int y)
 {
     switch(key)
@@ -65,11 +103,11 @@ void teclasNormais(unsigned char key, int x, int y)
             break;
         case 'A':
         case 'a':
-            deltaAngle = -velocidadeVira;
+            deltaAngleX = -velocidadeVira;
             break;
         case 'D':
         case 'd':
-            deltaAngle = velocidadeVira;
+            deltaAngleX = velocidadeVira;
             break;
         case 'Q':
         case 'q':
@@ -78,6 +116,10 @@ void teclasNormais(unsigned char key, int x, int y)
         case 'E':
         case 'e':
             deltaMoveLado = -velocidadeMove;
+            break;
+        case '1': // reseta angulo Y
+            angleY = 0;
+            calculaDirecao();
             break;
         default:break;
     }
@@ -96,7 +138,7 @@ void teclasNormaisUp(unsigned char key, int x, int y)
         case 'a':
         case 'D':
         case 'd':
-            deltaAngle = 0.0f;
+            deltaAngleX = 0.0f;
             break;
         case 'Q': case 'q':
         case 'E': case 'e':
@@ -122,7 +164,7 @@ void teclasEspeciaisSoltar(int key, int x, int y)
     switch(key)
     {
         case GLUT_KEY_LEFT:
-        case GLUT_KEY_RIGHT: deltaAngle = 0.0f; break;
+        case GLUT_KEY_RIGHT: deltaAngleX = 0.0f; break;
         case GLUT_KEY_UP:
         case GLUT_KEY_DOWN: deltaMove = 0.0f; break;
         default: break;
@@ -133,40 +175,42 @@ void mouseButton(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON)
     {
-        if (state == GLUT_UP)
-            ;
+        if (state == GLUT_UP) //Reseta posições e ajusta deslocamento
+        {
+            xOrigem = -1;
+            yOrigem = -1;
+
+
+            angleX +=angleOffsetX;
+            angleY +=angleOffsetY;
+            angleOffsetX = 0;
+            angleOffsetY = 0;
+        }
+        else
+        {
+            xOrigem = x;
+            yOrigem = y;
+        }
     }
 }
 
 void moveMouse(int x, int y)
 {
+    deltaMouseX = deltaMouseY = 0;
+    //Se houve deslocamento
+    if (xOrigem>0)
+    {
+        angleOffsetX = -(xOrigem-x) * 0.1f;
+    }
+    if (yOrigem>0)
+    {
+        angleOffsetY = (yOrigem-y) * 0.1f;
+    }
+    calculaDirecao();
 
 }
 
-void calculaDirecao(float delta)
-{
-    angle += delta;
-    lookX = sin(angle*M_PI/180);
-    lookZ = -cos(angle*M_PI/180);
-}
 
-void calculaMovimento(float delta)
-{
-    //Adiciona ao movimento
-    //Fator delta vezes direção. 0.1f para ajustar velocidade.
-    cameraX += delta * lookX * 0.1f;
-    cameraZ += delta * lookZ * 0.1f;
-}
-void calculaMovimentoLateral(float delta)
-{
-    float lateralX = sin( (angle-90)*M_PI/180);
-    float lateralZ = -cos( (angle-90)*M_PI/180);
-    //Adiciona ao movimento
-    //Fator delta vezes direção. 0.1f para ajustar velocidade.
-    cameraX += delta * (lateralX) * 0.1f;
-    cameraZ += delta * (lateralZ) * 0.1f;
-
-}
 
 void MazeHARDCORE()
 {
@@ -254,10 +298,10 @@ void desenhaTela(void)
 
     if (deltaMove)
         calculaMovimento(deltaMove);
-    if (deltaAngle)
-        calculaDirecao(deltaAngle);
     if (deltaMoveLado)
         calculaMovimentoLateral(deltaMoveLado);
+    if (deltaAngleX)
+        calculaDirecao();
 
     gluLookAt(  cameraX      , cameraY      , cameraZ,
                 cameraX+lookX, cameraY+lookY, cameraZ+lookZ,
@@ -337,7 +381,7 @@ void inicializa(void)
 
     Map::MapControl.load((char*) "test.txt");
 
-    calculaDirecao(0.0f);
+    calculaDirecao();
 }
 
 int main(int argc, char* args[])
