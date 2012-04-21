@@ -11,6 +11,7 @@
         #include <gl/glut.h>
         #include <windows.h>
     #else                                   /*Linux*/
+    	#include <cstdarg>
         #include <GL/gl.h>
         #include <GL/glut.h>
         #include <GL/glu.h>
