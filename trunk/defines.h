@@ -17,7 +17,7 @@
         #include <GL/gl.h>
         #include <GL/glut.h>
         #include <GL/glu.h>
-        #define Sleep(x) usleep(x*1000000)
+        #define Sleep(x) usleep(x<1000000?1000+300*x:x)
     #endif
 #endif
 
