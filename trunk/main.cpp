@@ -32,6 +32,8 @@ float velocidadeVira = 0.5f;
 int xOrigem = -1;
 int yOrigem = -1;
 
+FrameRate fps;
+
 
 void changeSize(int w, int h)
 {
@@ -156,6 +158,13 @@ void teclasNormais(unsigned char key, int x, int y)
             break;
 
         }
+        case 'R':
+        case 'r':
+            if (fps.fpsControl)
+                fps.fpsControl = false;
+            else
+                fps.fpsControl = true;
+            break;
         default:break;
     }
 }
@@ -248,7 +257,7 @@ void moveMouse(int x, int y)
 }
 
 
-FrameRate fps;
+
 void desenhaTela(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -288,7 +297,6 @@ void desenhaTela(void)
 
 
     fps.execute();
-    fps.regulaFPS();
 
     renderText2dOrtho(10,10,0,"FPS: %.2f",fps.getFPS());
 

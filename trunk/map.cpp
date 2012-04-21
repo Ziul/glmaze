@@ -81,14 +81,14 @@ inline void Map::renderTile(unsigned int i)
 
 }
 
-bool Map::load(char* filename)
+int Map::load(char* filename)
 {
     listaTiles.clear();
 
     FILE* file = fopen(filename, "r");
 
     if(file == NULL)
-        return false;
+        return -1;
 
     MAP_HEIGHT = MAP_WIDTH = 0;
 
@@ -107,7 +107,7 @@ bool Map::load(char* filename)
         error = fscanf(file, "\n");
     }
     fclose(file);
-    return true;
+    return error;
 }
 
 

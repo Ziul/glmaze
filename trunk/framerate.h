@@ -25,7 +25,12 @@ class FrameRate
                 ticks = glutGet(GLUT_ELAPSED_TIME);
             }
 
+            if (fpsControl)
+                regulaFPS();
+
         }
+
+        bool fpsControl;
 
         float getFPS()
         {
@@ -37,6 +42,7 @@ class FrameRate
             ticksControl = glutGet(GLUT_ELAPSED_TIME);
             frames = 0;
             fps = 0;
+            fpsControl = false;
         }
 
         void regulaFPS()
