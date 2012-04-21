@@ -10,16 +10,21 @@
         #include <glee.h>
         #include <gl/glut.h>
         #include <windows.h>
+        #define sleep(x) Sleep(x)
     #else                                   /*Linux*/
     	#include <cstdarg>
+    	#include <unistd.h>
         #include <GL/gl.h>
         #include <GL/glut.h>
         #include <GL/glu.h>
+        #define Sleep(x) sleep(x)
     #endif
 #endif
 
 #define SCREEN_WIDTH            640
 #define SCREEN_HEIGHT           480
+
+#define FRAMES_PER_SECOND       70
 
 #define TAMANHO_BLOCO           12
 #define COR_PAREDE              0.1f, 0.9f, 0.2f
