@@ -20,15 +20,19 @@
 #define __ENTIDADE_H_
 
 #include <vector>
-#include "vetor.h"
+#include "vetor3d.h"
+#include "defines.h"
+#include "map.h"
 
+//Lista de flags
 enum
 {
-    ENTIDADE_TIPO_FISICA = 0,
-    ENTIDADE_TIPO_GHOST = 0x00000001,
-    ENTIDADE_TIPO_INIMIGO = 0x00000002,
-    ENTIDADE_TIPO_TIRO = 0x00000004,
-    ENTIDADE_TIPO_PORTA = 0x00000008
+    ENTIDADE_FLAG_NENHUM =      0,
+    ENTIDADE_FLAG_GRAVIDADE =   0x00000001,
+    ENTIDADE_FLAG_GHOST =       0x00000002,
+    ENTIDADE_FLAG_GHOST_MAP =   0x00000004,
+    ENTIDADE_FLAG_TIRO =        0x00000008,
+    ENTIDADE_FLAG_PORTA =       0x00000016
 };
 
 
@@ -39,18 +43,23 @@ class Entidade
         Entidade();
         virtual ~Entidade();
     protected:
-          void calculaColisao(Entidade* objeto);
-          void calculaColisaoMapa();
+          bool isColisaoObjeto(Entidade* objeto);
+          bool isColisaoMapa(float newX, float newY, float newZ);
+          bool isColisaoTile(Tile* bloco);
           bool colidiu;
+          bool dead;
           Entidade* entidadeColidida;
 
     public:
         //Ex: int delta = getTicks() - deltaTicks;
         //Ex: posicao = posicao + (velocidade * (delta/1000.f ) );
         int deltaTicks; //ticks da ultima vez que calculou o movimento
-        Vetor posicao;
-        Vetor velocidade;
-        float width, heigh, depth;
+        int delta;
+        Vetor3D posicao;
+        Vetor3D velocidade;
+        Vetor3D aceleracao;
+        Vetor3D maxVelocidade;
+        Vetor3D tamanho;
         int flags;
         bool visible;
     public:
