@@ -45,6 +45,7 @@
 		<Unit filename="tile.cpp" />
 		<Unit filename="tile.h" />
 		<Unit filename="vetor.h" />
+		<Unit filename="vetor3d.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

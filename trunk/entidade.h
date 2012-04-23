@@ -44,17 +44,17 @@ class Entidade
         virtual ~Entidade();
     protected:
           bool isColisaoObjeto(Entidade* objeto);
-          bool isColisaoMapa(float newX, float newY, float newZ);
+          bool isColisaoMapa(Vetor3D newPosicao);
           bool isColisaoTile(Tile* bloco);
-          bool colidiu;
+          bool isColidido();
           bool dead;
-          Entidade* entidadeColidida;
+          std::vector<Entidade*> entidadeColidida;
 
     public:
+        void setColisao(Entidade* ent);
         //Ex: int delta = getTicks() - deltaTicks;
         //Ex: posicao = posicao + (velocidade * (delta/1000.f ) );
         int deltaTicks; //ticks da ultima vez que calculou o movimento
-        int delta;
         Vetor3D posicao;
         Vetor3D velocidade;
         Vetor3D aceleracao;

@@ -1,3 +1,12 @@
 
 GLUT... pegar tempo
 glutGet(GLUT_ELAPSED_TIME);
+
+
+Sobre colisões:
+
+no Loop.... tryMove(X,Y,Z); -> Verifica colisão com o mapa, caso colida, nem se move. Utiliza verificação ponto a ponto?
+
+Em testa colisões -> verifica colisões de entidade com entidade, caso colisa, ativa colidiu e seta referencia de com quem.
+Em executa colisões -> faz ações baseado no tipo de entidade colidida.
+
