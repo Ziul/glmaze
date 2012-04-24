@@ -80,7 +80,7 @@ void calculaDirecao()
 
 
     lookX = sin( (angleX+angleOffsetX)*M_PI/180);
-    lookZ = -cos( (angleX+angleOffsetX)*M_PI/180);
+    lookZ = cos( (angleX+angleOffsetX)*M_PI/180);
 
     lookY = sin( (angleY+angleOffsetY)*M_PI/180);
 }
@@ -120,11 +120,11 @@ void teclasNormais(unsigned char key, int x, int y)
             break;
         case 'A':
         case 'a':
-            deltaAngleX = -velocidadeVira;
+            deltaAngleX = velocidadeVira;
             break;
         case 'D':
         case 'd':
-            deltaAngleX = velocidadeVira;
+            deltaAngleX = -velocidadeVira;
             break;
         case 'Q':
         case 'q':
@@ -259,7 +259,7 @@ void moveMouse(int x, int y)
     //Se houve deslocamento
     if (xOrigem>0)
     {
-        angleOffsetX = -(xOrigem-x) * 0.1f;
+        angleOffsetX = (xOrigem-x) * 0.1f;
     }
     if (yOrigem>0)
     {

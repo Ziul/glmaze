@@ -10,16 +10,13 @@ class GameManager
 {
     private:
         void changeSize(int w, int h);
-
-        void calculaDirecao(void);
-        void calculaMovimento(float delta);
-        void calculaMovimentoLateral(float delta);
-
-        void desenhaTela(void);
-        void inicializa(void)
+        void inicializa(void);
+        void loop(void);
+        void render(void);
+        void cleanup(void);
     public:
         void executa();
-}
+};
 
 
 #endif
