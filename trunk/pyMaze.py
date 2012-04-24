@@ -20,7 +20,7 @@ import numpy as np
 from numpy.random import random_integers as rnd
 import matplotlib.pyplot as plt
 
-def maze(width=81, height=51, complexity=.75, density =.75):
+def maze(width=80, height=40, complexity=.75, density =.75):
     # Only odd shapes
     shape = ((height//2)*2+1, (width//2)*2+1)
     # Adjust complexity and density relative to maze size
@@ -50,10 +50,10 @@ def maze(width=81, height=51, complexity=.75, density =.75):
     return Z
 
 tfile = open("exportTEST.txt", "w")
-mapa = maze(80,40)
-tfile.write("80-40\n")
-for i in range(0,40):
-    for j in range(0,80):
+mapa = maze(81,41)
+tfile.write("81-41\n")
+for i in range(0,41):
+    for j in range(0,81):
         tfile.write("[")
         if(mapa[i,j]):
             tfile.write("1")
@@ -65,7 +65,7 @@ for i in range(0,40):
 tfile
 tfile.close()
 
-#plt.figure(figsize=(10,5))
-#plt.imshow(maze(80,40),cmap=plt.cm.binary,interpolation='nearest')
-#plt.xticks([]),plt.yticks([])
-#plt.show()
+plt.figure(figsize=(10,5))
+plt.imshow(maze(80,40),cmap=plt.cm.binary,interpolation='nearest')
+plt.xticks([]),plt.yticks([])
+plt.show()

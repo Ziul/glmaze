@@ -12,18 +12,26 @@ Camera::Camera()
     lookY = 0.0f;
     lookZ = -1.0f;
 
-    cameraX = (TAMANHO_BLOCO/2)*3;
+    cameraX = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
     cameraY = 5.0f;
-    cameraZ = (TAMANHO_BLOCO/2)*3;
-
+    cameraZ = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
+    //testes
+    entidadeCamera.reset();
+    entidadeCamera.addToEntidadeList();
+    entidadeCamera.setTamanho(2.5f);
+    entidadeCamera.posicao.x = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (entidadeCamera.tamanho.x/2);
+    entidadeCamera.posicao.y = entidadeCamera.tamanho.y/2;
+    entidadeCamera.posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (entidadeCamera.tamanho.z/2);
+    entidadeCamera.showWired = true;
+    //testes
     deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotação da direção horizontal e vertical
 
     deltaMouseX = deltaMouseY = 0.0f;
 
     deltaMove = deltaMoveLado = 0.0f;
 
-    velocidadeMove = 1.0f;
-    velocidadeVira = 0.5f;
+    velocidadeMove = 3.0f;
+    velocidadeVira = 0.8f;
     velocidadeViraMouse = 0.1f;
     xOrigem = -1;
     yOrigem = -1;
@@ -34,15 +42,39 @@ Camera::Camera()
 void Camera::ajustaCamera()
 {
     if (deltaMove)
-        calculaMovimento(deltaMove);
+    {
+        calculaMovimento(deltaMove);                        //Calcula posição da camera
+        Vetor3D pos;
+        pos.x = cameraX-(entidadeCamera.tamanho.x/2);
+        pos.y = cameraY-(entidadeCamera.tamanho.y/2);
+        pos.z = cameraZ-(entidadeCamera.tamanho.z/2);
+        if( entidadeCamera.isColisaoMapa(pos) == false)  //Verifica se colidiu
+            entidadeCamera.setPosicao(pos.x, pos.y, pos.z); // É setado para poder calcular colisões com entidades no futuro
+        else
+            calculaMovimento(-deltaMove);                   //Recalcula para posição anterior se colidiu
+    }
+
     if (deltaMoveLado)
+    {
         calculaMovimentoLateral(deltaMoveLado);
+        Vetor3D pos;
+        pos.x = cameraX-(entidadeCamera.tamanho.x/2);
+        pos.y = cameraY-(entidadeCamera.tamanho.y/2);
+        pos.z = cameraZ-(entidadeCamera.tamanho.z/2);
+        if (entidadeCamera.isColisaoMapa(pos) == false)
+            entidadeCamera.setPosicao(pos.x, pos.y, pos.z);
+        else
+            calculaMovimentoLateral(-deltaMoveLado);
+    }
+
     if (deltaAngleX || deltaAngleY)
         calculaDirecao();
 
     gluLookAt(  cameraX      , cameraY      , cameraZ,
                 cameraX+lookX, cameraY+lookY, cameraZ+lookZ,
                 0.0f   , 1.0f,    0.0f);
+
+    entidadeCamera.render();
 }
 
 void Camera::calculaDirecao(void)

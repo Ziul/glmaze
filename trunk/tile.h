@@ -26,6 +26,8 @@ class Tile
 
         float tamanho;
 
+        float posY;
+
         Tile();
 
 };

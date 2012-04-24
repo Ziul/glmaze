@@ -21,10 +21,17 @@ Entidade::Entidade()
     tamanho.x = tamanho.y = tamanho.z = 10;
     visible = true;
     dead = false;
+    showWired = false;
 
     maxVelocidade.x = maxVelocidade.y = maxVelocidade.z = 50.f;
 
     addToEntidadeList(); // Por algum motivo não está funcionando quando chamado no construtor
+}
+
+void Entidade::reset()
+{
+    Entidade::Entidade();
+    deltaTicks = glutGet(GLUT_ELAPSED_TIME); // Por algum motivo no linux ele não funciona no construtor
 }
 Entidade::~Entidade()
 {
@@ -84,15 +91,19 @@ bool Entidade::isColisaoMapa(Vetor3D newPosicao)
         for(int iX = startX; iX <= endX; iX++) {
             Tile* bloco = Map::MapControl(iX, iZ);
 
-            if(isColisaoTile(bloco))
+            if(isColisaoTile(bloco, newPosicao.y))
                 return true;
             }
     }
     return false;
 }
-bool Entidade::isColisaoTile(Tile* bloco)
+bool Entidade::isColisaoTile(Tile* bloco, float posY)
 {
-    if (bloco->typeId & TILE_TIPO_PAREDE)
+    if ( //Se o bloco for uma parede e se posY for menor que a altura máxima Y do bloco, ou seja, está abaixo do bloco
+        (bloco->typeId & TILE_TIPO_PAREDE) &&
+        (posY < (bloco->posY+bloco->tamanho) ) &&
+        ((posY+tamanho.y) > bloco->posY)
+        )
         return true;
     else
         return false;
@@ -155,7 +166,10 @@ void Entidade::render()
     glTranslated(posicao.x+tamanho.x/2,
                  posicao.y+tamanho.y/2,
                  posicao.z+tamanho.z/2);
-    glutSolidCube(tamanhoCubo);
+    if (showWired)
+        glutWireCube(tamanhoCubo);
+    else
+        glutSolidCube(tamanhoCubo);
     glPopMatrix();
 
 
@@ -213,4 +227,10 @@ bool Entidade::isVisible()
 void Entidade::setTamanho(float newTamanho)
 {
     tamanho.x = tamanho.y = tamanho.z = newTamanho;
+}
+void Entidade::setPosicao(float x, float y, float z)
+{
+    posicao.x = x;
+    posicao.y = y;
+    posicao.z = z;
 }

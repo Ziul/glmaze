@@ -44,15 +44,16 @@ class Entidade
         virtual ~Entidade();
     protected:
         bool isColisaoObjeto(Entidade* objeto);
-        bool isColisaoMapa(Vetor3D newPosicao);
-        bool isColisaoTile(Tile* bloco);
+        bool isColisaoTile(Tile* bloco, float posY);
         bool isColidido();
         bool visible;
         bool dead;
         std::vector<Entidade*> entidadeColidida;
 
     public:
+        bool isColisaoMapa(Vetor3D newPosicao);
         void setColisao(Entidade* ent);
+        void setPosicao(float x, float y, float z);
         //Ex: int delta = getTicks() - deltaTicks;
         //Ex: posicao = posicao + (velocidade * (delta/1000.f ) );
         int deltaTicks; //ticks da ultima vez que calculou o movimento
@@ -62,10 +63,12 @@ class Entidade
         Vetor3D maxVelocidade;
         Vetor3D tamanho;
         int flags;
+        bool showWired;
     public:
         bool isVisible();
         void setTamanho(float newTamanho);
     public:
+        void reset();
         void removeFromEntidadeList();
         void addToEntidadeList();
 

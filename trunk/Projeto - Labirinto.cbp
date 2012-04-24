@@ -31,16 +31,22 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="camera.cpp" />
+		<Unit filename="camera.h" />
 		<Unit filename="defines.cpp" />
 		<Unit filename="defines.h" />
 		<Unit filename="entidade.cpp" />
 		<Unit filename="entidade.h" />
+		<Unit filename="eventos.cpp" />
+		<Unit filename="eventos.h" />
+		<Unit filename="framerate.cpp" />
 		<Unit filename="framerate.h" />
+		<Unit filename="gamemanager.cpp" />
 		<Unit filename="gamemanager.h" />
-		<Unit filename="main.cpp" />
 		<Unit filename="map.cpp" />
 		<Unit filename="map.h" />
 		<Unit filename="notas.txt" />
+		<Unit filename="text.cpp" />
 		<Unit filename="text.h" />
 		<Unit filename="tile.cpp" />
 		<Unit filename="tile.h" />

@@ -2,9 +2,12 @@
 #define _CAMERA_H_
 
 #include "defines.h"
+#include "entidade.h"
 
 class Camera
 {
+    private:
+        Entidade entidadeCamera;
     public:
         float lookX, lookY, lookZ;
         float cameraX, cameraY, cameraZ;

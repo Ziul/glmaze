@@ -28,11 +28,6 @@ void changeSize(int w, int h)
     wScreen = w;
     hScreen = h;
 }
-
-void desenhaTela(void)
-{
-    game.render();
-}
 void GameManager::inicializa(void)
 {
     //Propriedades de luz
@@ -84,11 +79,13 @@ void GameManager::inicializa(void)
     glFogi(GL_FOG_MODE, GL_LINEAR);
 
     glEnable(GL_FOG);
-    glEnable(GL_NORMALIZE);
+    //glEnable(GL_NORMALIZE);
 
     Map::MapControl.load((char*) "test.txt");
 
     //testes
+    player.reset();
+    player.addToEntidadeList();
     player.posicao.x = 12*2+6;
     player.posicao.y = 0;
     player.posicao.z = 12 + 4;
@@ -99,10 +96,15 @@ void GameManager::inicializa(void)
     player.setTamanho(5);
 
 
-    player.addToEntidadeList();
+
 
 
 }
+void desenhaTela(void)
+{
+    game.render();
+}
+
 void GameManager::loop(void)
 {
     FrameRate::FPSControl.loop();
