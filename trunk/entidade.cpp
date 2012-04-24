@@ -3,6 +3,8 @@
 #include <gl/glut.h>
 
 
+
+
 //==============================================================================
 // Variaveis estáticas
 //==============================================================================
@@ -22,8 +24,7 @@ Entidade::Entidade()
 
     maxVelocidade.x = maxVelocidade.y = maxVelocidade.z = 50.f;
 
-    EntidadeList.push_back(this);
-
+    addToEntidadeList(); // Por algum motivo não está funcionando quando chamado no construtor
 }
 Entidade::~Entidade()
 {
@@ -74,14 +75,14 @@ bool Entidade::isColisaoMapa(Vetor3D newPosicao)
     //Calcula o Id do tile que deve ser testado
     //Ex: X = 5 tal que startX = 0,41 = 0 endX = 1,3 = 1
     int startX = (newPosicao.x) / TAMANHO_BLOCO;
-    int startY = (newPosicao.y) / TAMANHO_BLOCO;
-    int endX = (newPosicao.x + (tamanho.x-1)) / TAMANHO_BLOCO;
-    int endY = (newPosicao.y + (tamanho.y-1)) / TAMANHO_BLOCO;
+    int startZ = (newPosicao.z) / TAMANHO_BLOCO;
+    int endX = (newPosicao.x + (tamanho.x)) / TAMANHO_BLOCO;
+    int endZ = (newPosicao.z + (tamanho.z)) / TAMANHO_BLOCO;
 
     //Checa colisões com os tiles
-    for(int iY = startY; iY <= endY; iY++) {
+    for(int iZ = startZ; iZ <= endZ; iZ++) {
         for(int iX = startX; iX <= endX; iX++) {
-            Tile* bloco = Map::MapControl(iX, iY);
+            Tile* bloco = Map::MapControl(iX, iZ);
 
             if(isColisaoTile(bloco))
                 return true;
@@ -105,6 +106,16 @@ void Entidade::removeFromEntidadeList()
             EntidadeList.erase(EntidadeList.begin()+i);
     }
 }
+void Entidade::addToEntidadeList()
+{
+    for(unsigned int i = 0; i < EntidadeList.size(); i++)
+    {
+        if (EntidadeList[i] == this)
+            return; //Se já estiver na lista, retorna
+    }
+
+    EntidadeList.push_back(this);
+}
 
 bool Entidade::carregaModelo(char* file){return true;}
 //==============================================================================
@@ -115,34 +126,38 @@ void Entidade::loop()
     if(dead) return;
     //deltaTicks reseta o render
     int delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
+    float fator = delta/1000.f;
 
     if (flags & ENTIDADE_FLAG_GRAVIDADE)
         aceleracao.y = -15.f;// sistemas de coordenadas do openGL -y baixo
 
     //Calcula acelerações
     if ( velocidade.x + aceleracao.x <= maxVelocidade.x)
-        velocidade.x += aceleracao.x;
+        velocidade.x += (aceleracao.x * fator);
     if ( velocidade.y + aceleracao.y <= maxVelocidade.y)
-        velocidade.y += aceleracao.y;
+        velocidade.y += (aceleracao.y * fator);
     if ( velocidade.z + aceleracao.z <= maxVelocidade.z)
-        velocidade.z += aceleracao.z;
+        velocidade.z += (aceleracao.z * fator);
 
-    Vetor3D newPosicao = posicao + (velocidade * (delta/1000.f) );
+    Vetor3D newPosicao = posicao + (velocidade * fator );
 
     if (isColisaoMapa(newPosicao) == false)
         posicao = newPosicao;
+
+    deltaTicks = glutGet(GLUT_ELAPSED_TIME);
 }
 void Entidade::render()
 {
     int tamanhoCubo = tamanho.x; //Temp, enquanto utilizar glutCube
-    glLoadIdentity();
+    glPushMatrix();
     //Centraliza devido ao GLUT
+    glColor3f(1.0f, 0.0f, 0.0f);
     glTranslated(posicao.x+tamanho.x/2,
                  posicao.y+tamanho.y/2,
                  posicao.z+tamanho.z/2);
     glutSolidCube(tamanhoCubo);
+    glPopMatrix();
 
-    deltaTicks = glutGet(GLUT_ELAPSED_TIME);
 
 }
 void Entidade::testaColisao()
@@ -189,4 +204,13 @@ void Entidade::executaColisao()
     if ( !isColidido() )
         return; // sem colisões
     entidadeColidida.clear();
+}
+
+bool Entidade::isVisible()
+{
+    return visible;
+}
+void Entidade::setTamanho(float newTamanho)
+{
+    tamanho.x = tamanho.y = tamanho.z = newTamanho;
 }

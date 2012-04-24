@@ -43,12 +43,13 @@ class Entidade
         Entidade();
         virtual ~Entidade();
     protected:
-          bool isColisaoObjeto(Entidade* objeto);
-          bool isColisaoMapa(Vetor3D newPosicao);
-          bool isColisaoTile(Tile* bloco);
-          bool isColidido();
-          bool dead;
-          std::vector<Entidade*> entidadeColidida;
+        bool isColisaoObjeto(Entidade* objeto);
+        bool isColisaoMapa(Vetor3D newPosicao);
+        bool isColisaoTile(Tile* bloco);
+        bool isColidido();
+        bool visible;
+        bool dead;
+        std::vector<Entidade*> entidadeColidida;
 
     public:
         void setColisao(Entidade* ent);
@@ -61,9 +62,12 @@ class Entidade
         Vetor3D maxVelocidade;
         Vetor3D tamanho;
         int flags;
-        bool visible;
+    public:
+        bool isVisible();
+        void setTamanho(float newTamanho);
     public:
         void removeFromEntidadeList();
+        void addToEntidadeList();
 
         virtual bool carregaModelo(char* file);
         virtual void loop();

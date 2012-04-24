@@ -6,16 +6,23 @@
 #ifndef _GAME_MANAGER_H_
 #define _GAME_MANAGER_H_
 
+#include "defines.h"
+#include "camera.h"
+#include "framerate.h"
+#include "map.h"
+#include "text.h"
+#include "entidade.h"
+
 class GameManager
 {
     private:
-        void changeSize(int w, int h);
         void inicializa(void);
         void loop(void);
-        void render(void);
         void cleanup(void);
     public:
-        void executa();
+        Entidade player;
+        void render(void);
+        void executa(int argc, char* args[]);
 };
 
 

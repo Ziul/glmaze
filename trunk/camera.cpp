@@ -1,7 +1,7 @@
 #include "camera.h"
 
 #include <math.h>
-
+Camera Camera::CameraControl;
 Camera::Camera()
 {
     angleX = 90.0f;
@@ -12,9 +12,9 @@ Camera::Camera()
     lookY = 0.0f;
     lookZ = -1.0f;
 
-    cameraX = TAMANHO_BLOCO/2;
+    cameraX = (TAMANHO_BLOCO/2)*3;
     cameraY = 5.0f;
-    cameraZ = TAMANHO_BLOCO/2;
+    cameraZ = (TAMANHO_BLOCO/2)*3;
 
     deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotação da direção horizontal e vertical
 
@@ -27,9 +27,11 @@ Camera::Camera()
     velocidadeViraMouse = 0.1f;
     xOrigem = -1;
     yOrigem = -1;
+
+    calculaDirecao();
 }
 
-void Camera::loop()
+void Camera::ajustaCamera()
 {
     if (deltaMove)
         calculaMovimento(deltaMove);
@@ -62,7 +64,7 @@ void Camera::calculaDirecao(void)
 
 
     lookX = sin( (angleX+angleOffsetX)*M_PI/180);
-    lookZ = -cos( (angleX+angleOffsetX)*M_PI/180);
+    lookZ = cos( (angleX+angleOffsetX)*M_PI/180);
 
     lookY = sin( (angleY+angleOffsetY)*M_PI/180);
 }
@@ -76,7 +78,7 @@ void Camera::calculaMovimento(float delta)
 void Camera::calculaMovimentoLateral(float delta)
 {
     float lateralX = sin( (angleX-90)*M_PI/180);
-    float lateralZ = -cos( (angleX-90)*M_PI/180);
+    float lateralZ = cos( (angleX-90)*M_PI/180);
     //Adiciona ao movimento
     //Fator delta vezes direção. 0.1f para ajustar velocidade.
     cameraX += delta * (lateralX) * 0.1f;
@@ -102,14 +104,14 @@ void Camera::moveTraz(bool mover)
 void Camera::moveEsquerda(bool mover)
 {
     if(mover)
-        deltaMoveLado = velocidadeMove;
+        deltaMoveLado = -velocidadeMove;
     else
         deltaMoveLado = 0.0f;
 }
 void Camera::moveDireita(bool mover)
 {
     if(mover)
-        deltaMoveLado = -velocidadeMove;
+        deltaMoveLado = velocidadeMove;
     else
         deltaMoveLado = 0.0f;
 }
@@ -156,7 +158,7 @@ void Camera::setMouse(int x, int y)
         angleOffsetY = 0;
     }
 }
-void Camera::giraMouse(int x, int y)
+void Camera::moveMouse(int x, int y)
 {
     deltaMouseX = deltaMouseY = 0;
     //Se houve deslocamento
