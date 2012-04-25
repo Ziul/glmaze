@@ -26,6 +26,9 @@ class Tile
 
         float tamanho;
 
+        float x,y,z;
+        float posX, posZ;
+
         float posY;
 
         Tile();

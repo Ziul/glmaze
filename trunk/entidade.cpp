@@ -31,7 +31,6 @@ Entidade::Entidade()
 void Entidade::reset()
 {
     Entidade::Entidade();
-    deltaTicks = glutGet(GLUT_ELAPSED_TIME); // Por algum motivo no linux ele não funciona no construtor
 }
 Entidade::~Entidade()
 {

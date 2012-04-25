@@ -17,6 +17,7 @@ class GameManager
 {
     private:
         void inicializa(void);
+        void inicializaRender(void);
         void loop(void);
         void cleanup(void);
     public:

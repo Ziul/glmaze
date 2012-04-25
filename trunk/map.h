@@ -10,10 +10,16 @@ class Map
 {
     private:
         std::vector<Tile> listaTiles;
+        std::vector<Tile> listaRetangulos;
+        void geraListaRetangulos();
 
-        inline void renderTile(unsigned int i);
+
+        void renderTile(unsigned int i);
+        void renderBloco(float width, float height, float flatness, int TYPE);
 
     public:
+
+        void reset();
         Tile* getTile(int x, int y);
         inline int getX(int i);
         inline int getY(int i);

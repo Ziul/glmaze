@@ -28,54 +28,51 @@ void changeSize(int w, int h)
     wScreen = w;
     hScreen = h;
 }
+void GameManager::inicializaRender(void)
+{
+
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING); //Habilita luz
+    glEnable(GL_LIGHT0); //Habilita luz #0
+	glEnable(GL_LIGHT1); //Habilita luz #1
+
+    glEnable(GL_DEPTH_TEST);
+	glEnable(GL_NORMALIZE); //Automatically normalize normals
+	glShadeModel(GL_FLAT); //Shading
+
+    glEnable(GL_CULL_FACE); //Reduz quantidade de triangulos desenhados.
+
+}
 void GameManager::inicializa(void)
 {
+    inicializaRender();
     //Propriedades de luz
     GLfloat luzAmbiente[4] = {0.1, 0.1, 0.1, 1.0 };
     GLfloat luzDifusa[4] = {0.7, 0.7, 0.7, 1.0 };   // cor
     GLfloat luzEspecular[4] = {1.0, 1.0, 1.0, 1.0 }; // brilho
     GLfloat posicaoLuz[4] = {-30.0, 10.0, 0.0, 0.0 };
-
     //Capacidade de brilho do material
     GLfloat especularidade[4] = { 1.0, 1.0, 1.0, 1.0};
     GLint especMaterial = 20;
-
     //Define a refletancia do material
     glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
     //COncentração do brilho
     glMateriali(GL_FRONT, GL_SHININESS, especMaterial);
-
     //Ativa uso da luz ambiente
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
-
     //Luz de numero 0
     glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
     glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
     glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
 
-    //Definição da cor do material
-    glEnable(GL_COLOR_MATERIAL);
-    //uso de iluminação
-    glEnable(GL_LIGHTING);
-    //habilita luz 0
-    glEnable(GL_LIGHT0);
+
 //---------------------------
     //Especifica a cor de fundo
     glClearColor(0.0f,0.0f,0.0f,1.0f);
 
-    //Habilita modelo de colorização de gouraud
-    glShadeModel(GL_SMOOTH);
-    glEnable (GL_LINE_SMOOTH);
 
-    //Habilita depth-buffering
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
 
-    //Reduz quantidade de triangulos desenhados.
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
 
 
     GLfloat fog_color[4] = {0.5,0.6,0.3,1.0};
@@ -93,14 +90,16 @@ void GameManager::inicializa(void)
     //testes
     player.reset();
     player.addToEntidadeList();
-    player.posicao.x = 12*2+6;
+    player.posicao.x = 12*2;
     player.posicao.y = 0;
-    player.posicao.z = 12 + 4;
+    player.posicao.z = 12;
 
     player.aceleracao.x = 10.f;
     player.aceleracao.z = 0.2f;
 
     player.setTamanho(5);
+
+    Map::MapControl.reset();
 
 
 
