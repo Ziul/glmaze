@@ -30,6 +30,9 @@ class Map
         void render();
         int load(char* filename);
 
+        void iniciaDisplayList();
+        GLuint dlMap;
+
         //Usado pra outras classes obterem info sobre o mapa.
         static Map MapControl;
 

@@ -33,16 +33,7 @@ Map::Map()
 
 void Map::render()
 {
-    glPushMatrix();
-    float offset = (float)TAMANHO_BLOCO/2.0f;
-    glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
-    glColor3f(COR_PAREDE);
-
-    for(unsigned int i = 0; i < listaTiles.size(); i++)
-    {
-        renderTile(i);
-    }
-    glPopMatrix();
+    glCallList(dlMap);
 }
 inline void Map::renderTile(unsigned int i)
 {
@@ -79,6 +70,23 @@ inline void Map::renderTile(unsigned int i)
 
     }
 
+}
+
+void Map::iniciaDisplayList()
+{
+    dlMap = glGenLists(1);
+    glNewList(dlMap, GL_COMPILE);
+        glPushMatrix();
+        float offset = (float)TAMANHO_BLOCO/2.0f;
+        glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
+        glColor3f(COR_PAREDE);
+
+        for(unsigned int i = 0; i < listaTiles.size(); i++)
+        {
+            renderTile(i);
+        }
+        glPopMatrix();
+    glEndList();
 }
 
 int Map::load(char* filename)

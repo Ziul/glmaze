@@ -66,22 +66,29 @@ void GameManager::inicializa(void)
 
     //Habilita modelo de colorização de gouraud
     glShadeModel(GL_SMOOTH);
+    glEnable (GL_LINE_SMOOTH);
 
     //Habilita depth-buffering
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
     //Reduz quantidade de triangulos desenhados.
     glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 
-    GLfloat fog_color[4] = {0.1,0.1,0.1,1.0};
+
+    GLfloat fog_color[4] = {0.5,0.6,0.3,1.0};
     glFogfv(GL_FOG_COLOR, fog_color);
-    glFogf(GL_FOG_START, 0.0f );
-    glFogf(GL_FOG_END, 30.0f );
+    glFogf(GL_FOG_START, 10.0f );
+    glFogf(GL_FOG_END, 70.0f );
     glFogi(GL_FOG_MODE, GL_LINEAR);
 
     glEnable(GL_FOG);
     //glEnable(GL_NORMALIZE);
 
     Map::MapControl.load((char*) "test.txt");
+    Map::MapControl.iniciaDisplayList();
 
     //testes
     player.reset();
