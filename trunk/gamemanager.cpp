@@ -31,23 +31,29 @@ void changeSize(int w, int h)
 void GameManager::inicializaRender(void)
 {
 
-    glEnable(GL_COLOR_MATERIAL);
+
     glEnable(GL_LIGHTING); //Habilita luz
     glEnable(GL_LIGHT0); //Habilita luz #0
-	glEnable(GL_LIGHT1); //Habilita luz #1
+	glEnable(GL_NORMALIZE); //Automatically normalize normals
+	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_LIGHT1); //Habilita luz #1
 
     glEnable(GL_DEPTH_TEST);
-	glEnable(GL_NORMALIZE); //Automatically normalize normals
-	glShadeModel(GL_FLAT); //Shading
+	glShadeModel(GL_SMOOTH); //Shading
 
     glEnable(GL_CULL_FACE); //Reduz quantidade de triangulos desenhados.
+
+    wallTexture = texture::loadTextureBMP("data/wall.bmp");
+    floorTexture = texture::loadTextureBMP("data/floor.bmp");
+
 
 }
 void GameManager::inicializa(void)
 {
     inicializaRender();
+    /*
     //Propriedades de luz
-    GLfloat luzAmbiente[4] = {0.1, 0.1, 0.1, 1.0 };
+    GLfloat luzAmbiente[4] = {0.2, 0.2, 0.2, 1.0 };
     GLfloat luzDifusa[4] = {0.7, 0.7, 0.7, 1.0 };   // cor
     GLfloat luzEspecular[4] = {1.0, 1.0, 1.0, 1.0 }; // brilho
     GLfloat posicaoLuz[4] = {-30.0, 10.0, 0.0, 0.0 };
@@ -66,23 +72,21 @@ void GameManager::inicializa(void)
     glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
     glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
 
-
+    */
 //---------------------------
     //Especifica a cor de fundo
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    glClearColor(0.1f,0.1f,0.5f,1.0f);
 
 
 
 
 
-    GLfloat fog_color[4] = {0.5,0.6,0.3,1.0};
+    GLfloat fog_color[4] = {0.1f,0.1f,0.5f,1.0};
     glFogfv(GL_FOG_COLOR, fog_color);
     glFogf(GL_FOG_START, 10.0f );
     glFogf(GL_FOG_END, 70.0f );
     glFogi(GL_FOG_MODE, GL_LINEAR);
-
     glEnable(GL_FOG);
-    //glEnable(GL_NORMALIZE);
 
     Map::MapControl.load((char*) "test.txt");
     Map::MapControl.iniciaDisplayList();
@@ -100,10 +104,6 @@ void GameManager::inicializa(void)
     player.setTamanho(5);
 
     Map::MapControl.reset();
-
-
-
-
 
 }
 void desenhaTela(void)
@@ -127,16 +127,21 @@ void GameManager::render(void)
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    GLfloat posicaoLuz[4] = {-200.0, 100.0, 0.0, 0.0 };
-    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
-
-
     glMatrixMode(GL_MODELVIEW);
-
     glLoadIdentity();
+    //Iluminação
+    GLfloat ambientLight[] = {0.2f, 0.2f, 0.2f, 1.0f};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
+
+	GLfloat directedLight[] = {0.7f, 0.7f, 0.7f, 1.0f};
+	GLfloat directedLightPos[] = {0.0f, 20.0f, 0.0f, 1.0f};
+
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
+    //Fim Iluminação
+
 
     Camera::CameraControl.ajustaCamera();
-
 
     Map::MapControl.render();
     //unsigned int temp = Entidade::EntidadeList.size();
@@ -147,6 +152,12 @@ void GameManager::render(void)
     }
 
     txt::renderText2dOrtho(10,10,0,"FPS: %.2f",FrameRate::FPSControl.getFPS());
+
+    glPushMatrix();
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glTranslatef(directedLightPos[0],directedLightPos[1],directedLightPos[2]);
+        glutSolidSphere(10.0f, 18.0f, 18.0f);
+	glPopMatrix();
 
     glutSwapBuffers();
 }

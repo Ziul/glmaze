@@ -12,6 +12,7 @@
 #include "map.h"
 #include "text.h"
 #include "entidade.h"
+#include "textureloader.h"
 
 class GameManager
 {

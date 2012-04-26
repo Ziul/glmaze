@@ -28,14 +28,17 @@
 #define FRAMES_PER_SECOND       60.0f
 
 #define TAMANHO_BLOCO           12
-#define COR_PAREDE              0.1f, 0.9f, 0.2f
-#define COR_CHAO                0.0f, 0.5f, 0.5f
+#define COR_PAREDE              1.0f, 1.0f, 1.0f
+#define COR_CHAO                1.0f, 1.0f, 1.0f
 
 
 
 //Tamanho da tela atual
 extern float wScreen;
 extern float hScreen;
+//Texturas
+extern GLuint wallTexture;
+extern GLuint floorTexture;
 
 
 

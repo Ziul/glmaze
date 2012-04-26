@@ -48,6 +48,8 @@
 		<Unit filename="notas.txt" />
 		<Unit filename="text.cpp" />
 		<Unit filename="text.h" />
+		<Unit filename="textureloader.cpp" />
+		<Unit filename="textureloader.h" />
 		<Unit filename="tile.cpp" />
 		<Unit filename="tile.h" />
 		<Unit filename="vetor.h" />

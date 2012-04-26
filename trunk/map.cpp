@@ -37,51 +37,76 @@ void Map::renderBloco(float width, float height, float flatness, int TYPE = GL_Q
     float h = height/2;
     float f = flatness/2;
 
+    float xTexNumber = width/TAMANHO_BLOCO;
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, wallTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+
 	glBegin(TYPE);
     //Front
 	glNormal3f(0.0f, 0.0f, 1.0f);
         //glNormal3f(-1.0f, 0.0f, 1.0f);
+        glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-w, -h, f);
         //glNormal3f(1.0f, 0.0f, 1.0f);
+        glTexCoord2f(xTexNumber, 0.0f);
 	glVertex3f(w, -h, f);
         //glNormal3f(1.0f, 0.0f, 1.0f);
+        glTexCoord2f(xTexNumber, 1.0f);
 	glVertex3f(w, h, f);
         //glNormal3f(-1.0f, 0.0f, 1.0f);
+        glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-w, h, f);
 
 	//Right
 	glNormal3f(1.0f, 0.0f, 0.0f);
         //glNormal3f(1.0f, 0.0f, -1.0f);
+        glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(w, -h, -f);
         //glNormal3f(1.0f, 0.0f, -1.0f);
+        glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(w, h, -f);
+        glTexCoord2f(1.0f, 1.0f);
         //glNormal3f(1.0f, 0.0f, 1.0f);
 	glVertex3f(w, h, f);
+        glTexCoord2f(1.f, 0.0f);
         //glNormal3f(1.0f, 0.0f, 1.0f);
 	glVertex3f(w, -h, f);
 
 	//Back
 	glNormal3f(0.0f, 0.0f, -1.0f);
         //glNormal3f(-1.0f, 0.0f, -1.0f);
+        glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-w, -h, -f);
         //glNormal3f(-1.0f, 0.0f, -1.0f);
+        glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-w, h, -f);
         //glNormal3f(1.0f, 0.0f, -1.0f);
+        glTexCoord2f(xTexNumber, 1.0f);
 	glVertex3f(w, h, -f);
         //glNormal3f(1.0f, 0.0f, -1.0f);
+        glTexCoord2f(xTexNumber, 0.0f);
 	glVertex3f(w, -h, -f);
 
 	//Left
 	glNormal3f(-1.0f, 0.0f, 0.0f);
         //glNormal3f(-1.0f, 0.0f, -1.0f);
+        glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-w, -h, -f);
         //glNormal3f(-1.0f, 0.0f, 1.0f);
+        glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-w, -h, f);
         //glNormal3f(-1.0f, 0.0f, 1.0f);
+        glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(-w, h, f);
         //glNormal3f(-1.0f, 0.0f, -1.0f);
+        glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-w, h, -f);
 
+glDisable(GL_TEXTURE_2D);
 	//Top
 	glNormal3f(0.0f, 1.0f, 0.0f);
         //glNormal3f(-1.0f, 1.0f, -1.0f);
@@ -157,13 +182,25 @@ void Map::render()
                          listaRetangulos[i].posZ * listaRetangulos[i].tamanho
                          );
             float tamanhoOffsetY = ((listaRetangulos[i].y * listaRetangulos[i].tamanho)/2) + 1;
+
+            glEnable(GL_TEXTURE_2D);
+            float xTexNumber = listaRetangulos[i].x;
+            glBindTexture(GL_TEXTURE_2D, floorTexture);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
             glBegin(GL_QUADS);
-                glNormal3f(0.0f, 1.0f, 0.0f);
+                    glNormal3f(0.0f, 1.0f, 0.0f);
+                    glTexCoord2f(0.0f, 0.0f);
                 glVertex3f(0.0f,                                                tamanhoOffsetY,     0.0f);
+                    glTexCoord2f(1.0f, 0.0f);
                 glVertex3f(0.0f,                                                tamanhoOffsetY,     listaRetangulos[i].z * listaRetangulos[i].tamanho);
+                    glTexCoord2f(1.0, xTexNumber);
                 glVertex3f(listaRetangulos[i].x * listaRetangulos[i].tamanho,   tamanhoOffsetY,     listaRetangulos[i].z * listaRetangulos[i].tamanho);
+                    glTexCoord2f(0.0f, xTexNumber);
                 glVertex3f(listaRetangulos[i].x * listaRetangulos[i].tamanho,   tamanhoOffsetY,     0.0f);
             glEnd();
+            glDisable(GL_TEXTURE_2D);
             glColor3f(COR_PAREDE);
 
         }
