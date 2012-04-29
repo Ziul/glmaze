@@ -1,5 +1,7 @@
 CC = g++
-CFLAGS = -Wall -pedantic $(GLFLAGS) -I./ -O3 -Os -g
+CFLAGS =$(GLFLAGS) -I./ -O3 -Os -g $(PROBLENS)
+
+PROBLENS=-Wall -pedantic -fpermissive
 
 ifeq ($(USER),luiz)
 #Linux OS

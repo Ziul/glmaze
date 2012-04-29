@@ -1,6 +1,5 @@
 #include "entidade.h"
-#include <gl/gl.h>
-#include <gl/glut.h>
+#include "defines.h"
 
 
 
@@ -30,7 +29,8 @@ Entidade::Entidade()
 
 void Entidade::reset()
 {
-    Entidade::Entidade();
+//    Entidade::Entidade();
+	Entidade();
 }
 Entidade::~Entidade()
 {

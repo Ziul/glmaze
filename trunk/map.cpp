@@ -306,7 +306,7 @@ void Map::geraListaRetangulos()
                if (iX == 80)
                {
                    index = iX + MAP_WIDTH*iY;
-                   int type1 = listaTiles[index].typeId;
+                   int type1 = listaTiles[index].typeId;  /*type1 nunca utilizada aqui...*/
                    type1 = listaTiles[index+1].typeId;
                    type1 = listaTiles[index+2].typeId;
                    type1 = listaTiles[index+3].typeId;
