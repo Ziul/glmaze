@@ -1,8 +1,7 @@
 #include "entidade.h"
-#include <gl/gl.h>
-#include <gl/glut.h>
-
-#include <stdlib.h>
+//#include <gl/gl.h>
+//#include <gl/glut.h>
+//#include <stdlib.h>
 
 
 
@@ -33,7 +32,7 @@ Entidade::Entidade()
 
 void Entidade::reset()
 {
-    Entidade::Entidade();
+    Entidade();
 
     Entidade();
     deltaTicks = glutGet(GLUT_ELAPSED_TIME);
@@ -124,6 +123,8 @@ void Entidade::removeFromEntidadeList()
 }
 void Entidade::addToEntidadeList()
 {
+	if(!EntidadeList.size())
+		return;
     for(unsigned int i = 0; i < EntidadeList.size(); i++)
     {
         if (EntidadeList[i] == this)
