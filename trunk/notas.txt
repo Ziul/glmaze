@@ -10,3 +10,144 @@ no Loop.... tryMove(X,Y,Z); -> Verifica colisão com o mapa, caso colida, nem se
 Em testa colisões -> verifica colisões de entidade com entidade, caso colisa, ativa colidiu e seta referencia de com quem.
 Em executa colisões -> faz ações baseado no tipo de entidade colidida.
 
+
+
+
+
+void Map::geraListaRetangulos()
+{
+    static int type = listaTiles[0].typeId;
+
+    int xDesloc = 0;
+    int xSize = 1;
+
+    type = listaTiles[xDesloc].typeId; //Pega o tipo do bloco
+
+    for(int iY = 0; iY < MAP_HEIGHT; iY++)
+    {
+
+        xDesloc = 0;
+        while(true)
+        {
+           if (xDesloc+1 > MAP_WIDTH)
+               break;
+           int index = xDesloc + MAP_WIDTH*iY;
+           type = listaTiles[index].typeId;
+           for(int iX = xDesloc+1; iX <= MAP_WIDTH; iX++) //Testa todos os blocos a depois do atual em X
+           {
+               if (iX == 80)
+               {
+                   index = iX + MAP_WIDTH*iY;
+                   int type1 = listaTiles[index].typeId;
+                   type1 = listaTiles[index+1].typeId;
+                   type1 = listaTiles[index+2].typeId;
+                   type1 = listaTiles[index+3].typeId;
+                   type1 = listaTiles[index+4].typeId;
+
+               }
+
+               index = iX + MAP_WIDTH*iY;
+               if(iX != (MAP_WIDTH) && listaTiles[index].typeId == type) //Se for o mesmo tipo, aumenta o tamanho
+                   xSize++;
+               else
+               {
+                   if(listaTiles[index].typeId == type && iX == (MAP_WIDTH-1))
+                        xSize++;
+                   Tile retangulo;
+                   retangulo.tamanho = TAMANHO_BLOCO;
+                   retangulo.y = 1;
+                   retangulo.z = 1;
+                   retangulo.x = xSize;
+                   retangulo.typeId = type;
+                   retangulo.posX = xDesloc;
+                   retangulo.posZ = iY;
+                   retangulo.posY = 0;
+                    listaRetangulos.push_back(retangulo);
+                   xDesloc = iX;
+                   xSize = 1;
+                   break;
+                }
+            }
+        }// FIM WHILE
+    }
+}
+
+
+
+void Map::render()
+{
+    glPushMatrix();
+    //float offset = (float)TAMANHO_BLOCO/2.0f;
+    //glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
+    //glColor3f(COR_PAREDE);
+
+    /*
+    for(unsigned int i = 0; i < listaTiles.size(); i++)
+    {
+        renderTile(i);
+    }
+    */
+    //Desenha chão
+
+
+    glColor3f(COR_PAREDE); //Desenha paredes
+    for(unsigned int i = 0; i < listaRetangulos.size();i++)
+    {
+        glPushMatrix();
+
+        if (listaRetangulos[i].typeId == TILE_TIPO_PAREDE )
+        {
+            //float px = listaRetangulos[i].posX * listaRetangulos[i].tamanho;
+            glTranslatef(listaRetangulos[i].posX * listaRetangulos[i].tamanho,
+                         listaRetangulos[i].posY * listaRetangulos[i].tamanho,
+                         listaRetangulos[i].posZ * listaRetangulos[i].tamanho
+                         );
+            //Desenha a partir do centro
+            float tamanhoOffsetX = (listaRetangulos[i].x * listaRetangulos[i].tamanho)/2;
+            float tamanhoOffsetY = (listaRetangulos[i].y * listaRetangulos[i].tamanho)/2;
+            float tamanhoOffsetZ = (listaRetangulos[i].z * listaRetangulos[i].tamanho)/2;
+            glTranslatef(tamanhoOffsetX,tamanhoOffsetY,tamanhoOffsetZ);
+
+            renderBloco(listaRetangulos[i].x * listaRetangulos[i].tamanho,
+                        listaRetangulos[i].y * listaRetangulos[i].tamanho,
+                        listaRetangulos[i].z * listaRetangulos[i].tamanho,
+                        RENDER_MODE);
+        }
+        else
+        if (listaRetangulos[i].typeId == TILE_TIPO_CHAO )
+        {
+            glColor3f(COR_CHAO);
+            //float px = listaRetangulos[i].posX * listaRetangulos[i].tamanho;
+            glTranslatef(listaRetangulos[i].posX * listaRetangulos[i].tamanho,
+                         (listaRetangulos[i].posY * listaRetangulos[i].tamanho) - 1 -listaRetangulos[i].tamanho/2,
+                         listaRetangulos[i].posZ * listaRetangulos[i].tamanho
+                         );
+            float tamanhoOffsetY = ((listaRetangulos[i].y * listaRetangulos[i].tamanho)/2) + 1;
+
+            glEnable(GL_TEXTURE_2D);
+            float xTexNumber = listaRetangulos[i].x;
+            glBindTexture(GL_TEXTURE_2D, floorTexture);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+            glBegin(RENDER_MODE);
+                    glNormal3f(0.0f, 1.0f, 0.0f);
+                    glTexCoord2f(0.0f, 0.0f);
+                glVertex3f(0.0f,                                                tamanhoOffsetY,     0.0f);
+                    glTexCoord2f(1.0f, 0.0f);
+                glVertex3f(0.0f,                                                tamanhoOffsetY,     listaRetangulos[i].z * listaRetangulos[i].tamanho);
+                    glTexCoord2f(1.0, xTexNumber);
+                glVertex3f(listaRetangulos[i].x * listaRetangulos[i].tamanho,   tamanhoOffsetY,     listaRetangulos[i].z * listaRetangulos[i].tamanho);
+                    glTexCoord2f(0.0f, xTexNumber);
+                glVertex3f(listaRetangulos[i].x * listaRetangulos[i].tamanho,   tamanhoOffsetY,     0.0f);
+            glEnd();
+            glDisable(GL_TEXTURE_2D);
+            glColor3f(COR_PAREDE);
+
+        }
+        glPopMatrix();
+
+    }
+    glPopMatrix();
+
+}

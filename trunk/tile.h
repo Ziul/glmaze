@@ -26,10 +26,11 @@ class Tile
 
         float tamanho;
 
-        float x,y,z;
         float posX, posZ;
 
         float posY;
+
+        bool left, right, front, back, top, bottom;
 
         Tile();
 

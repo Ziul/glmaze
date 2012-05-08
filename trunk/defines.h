@@ -30,6 +30,7 @@
 #define TAMANHO_BLOCO           12
 #define COR_PAREDE              1.0f, 1.0f, 1.0f
 #define COR_CHAO                1.0f, 1.0f, 1.0f
+#define GAME_FOV                10
 
 
 

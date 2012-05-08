@@ -1,5 +1,5 @@
-#ifndef MAPS_H_
-#define MAPS_H_
+#ifndef _MAPS_H_
+#define _MAPS_H_
 
 #include "defines.h"
 #include "tile.h"
@@ -11,12 +11,15 @@ class Map
     private:
         std::vector<Tile> listaTiles;
         std::vector<Tile> listaRetangulos;
-        void geraListaRetangulos();
+        void geraQuadradosOptimizados();
+
+        int RENDER_MODE;
 
 
         void renderTile(unsigned int i);
-        void renderBloco(float width, float height, float flatness, int TYPE);
-
+        void renderTileOptimizado(unsigned int i);
+        void renderBloco(float width, float height, float flatness, bool left, bool right, bool front, bool back, bool top, int TYPE);
+        bool mostraWired;
     public:
 
         void reset();
@@ -29,11 +32,13 @@ class Map
         float origemX; //Posição aonde o mapa começa a renderizar,
         float origemZ; //Tile 0,0, aumenta pra direita-baixo
 
-        bool mostraWired;
+        void setWired(int wired);
+        bool isWire();
 
         Map();
 
         void render();
+        void render(float cameraX, float cameraY, float cameraZ);
         int load(char* filename);
 
         void iniciaDisplayList();

@@ -1,5 +1,8 @@
 #include "entidade.h"
-#include "defines.h"
+#include <gl/gl.h>
+#include <gl/glut.h>
+
+#include <stdlib.h>
 
 
 
@@ -17,6 +20,7 @@ Entidade::Entidade()
     flags = ENTIDADE_FLAG_NENHUM;
     entidadeColidida.clear();
     deltaTicks = glutGet(GLUT_ELAPSED_TIME);
+    deltaTicks = 0;
     tamanho.x = tamanho.y = tamanho.z = 10;
     visible = true;
     dead = false;
@@ -29,8 +33,10 @@ Entidade::Entidade()
 
 void Entidade::reset()
 {
-//    Entidade::Entidade();
-	Entidade();
+    Entidade::Entidade();
+
+    Entidade();
+    deltaTicks = glutGet(GLUT_ELAPSED_TIME);
 }
 Entidade::~Entidade()
 {
@@ -153,6 +159,27 @@ void Entidade::loop()
 
     if (isColisaoMapa(newPosicao) == false)
         posicao = newPosicao;
+    else
+    {
+        velocidade.x = 0;
+        velocidade.z = 0;
+        aceleracao.x = 0;
+        aceleracao.z = 0;
+        int pos = (int)(rand() % 4);
+        switch(pos)
+        {
+            case 0:
+                aceleracao.x = 20;break;
+            case 1:
+                aceleracao.x = -20;break;
+            case 2:
+                aceleracao.z = 20;break;
+            case 3:
+                aceleracao.z = -20;break;
+            default:;
+        }
+
+    }
 
     deltaTicks = glutGet(GLUT_ELAPSED_TIME);
 }

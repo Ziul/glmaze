@@ -29,9 +29,10 @@ Map::Map()
     origemX = -TAMANHO_BLOCO;
     origemZ = -TAMANHO_BLOCO;
     mostraWired = false;
+    RENDER_MODE = 0x0007; //GL_QUADS
 }
 
-void Map::renderBloco(float width, float height, float flatness, int TYPE = GL_QUADS)
+void Map::renderBloco(float width, float height, float flatness, bool left, bool right, bool front, bool back, bool top, int TYPE = GL_QUADS)
 {
     float w = width/2;
     float h = height/2;
@@ -47,76 +48,93 @@ void Map::renderBloco(float width, float height, float flatness, int TYPE = GL_Q
 
 	glBegin(TYPE);
     //Front
-	glNormal3f(0.0f, 0.0f, 1.0f);
-        //glNormal3f(-1.0f, 0.0f, 1.0f);
-        glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-w, -h, f);
-        //glNormal3f(1.0f, 0.0f, 1.0f);
-        glTexCoord2f(xTexNumber, 0.0f);
-	glVertex3f(w, -h, f);
-        //glNormal3f(1.0f, 0.0f, 1.0f);
-        glTexCoord2f(xTexNumber, 1.0f);
-	glVertex3f(w, h, f);
-        //glNormal3f(-1.0f, 0.0f, 1.0f);
-        glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-w, h, f);
+    if(front)
+    {
+         glNormal3f(0.0f, 0.0f, 1.0f);
+            //glNormal3f(-1.0f, 0.0f, 1.0f);
+            glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-w, -h, f);
+            //glNormal3f(1.0f, 0.0f, 1.0f);
+            glTexCoord2f(xTexNumber, 0.0f);
+        glVertex3f(w, -h, f);
+            //glNormal3f(1.0f, 0.0f, 1.0f);
+            glTexCoord2f(xTexNumber, 1.0f);
+        glVertex3f(w, h, f);
+            //glNormal3f(-1.0f, 0.0f, 1.0f);
+            glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-w, h, f);
+    }
 
 	//Right
-	glNormal3f(1.0f, 0.0f, 0.0f);
-        //glNormal3f(1.0f, 0.0f, -1.0f);
-        glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(w, -h, -f);
-        //glNormal3f(1.0f, 0.0f, -1.0f);
-        glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(w, h, -f);
-        glTexCoord2f(1.0f, 1.0f);
-        //glNormal3f(1.0f, 0.0f, 1.0f);
-	glVertex3f(w, h, f);
-        glTexCoord2f(1.f, 0.0f);
-        //glNormal3f(1.0f, 0.0f, 1.0f);
-	glVertex3f(w, -h, f);
+	if(right)
+	{
+         glNormal3f(1.0f, 0.0f, 0.0f);
+            //glNormal3f(1.0f, 0.0f, -1.0f);
+            glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(w, -h, -f);
+            //glNormal3f(1.0f, 0.0f, -1.0f);
+            glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(w, h, -f);
+            glTexCoord2f(1.0f, 1.0f);
+            //glNormal3f(1.0f, 0.0f, 1.0f);
+        glVertex3f(w, h, f);
+            glTexCoord2f(1.f, 0.0f);
+            //glNormal3f(1.0f, 0.0f, 1.0f);
+        glVertex3f(w, -h, f);
+	}
 
 	//Back
-	glNormal3f(0.0f, 0.0f, -1.0f);
-        //glNormal3f(-1.0f, 0.0f, -1.0f);
-        glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-w, -h, -f);
-        //glNormal3f(-1.0f, 0.0f, -1.0f);
-        glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-w, h, -f);
-        //glNormal3f(1.0f, 0.0f, -1.0f);
-        glTexCoord2f(xTexNumber, 1.0f);
-	glVertex3f(w, h, -f);
-        //glNormal3f(1.0f, 0.0f, -1.0f);
-        glTexCoord2f(xTexNumber, 0.0f);
-	glVertex3f(w, -h, -f);
+	if(back)
+    {
+            glNormal3f(0.0f, 0.0f, -1.0f);
+            //glNormal3f(-1.0f, 0.0f, -1.0f);
+            glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-w, -h, -f);
+            //glNormal3f(-1.0f, 0.0f, -1.0f);
+            glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-w, h, -f);
+            //glNormal3f(1.0f, 0.0f, -1.0f);
+            glTexCoord2f(xTexNumber, 1.0f);
+        glVertex3f(w, h, -f);
+            //glNormal3f(1.0f, 0.0f, -1.0f);
+            glTexCoord2f(xTexNumber, 0.0f);
+        glVertex3f(w, -h, -f);
+	}
+
 
 	//Left
-	glNormal3f(-1.0f, 0.0f, 0.0f);
-        //glNormal3f(-1.0f, 0.0f, -1.0f);
-        glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-w, -h, -f);
-        //glNormal3f(-1.0f, 0.0f, 1.0f);
-        glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-w, -h, f);
-        //glNormal3f(-1.0f, 0.0f, 1.0f);
-        glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(-w, h, f);
-        //glNormal3f(-1.0f, 0.0f, -1.0f);
-        glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-w, h, -f);
-
+	if(left)
+    {
+        glNormal3f(-1.0f, 0.0f, 0.0f);
+            //glNormal3f(-1.0f, 0.0f, -1.0f);
+            glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-w, -h, -f);
+            //glNormal3f(-1.0f, 0.0f, 1.0f);
+            glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(-w, -h, f);
+            //glNormal3f(-1.0f, 0.0f, 1.0f);
+            glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(-w, h, f);
+            //glNormal3f(-1.0f, 0.0f, -1.0f);
+            glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-w, h, -f);
+    }
+    glEnd();
 glDisable(GL_TEXTURE_2D);
+	glBegin(TYPE);
 	//Top
-	glNormal3f(0.0f, 1.0f, 0.0f);
+	if(top)
+	{
+        glNormal3f(0.0f, 1.0f, 0.0f);
         //glNormal3f(-1.0f, 1.0f, -1.0f);
-	glVertex3f(-w, h, -f);
-        //glNormal3f(-1.0f, 1.0f, 1.0f);
-	glVertex3f(-w, h, f);
-        //glNormal3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(w, h, f);
-        //glNormal3f(1.0f, 1.0f, -1.0f);
-	glVertex3f(w, h, -f);
+        glVertex3f(-w, h, -f);
+            //glNormal3f(-1.0f, 1.0f, 1.0f);
+        glVertex3f(-w, h, f);
+            //glNormal3f(1.0f, 1.0f, 1.0f);
+        glVertex3f(w, h, f);
+            //glNormal3f(1.0f, 1.0f, -1.0f);
+        glVertex3f(w, h, -f);
+	}
 
     ///Não precisa imprimir fundo
     /*
@@ -138,78 +156,90 @@ glDisable(GL_TEXTURE_2D);
 void Map::render()
 {
     glPushMatrix();
-    //float offset = (float)TAMANHO_BLOCO/2.0f;
-    //glTranslated(0.0f, offset, offset); //Pois o glut imprime a partir do centro
+    float offset = (float)TAMANHO_BLOCO/2.0f;
+    glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
+    glColor3f(COR_PAREDE);
 
-    /*
+
     for(unsigned int i = 0; i < listaTiles.size(); i++)
     {
-        renderTile(i);
-    }
-    */
-    //Desenha chão
-
-
-    glColor3f(COR_PAREDE); //Desenha paredes
-    for(unsigned int i = 0; i < listaRetangulos.size();i++)
-    {
         glPushMatrix();
-
-        if (listaRetangulos[i].typeId == TILE_TIPO_PAREDE )
-        {
-            //float px = listaRetangulos[i].posX * listaRetangulos[i].tamanho;
-            glTranslatef(listaRetangulos[i].posX * listaRetangulos[i].tamanho,
-                         listaRetangulos[i].posY * listaRetangulos[i].tamanho,
-                         listaRetangulos[i].posZ * listaRetangulos[i].tamanho
-                         );
-            //Desenha a partir do centro
-            float tamanhoOffsetX = (listaRetangulos[i].x * listaRetangulos[i].tamanho)/2;
-            float tamanhoOffsetY = (listaRetangulos[i].y * listaRetangulos[i].tamanho)/2;
-            float tamanhoOffsetZ = (listaRetangulos[i].z * listaRetangulos[i].tamanho)/2;
-            glTranslatef(tamanhoOffsetX,tamanhoOffsetY,tamanhoOffsetZ);
-
-            renderBloco(listaRetangulos[i].x * listaRetangulos[i].tamanho,
-                        listaRetangulos[i].y * listaRetangulos[i].tamanho,
-                        listaRetangulos[i].z * listaRetangulos[i].tamanho);
-        }
-        else
-        if (listaRetangulos[i].typeId == TILE_TIPO_CHAO )
-        {
-            glColor3f(COR_CHAO);
-            //float px = listaRetangulos[i].posX * listaRetangulos[i].tamanho;
-            glTranslatef(listaRetangulos[i].posX * listaRetangulos[i].tamanho,
-                         (listaRetangulos[i].posY * listaRetangulos[i].tamanho) - 1 -listaRetangulos[i].tamanho/2,
-                         listaRetangulos[i].posZ * listaRetangulos[i].tamanho
-                         );
-            float tamanhoOffsetY = ((listaRetangulos[i].y * listaRetangulos[i].tamanho)/2) + 1;
-
-            glEnable(GL_TEXTURE_2D);
-            float xTexNumber = listaRetangulos[i].x;
-            glBindTexture(GL_TEXTURE_2D, floorTexture);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-            glBegin(GL_QUADS);
-                    glNormal3f(0.0f, 1.0f, 0.0f);
-                    glTexCoord2f(0.0f, 0.0f);
-                glVertex3f(0.0f,                                                tamanhoOffsetY,     0.0f);
-                    glTexCoord2f(1.0f, 0.0f);
-                glVertex3f(0.0f,                                                tamanhoOffsetY,     listaRetangulos[i].z * listaRetangulos[i].tamanho);
-                    glTexCoord2f(1.0, xTexNumber);
-                glVertex3f(listaRetangulos[i].x * listaRetangulos[i].tamanho,   tamanhoOffsetY,     listaRetangulos[i].z * listaRetangulos[i].tamanho);
-                    glTexCoord2f(0.0f, xTexNumber);
-                glVertex3f(listaRetangulos[i].x * listaRetangulos[i].tamanho,   tamanhoOffsetY,     0.0f);
-            glEnd();
-            glDisable(GL_TEXTURE_2D);
-            glColor3f(COR_PAREDE);
-
-        }
+            renderTile(i);
         glPopMatrix();
-
     }
+
+    //Desenha chão
+    glPopMatrix();
+
+}
+void Map::render(float cameraX, float cameraY, float cameraZ)
+{
+    glPushMatrix();
+    float offset = (float)TAMANHO_BLOCO/2.0f;
+    glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
+    glColor3f(COR_PAREDE);
+
+    int indexX = (cameraX / TAMANHO_BLOCO);
+    int indexY = (cameraZ / TAMANHO_BLOCO);
+
+    int beginX = indexX - GAME_FOV;
+    int beginY = indexY - GAME_FOV;
+    int endX = indexX + GAME_FOV;
+    int endY = indexY + GAME_FOV;
+    if(endX > MAP_WIDTH)
+            endX = MAP_WIDTH;
+    if(endY > MAP_HEIGHT)
+        endY = MAP_HEIGHT;
+    if(beginX < 0)
+        beginX = 0;
+    if(beginY < 0)
+        beginY = 0;
+
+
+    for(int i = beginY; i < endY; i++)
+    {
+        for(int j = beginX; j < endX; j++)
+        {
+            glPushMatrix();
+                renderTileOptimizado(j+i*MAP_WIDTH);
+            glPopMatrix();
+        }
+    }
+
+    //Desenha chão
     glPopMatrix();
 }
+void Map::renderTileOptimizado(unsigned int i)
+{
+    //Camera no centro do quadrado 0,0,0
+    glTranslated(listaRetangulos[i].posX * TAMANHO_BLOCO,
+                 listaRetangulos[i].posY * TAMANHO_BLOCO,
+                 listaRetangulos[i].posZ * TAMANHO_BLOCO);
 
+
+    if(listaRetangulos[i].typeId == TILE_TIPO_PAREDE )
+    {
+        renderBloco(listaRetangulos[i].tamanho, listaRetangulos[i].tamanho, listaRetangulos[i].tamanho,
+                    listaRetangulos[i].left,listaRetangulos[i].right,listaRetangulos[i].front,listaRetangulos[i].back,listaRetangulos[i].top,
+                    RENDER_MODE);
+
+    }
+    else
+    if(listaRetangulos[i].typeId == TILE_TIPO_CHAO )
+    {
+        float offset = (float)TAMANHO_BLOCO/2.0f;
+        glColor3f(COR_CHAO);
+        glBegin(RENDER_MODE);
+            glNormal3f(0.0f, 1.0f, 0.0f);
+            glVertex3f(-offset, -offset, -offset);
+            glVertex3f(-offset, -offset, offset);
+            glVertex3f(offset, -offset, offset);
+            glVertex3f(offset, -offset, -offset);
+        glEnd();
+        glColor3f(COR_PAREDE);
+
+    }
+}
 void Map::renderTile(unsigned int i)
 {
     //Move ponto de referencia
@@ -223,10 +253,7 @@ void Map::renderTile(unsigned int i)
     }
     if(listaTiles[i].typeId == TILE_TIPO_PAREDE )
     {
-        if(mostraWired)
-            renderBloco(listaTiles[i].tamanho, listaTiles[i].tamanho, listaTiles[i].tamanho, GL_LINE);
-        else
-            renderBloco(listaTiles[i].tamanho, listaTiles[i].tamanho, listaTiles[i].tamanho, GL_QUADS);
+            renderBloco(listaTiles[i].tamanho, listaTiles[i].tamanho, listaTiles[i].tamanho,true,true,true,true,true, RENDER_MODE);
     }
     else
     if(listaTiles[i].typeId == TILE_TIPO_CHAO )
@@ -278,66 +305,79 @@ int Map::load(char* filename)
     }
     fclose(file);
     ///TESTE
-    geraListaRetangulos();
+    geraQuadradosOptimizados();
     return error;
 }
 
-void Map::geraListaRetangulos()
+void Map::geraQuadradosOptimizados()
 {
-    static int type = listaTiles[0].typeId;
-
-    int xDesloc = 0;
-    int xSize = 1;
-
-    type = listaTiles[xDesloc].typeId; //Pega o tipo do bloco
-
     for(int iY = 0; iY < MAP_HEIGHT; iY++)
     {
-
-        xDesloc = 0;
-        while(true)
-        {
-           if (xDesloc+1 > MAP_WIDTH)
-               break;
-           int index = xDesloc + MAP_WIDTH*iY;
-           type = listaTiles[index].typeId;
-           for(int iX = xDesloc+1; iX <= MAP_WIDTH; iX++) //Testa todos os blocos a depois do atual em X
+       for(int iX = 0; iX < MAP_WIDTH; iX++) //Testa todos os blocos a depois do atual em X
+       {
+           Tile retangulo;
+           int index = iX + MAP_WIDTH*iY;
+           if (listaTiles[index].typeId == TILE_TIPO_CHAO)
            {
-               if (iX == 80)
-               {
-                   index = iX + MAP_WIDTH*iY;
-                   listaTiles[index].typeId;  /*type1 nunca utilizada aqui...*/
-                   listaTiles[index+1].typeId;
-                   listaTiles[index+2].typeId;
-                   listaTiles[index+3].typeId;
-                   listaTiles[index+4].typeId;
+               retangulo.typeId = TILE_TIPO_CHAO;
+               retangulo.posX = iX;
+               retangulo.posZ = iY;
+               listaRetangulos.push_back(retangulo);
+               continue;
+           }
 
-               }
+            retangulo.top = true;
+            //Se parede, verifica fora de bordas
+            if (index-1 < 0)
+                retangulo.left = true;
+            else //Se for chão, então tem parede naquela direção
+                if (listaTiles[index-1].typeId == TILE_TIPO_CHAO)
+                    retangulo.left = true;
+            if (index - MAP_WIDTH < 0)
+                retangulo.back = true;
+            else //Se for chão, então tem parede naquela direção
+                if (listaTiles[index - MAP_WIDTH].typeId == TILE_TIPO_CHAO)
+                    retangulo.back = true;
+            if (index +1 >= (int)listaTiles.size())
+                retangulo.right = true;
+            else //Se for chão, então tem parede naquela direção
+                if (listaTiles[index +1].typeId == TILE_TIPO_CHAO)
+                    retangulo.right = true;
+            if (index + MAP_WIDTH >= (int)listaTiles.size())
+                retangulo.front = true;
+            else //Se for chão, então tem parede naquela direção
+                if (listaTiles[index + MAP_WIDTH].typeId == TILE_TIPO_CHAO)
+                    retangulo.front = true;
 
-               index = iX + MAP_WIDTH*iY;
-               if(iX != (MAP_WIDTH) && listaTiles[index].typeId == type) //Se for o mesmo tipo, aumenta o tamanho
-                   xSize++;
-               else
-               {
-                   if(listaTiles[index].typeId == type && iX == (MAP_WIDTH-1))
-                        xSize++;
-                   Tile retangulo;
-                   retangulo.tamanho = TAMANHO_BLOCO;
-                   retangulo.y = 1;
-                   retangulo.z = 1;
-                   retangulo.x = xSize;
-                   retangulo.typeId = type;
-                   retangulo.posX = xDesloc;
-                   retangulo.posZ = iY;
-                   retangulo.posY = 0;
-                    listaRetangulos.push_back(retangulo);
-                   xDesloc = iX;
-                   xSize = 1;
-                   break;
-                }
-            }
-        }// FIM WHILE
+            retangulo.posX = iX;
+            retangulo.posZ = iY;
+            retangulo.typeId = listaTiles[index].typeId;
+
+            listaRetangulos.push_back(retangulo);
+
+        }
     }
+}
+
+
+
+void Map::setWired(int wired)
+{
+    if (wired)
+    {
+        mostraWired = true;
+        RENDER_MODE = GL_LINES;
+    }
+    else
+    {
+        mostraWired = false;
+        RENDER_MODE = GL_QUADS;
+    }
+
+}
+bool Map::isWire()
+{
+    return mostraWired;
 }
 
 void Map::reset()

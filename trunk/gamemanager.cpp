@@ -20,7 +20,7 @@ void changeSize(int w, int h)
     glViewport(0,0,w,h);
 
     //Arruma a perspectiva correta
-    gluPerspective(45.0f, ratio, 1, 1000);
+    gluPerspective(45.0f, ratio, 1, GAME_FOV*TAMANHO_BLOCO);
 
     //Volta para o modelView
     glMatrixMode(GL_MODELVIEW);
@@ -34,6 +34,7 @@ void GameManager::inicializaRender(void)
 
     glEnable(GL_LIGHTING); //Habilita luz
     glEnable(GL_LIGHT0); //Habilita luz #0
+    glEnable(GL_LIGHT1); //Habilita luz #0
 	glEnable(GL_NORMALIZE); //Automatically normalize normals
 	glEnable(GL_COLOR_MATERIAL);
 	//glEnable(GL_LIGHT1); //Habilita luz #1
@@ -42,6 +43,7 @@ void GameManager::inicializaRender(void)
 	glShadeModel(GL_SMOOTH); //Shading
 
     glEnable(GL_CULL_FACE); //Reduz quantidade de triangulos desenhados.
+    glCullFace(GL_CW);
 
     wallTexture = texture::loadTextureBMP("data/wall.bmp");
     floorTexture = texture::loadTextureBMP("data/floor.bmp");
@@ -51,28 +53,6 @@ void GameManager::inicializaRender(void)
 void GameManager::inicializa(void)
 {
     inicializaRender();
-    /*
-    //Propriedades de luz
-    GLfloat luzAmbiente[4] = {0.2, 0.2, 0.2, 1.0 };
-    GLfloat luzDifusa[4] = {0.7, 0.7, 0.7, 1.0 };   // cor
-    GLfloat luzEspecular[4] = {1.0, 1.0, 1.0, 1.0 }; // brilho
-    GLfloat posicaoLuz[4] = {-30.0, 10.0, 0.0, 0.0 };
-    //Capacidade de brilho do material
-    GLfloat especularidade[4] = { 1.0, 1.0, 1.0, 1.0};
-    GLint especMaterial = 20;
-    //Define a refletancia do material
-    glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
-    //COncentração do brilho
-    glMateriali(GL_FRONT, GL_SHININESS, especMaterial);
-    //Ativa uso da luz ambiente
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
-    //Luz de numero 0
-    glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
-    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
-
-    */
 //---------------------------
     //Especifica a cor de fundo
     glClearColor(0.1f,0.1f,0.5f,1.0f);
@@ -83,14 +63,37 @@ void GameManager::inicializa(void)
 
     GLfloat fog_color[4] = {0.1f,0.1f,0.5f,1.0};
     glFogfv(GL_FOG_COLOR, fog_color);
+    glFogf(GL_FOG_DENSITY, 0.35f);
+
+    glFogi(GL_FOG_MODE, GL_LINEAR);
+    glHint(GL_FOG_HINT, GL_DONT_CARE);
+    glFogf(GL_FOG_START, 1.0f);
+    glFogf(GL_FOG_END, 50.0f);
+    glEnable(GL_FOG);
+    /*
+    glFogfv(GL_FOG_COLOR, fog_color);
     glFogf(GL_FOG_START, 10.0f );
     glFogf(GL_FOG_END, 70.0f );
     glFogi(GL_FOG_MODE, GL_LINEAR);
     glEnable(GL_FOG);
+    */
 
+    Map::MapControl.reset();
     Map::MapControl.load((char*) "test.txt");
     Map::MapControl.iniciaDisplayList();
 
+
+    Entidade* player2 = new Entidade();
+    player2->reset();
+    player2->addToEntidadeList();
+    player2->posicao.x = 12*2;
+    player2->posicao.y = 0;
+    player2->posicao.z = 12;
+
+    player2->aceleracao.x = 15.f;
+    player2->aceleracao.z = 4.2f;
+
+    player2->setTamanho(5);
     //testes
     player.reset();
     player.addToEntidadeList();
@@ -130,20 +133,21 @@ void GameManager::render(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     //Iluminação
-    GLfloat ambientLight[] = {0.2f, 0.2f, 0.2f, 1.0f};
+    GLfloat ambientLight[] = {0.1f, 0.1f, 0.1f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
 
-	GLfloat directedLight[] = {0.7f, 0.7f, 0.7f, 1.0f};
-	GLfloat directedLightPos[] = {0.0f, 20.0f, 0.0f, 1.0f};
+	GLfloat directedLight[] = {0.7f, 0.7f, 0.7f, 0.0f};
+	GLfloat directedLightPos[] = {0.0f, 20.0f, -100.0f, 1.0f};
 
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
+	GLfloat light[] = {0.9f, 0.9f, 0.9f, 1.0f};
+	GLfloat lightPos[] = {100.0f, 30.0f, -10.0f, 1.0f};
+
+
     //Fim Iluminação
-
 
     Camera::CameraControl.ajustaCamera();
 
-    Map::MapControl.render();
+    Map::MapControl.render(Camera::CameraControl.cameraX, Camera::CameraControl.cameraY, Camera::CameraControl.cameraZ);
     //unsigned int temp = Entidade::EntidadeList.size();
     for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
     {
@@ -154,11 +158,22 @@ void GameManager::render(void)
     txt::renderText2dOrtho(10,10,0,"FPS: %.2f",FrameRate::FPSControl.getFPS());
 
     glPushMatrix();
-        glColor3f(0.0f, 0.0f, 1.0f);
+        glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(directedLightPos[0],directedLightPos[1],directedLightPos[2]);
         glutSolidSphere(10.0f, 18.0f, 18.0f);
 	glPopMatrix();
 
+	glPushMatrix();
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glTranslatef(lightPos[0],lightPos[1],lightPos[2]);
+        glutSolidSphere(10.0f, 18.0f, 18.0f);
+	glPopMatrix();
+
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
+
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, light);
+	glLightfv(GL_LIGHT1, GL_POSITION, lightPos);
     glutSwapBuffers();
 }
 void GameManager::cleanup(void)

@@ -1,5 +1,5 @@
-#ifndef _CAMERA_H_
-#define _CAMERA_H_
+#ifndef _CAMERAS_H_
+#define _CAMERAS_H_
 
 #include "defines.h"
 #include "entidade.h"
@@ -24,11 +24,13 @@ class Camera
         float velocidadeViraMouse;
 
         int xOrigem, yOrigem;
+        unsigned int ticks;
     public:
         Camera();
         static Camera CameraControl;
 
         void ajustaCamera(); //seta posição e direção da camera
+        void reset();
 
         void moveFrente(bool mover);
         void moveTraz(bool mover);

@@ -30,17 +30,24 @@ Camera::Camera()
 
     deltaMove = deltaMoveLado = 0.0f;
 
-    velocidadeMove = 3.0f;
-    velocidadeVira = 0.8f;
+    velocidadeMove = 20.0f;
+    velocidadeVira = 45.f;
     velocidadeViraMouse = 0.1f;
     xOrigem = -1;
     yOrigem = -1;
+    ticks = 0;
 
     calculaDirecao();
 }
 
+void Camera::reset()
+{
+    Camera();
+    ticks = glutGet(GLUT_ELAPSED_TIME);
+}
 void Camera::ajustaCamera()
 {
+
     if (deltaMove)
     {
         calculaMovimento(deltaMove);                        //Calcula posição da camera
@@ -75,12 +82,16 @@ void Camera::ajustaCamera()
                 0.0f   , 1.0f,    0.0f);
 
     entidadeCamera.render();
+
+    ticks = glutGet(GLUT_ELAPSED_TIME);
 }
 
 void Camera::calculaDirecao(void)
 {
-    angleX += deltaAngleX;
-    angleY += deltaAngleY;
+    unsigned int deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
+    float fator = deltaTicks/1000.f;
+    angleX += deltaAngleX*fator;
+    angleY += deltaAngleY*fator;
 
     //corrige angulo
     if ( angleX+angleOffsetX >= 360 )
@@ -103,18 +114,25 @@ void Camera::calculaDirecao(void)
 void Camera::calculaMovimento(float delta)
 {
     //Adiciona ao movimento
+
+    unsigned int deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
+    float fator = deltaTicks/1000.f;
+
     //Fator delta vezes direção. 0.1f para ajustar velocidade.
-    cameraX += delta * lookX * 0.1f;
-    cameraZ += delta * lookZ * 0.1f;
+    cameraX += (delta*fator) * lookX;
+    cameraZ += (delta*fator) * lookZ;
 }
 void Camera::calculaMovimentoLateral(float delta)
 {
+    unsigned int deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
+    float fator = deltaTicks/1000.f;
+
     float lateralX = sin( (angleX-90)*M_PI/180);
     float lateralZ = cos( (angleX-90)*M_PI/180);
     //Adiciona ao movimento
     //Fator delta vezes direção. 0.1f para ajustar velocidade.
-    cameraX += delta * (lateralX) * 0.1f;
-    cameraZ += delta * (lateralZ) * 0.1f;
+    cameraX += (delta*fator) * (lateralX);
+    cameraZ += (delta*fator) * (lateralZ);
 }
 
 
