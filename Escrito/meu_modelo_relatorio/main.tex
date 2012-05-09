@@ -1,5 +1,5 @@
-\documentclass[journal,compsoc]{IEEEtran}
-%\documentclass[conference]{IEEEtran}
+\documentclass[journal,compsoc]{IEEEtran}\newcommand{\journal}{true}
+%\documentclass[conference]{IEEEtran}\newcommand{\journal}{false}
 \ifCLASSOPTIONcompsoc
   % IEEE Computer Society needs nocompress option
   % requires cite.sty v4.0 or later (November 2003)
@@ -23,6 +23,7 @@
 \usepackage{sidecap}				% legenda ao lado da figura
 \usepackage[small,bf]{caption}
 \usepackage{lipsum}					% Pra encher linguiça
+\usepackage{ifthen}
 
 %\usepackage{fancyhdr}
 %\lhead{O que quero no cabeçalho parte esquerda}
@@ -223,18 +224,19 @@ morecomment=[s]{/*}{*/},
 %--------------------------------Nomes------------------------------------------
 %		\hyperref[luiz]{Luiz Fernando Gomes de Oliveira},~\IEEEmembership{10/46969} 
 %		\\\hyperref[panda]{Helbert de Oliveira Coelho Junior},~\IEEEmembership{10/45253}
+\ifthenelse{\equal{\journal}{true}}{
 \allnames\\
-\allmatriculas
+}{
 %\thanks{Revisado em \today.}
-%\IEEEauthorblockN{\luiz}
-%\IEEEauthorblockA{Matricula: \luizmatricula\\E-mail: \eluiz}
-%\and
-%\IEEEauthorblockN{\gust}
-%\IEEEauthorblockA{Matricula: \gustmatricula\\E-mail: \egust}
-%\and
-%\IEEEauthorblockN{\fay}
-%\IEEEauthorblockA{Matricula: \faymatricula\\E-mail: \efay}
-}
+\IEEEauthorblockN{\luiz}
+\IEEEauthorblockA{Matricula: \luizmatricula\\E-mail: \eluiz}
+\and
+\IEEEauthorblockN{\gust}
+\IEEEauthorblockA{Matricula: \gustmatricula\\E-mail: \egust}
+\and
+\IEEEauthorblockN{\fay}
+\IEEEauthorblockA{Matricula: \faymatricula\\E-mail: \efay}
+}}
 
 %--------------------------O titulo é inserido aqui!----------------------------
 %	\selectlanguage{english}  %seleciona o idioma em inglês [para mater os termos abstract e o thanks em inglês]
@@ -302,7 +304,6 @@ morecomment=[s]{/*}{*/},
 	%\fi
 
 	\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./fts/luiz}}]{\luiz}\label{luizbio}
-	É, sou eu. Aparecendo aqui só de brinks. Meio que trollando um relatório.
 	
 	Matricula: \luizmatricula
 	
@@ -310,7 +311,6 @@ morecomment=[s]{/*}{*/},
 	\end{IEEEbiography}
 	
 	\begin{IEEEbiography}{\gust}\label{gustbio}
-	É, sou eu. Aparecendo aqui só de brinks. Meio que trollando um relatório.
 	
 	Matricula: \gustmatricula
 	
@@ -318,7 +318,6 @@ morecomment=[s]{/*}{*/},
 	\end{IEEEbiography}
 	
 	\begin{IEEEbiography}{\fay}\label{faybio}
-	É, sou eu. Aparecendo aqui só de brinks. Meio que trollando um relatório.
 	
 	Matricula: \faymatricula
 	

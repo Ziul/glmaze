@@ -1,5 +1,5 @@
 # É só escrever o comando "make". Entro com "make clean" para limpar a sujeira e
-# "make buildclean" para deletar o pdf
+# "make buildclean" para deletar o pdf '\newcommand{\blackandwhite}{true}\input{test.tex}'
 
 all: main.pdf
 
