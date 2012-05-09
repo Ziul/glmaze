@@ -1,4 +1,5 @@
 \documentclass[journal,compsoc]{IEEEtran}
+%\documentclass[conference]{IEEEtran}
 \ifCLASSOPTIONcompsoc
   % IEEE Computer Society needs nocompress option
   % requires cite.sty v4.0 or later (November 2003)
@@ -21,6 +22,7 @@
 \usepackage{picinpar}				% figuras onde eu quero, problemas com referencias
 \usepackage{sidecap}				% legenda ao lado da figura
 \usepackage[small,bf]{caption}
+\usepackage{lipsum}					% Pra encher linguiça
 
 %\usepackage{fancyhdr}
 %\lhead{O que quero no cabeçalho parte esquerda}
@@ -223,8 +225,16 @@ morecomment=[s]{/*}{*/},
 %		\\\hyperref[panda]{Helbert de Oliveira Coelho Junior},~\IEEEmembership{10/45253}
 \allnames\\
 \allmatriculas
-\thanks{Revisado em \today.}
-	}
+%\thanks{Revisado em \today.}
+%\IEEEauthorblockN{\luiz}
+%\IEEEauthorblockA{Matricula: \luizmatricula\\E-mail: \eluiz}
+%\and
+%\IEEEauthorblockN{\gust}
+%\IEEEauthorblockA{Matricula: \gustmatricula\\E-mail: \egust}
+%\and
+%\IEEEauthorblockN{\fay}
+%\IEEEauthorblockA{Matricula: \faymatricula\\E-mail: \efay}
+}
 
 %--------------------------O titulo é inserido aqui!----------------------------
 %	\selectlanguage{english}  %seleciona o idioma em inglês [para mater os termos abstract e o thanks em inglês]
@@ -239,11 +249,11 @@ morecomment=[s]{/*}{*/},
 	\IEEEcompsoctitleabstractindextext{%
 	\begin{abstract}
 		\input{abstract}
-	\end{abstract}
+	\end{abstract}}
 	%%-------------------------------------
-	\begin{IEEEkeywords} %palavras chaves
-		\keyw %,\LaTeX.
-	\end{IEEEkeywords}}
+%	\begin{IEEEkeywords} %palavras chaves
+%		\keyw %,\LaTeX.
+%	\end{IEEEkeywords}}
 	% make the title area
 %\onecolumn		%Conferir se pode ser feito em duas colunas
 
@@ -258,10 +268,10 @@ morecomment=[s]{/*}{*/},
 	\section{Introdução}\label{intro}
 		\input{Intro}
 	
-	\section{Procedimentos Experimentais}\label{hardsoft}
+	\section{Desenvolvimento}\label{hardsoft}
 		\input{desk}
 	
-	\section{Resultados}\label{resultados}
+	\section{Caso de Teste}\label{resultados}
 		\input{resultados}
 
 	\ifCLASSOPTIONcaptionsoff
@@ -291,14 +301,32 @@ morecomment=[s]{/*}{*/},
 	%\end{thebibliography}
 	%\fi
 
-	\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./fts/luiz}}]{\luiz}\label{luiz}
+	\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./fts/luiz}}]{\luiz}\label{luizbio}
 	É, sou eu. Aparecendo aqui só de brinks. Meio que trollando um relatório.
 	
 	Matricula: \luizmatricula
 	
 	E-mail: \eluiz
 	\end{IEEEbiography}
+	
+	\begin{IEEEbiography}{\gust}\label{gustbio}
+	É, sou eu. Aparecendo aqui só de brinks. Meio que trollando um relatório.
+	
+	Matricula: \gustmatricula
+	
+	E-mail: \egust
+	\end{IEEEbiography}
+	
+	\begin{IEEEbiography}{\fay}\label{faybio}
+	É, sou eu. Aparecendo aqui só de brinks. Meio que trollando um relatório.
+	
+	Matricula: \faymatricula
+	
+	E-mail: \efay
+	\end{IEEEbiography}
 
+%\newpage
+\onecolumn
 \appendices
 		\input{apendice}
 		
