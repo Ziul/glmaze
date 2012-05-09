@@ -4,6 +4,13 @@
 
 void teclasNormais(unsigned char key, int x, int y)
 {
+
+    int mod = glutGetModifiers();
+    if (mod == GLUT_ACTIVE_SHIFT)
+        Camera::CameraControl.setCorrer();
+    else
+        Camera::CameraControl.setAndar();
+
     switch(key)
     {
         case 27:  //ESC
@@ -11,12 +18,18 @@ void teclasNormais(unsigned char key, int x, int y)
             break;
         case 'W':
         case 'w':
+        {
             Camera::CameraControl.moveFrente(true);
             break;
+        }
         case 'S':
         case 's':
+        {
+
             Camera::CameraControl.moveTraz(true);
             break;
+        }
+
         case 'A':
         case 'a':
             Camera::CameraControl.moveEsquerda(true);
@@ -125,6 +138,7 @@ void teclasNormaisUp(unsigned char key, int x, int y)
 
 void teclasEspeciais(int key, int x, int y )
 {
+
     switch(key)
     {
         case GLUT_KEY_UP: Camera::CameraControl.moveFrente(true); break;
@@ -133,6 +147,8 @@ void teclasEspeciais(int key, int x, int y )
         case GLUT_KEY_RIGHT: Camera::CameraControl.giraDireita(true); break;
         default: break;
     }
+
+
 }
 
 void teclasEspeciaisSoltar(int key, int x, int y)

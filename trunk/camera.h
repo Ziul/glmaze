@@ -4,6 +4,10 @@
 #include "defines.h"
 #include "entidade.h"
 
+
+#define CAMERA_ANDA 20
+#define CAMERA_CORRE 40
+
 class Camera
 {
     private:
@@ -20,6 +24,8 @@ class Camera
         float deltaMove, deltaMoveLado;
 
         float velocidadeMove;
+        float velocidadeMoveAndar;
+        float velocidadeMoveCorre;
         float velocidadeVira;
         float velocidadeViraMouse;
 
@@ -46,6 +52,10 @@ class Camera
         void moveMouse(int x, int y);
         //temp como public
         void calculaDirecao(void);
+
+        //Liga ou desliga correr
+        void setCorrer(void);
+        void setAndar(void);
     private:
 
         void calculaMovimento(float delta);

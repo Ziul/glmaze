@@ -30,9 +30,13 @@ Camera::Camera()
 
     deltaMove = deltaMoveLado = 0.0f;
 
-    velocidadeMove = 20.0f;
+
+    velocidadeMoveAndar = CAMERA_ANDA;
+    velocidadeMoveCorre = CAMERA_CORRE;
+    velocidadeMove = velocidadeMoveAndar;
     velocidadeVira = 45.f;
     velocidadeViraMouse = 0.1f;
+
     xOrigem = -1;
     yOrigem = -1;
     ticks = 0;
@@ -221,4 +225,13 @@ void Camera::moveMouse(int x, int y)
         angleOffsetY = (yOrigem-y) * 0.1f;
     }
     calculaDirecao();
+}
+
+void Camera::setCorrer(void)
+{
+    velocidadeMove = velocidadeMoveCorre;
+}
+void Camera::setAndar(void)
+{
+    velocidadeMove = velocidadeMoveAndar;
 }
