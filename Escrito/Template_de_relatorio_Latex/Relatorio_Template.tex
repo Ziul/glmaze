@@ -1,0 +1,105 @@
+\documentclass{article}
+
+
+ 	\usepackage[latin1]{inputenc}   %Para windows
+%	\usepackage[utf8x]{inputenc}
+	\usepackage[english,brazil]{babel}	
+	\usepackage{amssymb}
+	\usepackage{url}
+	\usepackage{graphicx} %importar imagens
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	%HyperLinks no arquivo Pdf
+	\usepackage[dvips, bookmarks, colorlinks=false, pdftitle={Exemplo Pdf Latex}, pdfauthor={Carla Rocha}, pdfsubject={From LaTeX to PDF}, pdfkeywords={PDF, LaTeX, hyperlinks, hyperref}]{hyperref}
+
+ \title{Lista de Exercícios X}
+ \author{Autor - 11/234567\thanks{e-mail:autor1@gmail.com}\\ Autor 2 - 11/234569\thanks{e-mail:autor2@gmail.com}}
+ 
+ \begin{document}
+ \maketitle
+ \begin{abstract}
+ No abstract deve descrever o resumo do que foi desenvolvido
+ \end{abstract}
+ 
+\section{Introdução}
+\label{Sec:Introducao}
+ 
+ Descrição das principais funcionalidades do programa:
+	\begin{itemize}
+ 		\item Objetivo do programa: Quais são os principais objetivos do presente programa dentro do contexto da disciplina. Listar os principais pontos a serem abordados no programa
+ 		\item Entradas do Programa: como parametrizar tais entradas? Qual o formato dos parâmetros de entrada? Quais são os parâmetros internos do programa? (Como mostrado na tabela \ref{tabela:FuncoesProg})
+ 		\item Saidas Do Programa: Quais são as saídas do programa? Qual o formato dessas saídas?
+ 	\end{itemize}
+ 	
+ \begin{table} [h!]
+\begin{center}
+\caption{Principais Funções Implementadas.}
+\label{tabela:FuncoesProg}
+\begin{tabular}{l p{5cm}}  %define a quantidade de colunas na tabela
+Função & Descrição\\ \hline\hline
+\textbf{getTitle(self,url)} & Função que recebe uma url de um pdf de um capítulo do redbook e imprime o título   \\ \hline
+\textbf{indexToString(self)} & Função que retorna uma string com todos o índice criado  \\ \hline
+\textbf{salvar(self,path)} & Função que cria um arquivo com o índice criado  \\ \hline
+\textbf{createIndex(self)} & Função que cria o índice  \\ \hline
+\textbf{getIndex(self)} & Função que retorna os elementos do índice  \\ \hline
+\textbf{printIndex(self)} & Função que imprime os elementos do índice  \\ \hline
+\textbf{printUrl(self)} & Função que imrime as url que são usadas pela createIndex()  \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\section{Desenvolvimento}
+\label{Sec:Desenvolvimento}
+ 
+ Na seção desenvolvimento deve ser respondidas as seguintes perguntas:
+ 
+	\begin{itemize}
+		\item Estrutura do Programa: Qual a estruturação/arquitetura do Programa?
+	 	\item Qual é o procedimento para a execução do programa? 
+	 	\item Quais artefatos são necessários para a execução do programa?
+	 	\item Quais os problemas técnicos enfrentados no desenvolvimento do programa?
+	 	\item Como os pontos relacionados à disciplina foram abordados no problema? Quais as lições aprendidas? Quais as principais dificuldades?
+	 	\item Quais elementos teóricos abordado na disciplina foram implementados no programa?
+	 	\item Quais adaptações, extensões, bibliotecas externas, foram necessários para a solução do problema?
+	 	\item Caso use parte de códigos disponibilizados na Web, colocar referência \footnote{A home-page de onde tirei
+este material:\url{http://en.wikibooks.org/wiki/LaTeX}.Estou formatando para \LaTeX apenas para os estudantes irem se orientando de como e o quê escrever.Assim, me isento de responsabilidade sobre o conteúdo deste texto. Dúvidas: carla(rocha.carla@gmail.com)}
+	\end{itemize}
+	
+	As Figuras são simplesmente inseridas como mostrado na Fig. \ref{Fig1}
+	
+\begin{figure}[ht]
+  \centering
+  %\includegraphics[width=5cm]{figs/samplefigure}
+   \caption{Arquitetura do Programa.}
+  \label{Fig1}
+\end{figure}
+ 
+\subsection{Artefatos}
+\label{SebSec:Artefatos}
+Os artefatos entregues devem ser documentados no relatório:
+\begin{itemize}
+\item Arquivos contidos no programa. Lista dos nomes dos arquivos, assim como a extensão dos arquivo
+\item Aquivo README, com instruções de uso do software desenvolvido e necessidades técnicas para a execução do programa
+\item Arquivos de entrada/saída, caso necessário.
+\end{itemize}
+
+\section{Caso de Teste}
+\label{Sec:CasoDeTeste}
+ 
+	Nessa seção deve ser apresentado pelo menos um exemplo de caso de teste. Se não for especificado na desecrição do problema, ela deve definida, explicada e ilustrada pelos autores.
+ 
+ 
+\section{Conclusão}
+\label{Sec:Conclusao}
+ 
+ Discutir os principais pontos relativos ao desenvolvimento do programa:
+ 
+ 	\begin{itemize}
+		\item Dificuldades encontradas em atingir os objetivos propostos. Caso não tenha sido possível, concluir 100\% da tarefa, listar razões para tal.
+		\item Sugestões de melhorias do programa.
+		\item Pontos teóricos mais relevantes abordados na prática e a relevância de tais conceitos (Exemplo de aplicações que tais conceitos seriam úteis). Com citações  se necessário.
+	\end{itemize}
+
+%\bibliographystyle{acmsiggraph}
+\bibliography{bibliografia}
+\end{document}
