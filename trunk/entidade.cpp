@@ -1,7 +1,6 @@
 #include "entidade.h"
-//#include <gl/gl.h>
-//#include <gl/glut.h>
-//#include <stdlib.h>
+
+#include <stdlib.h>
 
 
 
@@ -27,15 +26,17 @@ Entidade::Entidade()
 
     maxVelocidade.x = maxVelocidade.y = maxVelocidade.z = 50.f;
 
-    addToEntidadeList(); // Por algum motivo não está funcionando quando chamado no construtor
+
 }
 
 void Entidade::reset()
 {
-    Entidade();
+
+
 
     Entidade();
     deltaTicks = glutGet(GLUT_ELAPSED_TIME);
+    addToEntidadeList(); // Por algum motivo não está funcionando quando chamado no construtor no linux
 }
 Entidade::~Entidade()
 {
@@ -123,8 +124,8 @@ void Entidade::removeFromEntidadeList()
 }
 void Entidade::addToEntidadeList()
 {
-	if(!EntidadeList.size())
-		return;
+
+
     for(unsigned int i = 0; i < EntidadeList.size(); i++)
     {
         if (EntidadeList[i] == this)
