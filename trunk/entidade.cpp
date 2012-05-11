@@ -6,7 +6,7 @@
 
 
 //==============================================================================
-// Variaveis estáticas
+// Variaveis estaticas
 //==============================================================================
 std::vector<Entidade*> Entidade::EntidadeList;
 
@@ -36,7 +36,7 @@ void Entidade::reset()
 
     Entidade();
     deltaTicks = glutGet(GLUT_ELAPSED_TIME);
-    addToEntidadeList(); // Por algum motivo não está funcionando quando chamado no construtor no linux
+    addToEntidadeList(); // Por algum motivo nao esta funcionando quando chamado no construtor no linux
 }
 Entidade::~Entidade()
 {
@@ -48,7 +48,7 @@ void Entidade::cleanup()
 }
 bool Entidade::isColisaoObjeto(Entidade* objeto)
 {
-    //Nota, o ponto posição marca 0.... ex: posição 0 começo do bloco final do bloco em x,y,z
+    //Nota, o ponto posicao marca 0.... ex: posicao 0 comeco do bloco final do bloco em x,y,z
     //Tal que y mais abaixo = y e y mais alto = y+tamanhoY
     int baixo1 = this->posicao.y;
     int cima1 = this->posicao.y + this->tamanho.y;
@@ -91,7 +91,7 @@ bool Entidade::isColisaoMapa(Vetor3D newPosicao)
     int endX = (newPosicao.x + (tamanho.x)) / TAMANHO_BLOCO;
     int endZ = (newPosicao.z + (tamanho.z)) / TAMANHO_BLOCO;
 
-    //Checa colisões com os tiles
+    //Checa colisoes com os tiles
     for(int iZ = startZ; iZ <= endZ; iZ++) {
         for(int iX = startX; iX <= endX; iX++) {
             Tile* bloco = Map::MapControl(iX, iZ);
@@ -104,7 +104,7 @@ bool Entidade::isColisaoMapa(Vetor3D newPosicao)
 }
 bool Entidade::isColisaoTile(Tile* bloco, float posY)
 {
-    if ( //Se o bloco for uma parede e se posY for menor que a altura máxima Y do bloco, ou seja, está abaixo do bloco
+    if ( //Se o bloco for uma parede e se posY for menor que a altura maxima Y do bloco, ou seja, esta abaixo do bloco
         (bloco->typeId & TILE_TIPO_PAREDE) &&
         (posY < (bloco->posY+bloco->tamanho) ) &&
         ((posY+tamanho.y) > bloco->posY)
@@ -129,7 +129,7 @@ void Entidade::addToEntidadeList()
     for(unsigned int i = 0; i < EntidadeList.size(); i++)
     {
         if (EntidadeList[i] == this)
-            return; //Se já estiver na lista, retorna
+            return; //Se ja estiver na lista, retorna
     }
 
     EntidadeList.push_back(this);
@@ -137,7 +137,7 @@ void Entidade::addToEntidadeList()
 
 bool Entidade::carregaModelo(char* file){return true;}
 //==============================================================================
-// Executa ações do loop, aceleração, velocidade.
+// Executa acoes do loop, aceleracao, velocidade.
 //==============================================================================
 void Entidade::loop()
 {
@@ -149,7 +149,7 @@ void Entidade::loop()
     if (flags & ENTIDADE_FLAG_GRAVIDADE)
         aceleracao.y = -15.f;// sistemas de coordenadas do openGL -y baixo
 
-    //Calcula acelerações
+    //Calcula aceleracoes
     if ( velocidade.x + aceleracao.x <= maxVelocidade.x)
         velocidade.x += (aceleracao.x * fator);
     if ( velocidade.y + aceleracao.y <= maxVelocidade.y)
@@ -216,20 +216,20 @@ void Entidade::testaColisao()
     //Testa com todas as entidades desta para frente.
     //Ex:    lista: 1 2 3 4
     // thisID =1,  testa com 2, 3 , 4
-    // thisID = 2  testa com 3, 4      desta, forma, thisID = 2 não testa colisões com 1 pois já foi testado anteriormente.
+    // thisID = 2  testa com 3, 4      desta, forma, thisID = 2 nao testa colisoes com 1 pois ja foi testado anteriormente.
     for (unsigned int i = thisID+1; i < EntidadeList.size(); i++)
     {
         if (EntidadeList[i] != this && !EntidadeList[i]->dead)
         {
             if(isColisaoObjeto(EntidadeList[i]) )
-            {   //adiciona colisões tanto neste elemento quanto no testado
+            {   //adiciona colisoes tanto neste elemento quanto no testado
                 setColisao(EntidadeList[i]);
                 EntidadeList[i]->setColisao(this);
             }
         }
     }
 }
-//Seta colisão através de método publico
+//Seta colisao atraves de metodo publico
 void Entidade::setColisao(Entidade* ent)
 {
     entidadeColidida.push_back(ent);
@@ -244,7 +244,7 @@ bool Entidade::isColidido()
 void Entidade::executaColisao()
 {
     if ( !isColidido() )
-        return; // sem colisões
+        return; // sem colisoes
     entidadeColidida.clear();
 }
 

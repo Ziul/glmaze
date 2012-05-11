@@ -8,7 +8,8 @@
     #ifdef _WIN32                           /* Windows */
     	#define WIN32_LEAN_AND_MEAN
         #include <glee.h>
-        #include <gl/glut.h>
+        #include <gl/gl.h>
+		#include <gl/glut.h>
         #include <windows.h>
         #define sleep(x) Sleep(x)
     #else                                   /*Linux*/
@@ -18,7 +19,6 @@
         #include <GL/glut.h>
         #include <GL/glu.h>
         #define Sleep(x) usleep(x<1000000?10000+300*x:x)
-//	#define Sleep(x)
     #endif
 #endif
 

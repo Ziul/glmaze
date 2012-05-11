@@ -1,8 +1,8 @@
 //==============================================================================
 /*
-    A classe Vetor que Coordenada que armazena uma posição float x e y
+    A classe Vetor que Coordenada que armazena uma posicao float x e y
 
-    A classe define as operações comuns de vetores como produto escalar,
+    A classe define as operacoes comuns de vetores como produto escalar,
     vetorial, comprimento, etc.
 
 */
@@ -44,7 +44,7 @@ class Vetor
             return x*b.y - y*b.x;
         }
 
-        // Projeção desse vetor em B
+        // Projecao desse vetor em B
         //Proj = (U.V) . vetor V
         //        |V|²
         Vetor project(const Vetor b)

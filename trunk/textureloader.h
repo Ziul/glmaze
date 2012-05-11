@@ -16,7 +16,7 @@ class Image {
 		 * format in which OpenGL likes images.
 		 */
 		 //Array de pixels no formato R,G,B, R1,G1,B1
-		 //Começa de baixo-esquerda, formato do openGL nativo
+		 //Comeca de baixo-esquerda, formato do openGL nativo
 		char* pixels;
 		int width;
 		int height;

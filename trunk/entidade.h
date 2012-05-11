@@ -1,6 +1,6 @@
 //==============================================================================
 /*
-    Classe que representa uma entidade fisica, isto é, desenhada na tela.
+    Classe que representa uma entidade fisica, isto e, desenhada na tela.
 
     Utilizada para representar objetos e possivelmente inimigos, tiros.
 
@@ -10,7 +10,7 @@
     para adiciona flags |= ENTIDADE_TIPO_GHOST;
 
     testar com if (flags & ENTIDADE_TIPO_GHOST)
-    if (flags ^ ENTIDADE_TIPO_GHOST) checa se NÃO tem a flag
+    if (flags ^ ENTIDADE_TIPO_GHOST) checa se NAO tem a flag
 
 
 

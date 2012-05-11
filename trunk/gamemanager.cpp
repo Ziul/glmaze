@@ -5,13 +5,13 @@ GameManager game;
 
 void changeSize(int w, int h)
 {
-    //Previne divisão por zero
+    //Previne divisao por zero
     if ( h == 0)
         h = 1;
 
     float ratio = w*1.0 / h;
 
-    //Usa matriz de projeção
+    //Usa matriz de projecao
     glMatrixMode(GL_PROJECTION);
     //Reseta matriz
     glLoadIdentity();
@@ -125,14 +125,14 @@ void GameManager::loop(void)
 }
 void GameManager::render(void)
 {
-    //Calcula iterações
+    //Calcula iteracoes
     this->loop();
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    //Iluminação
+    //Iluminacao
     GLfloat ambientLight[] = {0.1f, 0.1f, 0.1f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
 
@@ -143,7 +143,7 @@ void GameManager::render(void)
 	GLfloat lightPos[] = {100.0f, 30.0f, -10.0f, 1.0f};
 
 
-    //Fim Iluminação
+    //Fim Iluminacao
 
     Camera::CameraControl.ajustaCamera();
 

@@ -18,7 +18,8 @@ class Map
 
         void renderTile(unsigned int i);
         void renderTileOptimizado(unsigned int i);
-        void renderBloco(float width, float height, float flatness, bool left, bool right, bool front, bool back, bool top, int TYPE);
+        void renderBloco(float width, float height, float flatness, bool left, 
+        				bool right, bool front, bool back, bool top, int TYPE);
         bool mostraWired;
     public:
 
@@ -29,7 +30,7 @@ class Map
         int MAP_HEIGHT;
         int MAP_WIDTH;
 
-        float origemX; //Posição aonde o mapa começa a renderizar,
+        float origemX; //Posicao aonde o mapa comeca a renderizar,
         float origemZ; //Tile 0,0, aumenta pra direita-baixo
 
         void setWired(int wired);

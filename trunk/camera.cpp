@@ -24,7 +24,7 @@ Camera::Camera()
     entidadeCamera.posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (entidadeCamera.tamanho.z/2);
     entidadeCamera.showWired = true;
     //testes
-    deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotação da direção horizontal e vertical
+    deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotacao da direcao horizontal e vertical
 
     deltaMouseX = deltaMouseY = 0.0f;
 
@@ -54,15 +54,15 @@ void Camera::ajustaCamera()
 
     if (deltaMove)
     {
-        calculaMovimento(deltaMove);                        //Calcula posição da camera
+        calculaMovimento(deltaMove);                        //Calcula posicao da camera
         Vetor3D pos;
         pos.x = cameraX-(entidadeCamera.tamanho.x/2);
         pos.y = cameraY-(entidadeCamera.tamanho.y/2);
         pos.z = cameraZ-(entidadeCamera.tamanho.z/2);
         if( entidadeCamera.isColisaoMapa(pos) == false)  //Verifica se colidiu
-            entidadeCamera.setPosicao(pos.x, pos.y, pos.z); // É setado para poder calcular colisões com entidades no futuro
+            entidadeCamera.setPosicao(pos.x, pos.y, pos.z); // e setado para poder calcular colisoes com entidades no futuro
         else
-            calculaMovimento(-deltaMove);                   //Recalcula para posição anterior se colidiu
+            calculaMovimento(-deltaMove);                   //Recalcula para posicao anterior se colidiu
     }
 
     if (deltaMoveLado)
@@ -103,7 +103,7 @@ void Camera::calculaDirecao(void)
     if ( angleX+angleOffsetX < 0)
         angleX += 360;
 
-    //Só permite rotacionar 180 graus em Y
+    //So permite rotacionar 180 graus em Y
     if ( angleY+angleOffsetY >= 90 )
         angleY = 90-angleOffsetY;
     if ( angleY+angleOffsetY <= -90)
@@ -122,7 +122,7 @@ void Camera::calculaMovimento(float delta)
     unsigned int deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
     float fator = deltaTicks/1000.f;
 
-    //Fator delta vezes direção. 0.1f para ajustar velocidade.
+    //Fator delta vezes direcao. 0.1f para ajustar velocidade.
     cameraX += (delta*fator) * lookX;
     cameraZ += (delta*fator) * lookZ;
 }
@@ -134,7 +134,7 @@ void Camera::calculaMovimentoLateral(float delta)
     float lateralX = sin( (angleX-90)*M_PI/180);
     float lateralZ = cos( (angleX-90)*M_PI/180);
     //Adiciona ao movimento
-    //Fator delta vezes direção. 0.1f para ajustar velocidade.
+    //Fator delta vezes direcao. 0.1f para ajustar velocidade.
     cameraX += (delta*fator) * (lateralX);
     cameraZ += (delta*fator) * (lateralZ);
 }
@@ -204,7 +204,7 @@ void Camera::setMouse(int x, int y)
     xOrigem = x;
     yOrigem = y;
 
-    if (xOrigem == -1) // Ambos serão -1 necessariamente
+    if (xOrigem == -1) // Ambos serao -1 necessariamente
     {
         angleX +=angleOffsetX;
         angleY +=angleOffsetY;

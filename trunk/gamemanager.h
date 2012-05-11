@@ -1,6 +1,6 @@
 //==============================================================================
 /*
-    Classe que conterá o método main e gerenciará o jogo.
+    Classe que contera o metodo main e gerenciara o jogo.
 */
 //==============================================================================
 #ifndef _GAME_MANAGER_H_

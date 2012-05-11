@@ -35,7 +35,7 @@ class Camera
         Camera();
         static Camera CameraControl;
 
-        void ajustaCamera(); //seta posição e direção da camera
+        void ajustaCamera(); //seta posicao e direcao da camera
         void reset();
 
         void moveFrente(bool mover);

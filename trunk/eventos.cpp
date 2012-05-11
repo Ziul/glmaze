@@ -167,7 +167,7 @@ void mouseButton(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON)
     {
-        if (state == GLUT_UP) //Reseta posições e ajusta deslocamento
+        if (state == GLUT_UP) //Reseta posicoes e ajusta deslocamento
         {
             Camera::CameraControl.setMouse(-1,-1);
         }

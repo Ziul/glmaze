@@ -10,7 +10,7 @@ namespace txt
             char *string) {
 
       char *c;
-      int x1 = x; //Guarda posição rasterizada para computar espaço
+      int x1 = x; //Guarda posicao rasterizada para computar espaco
 
       for (c=string; *c != '\0'; c++) {
         glRasterPos2d(x1,y);
@@ -25,7 +25,7 @@ namespace txt
     extern void setProjecaoOrto()
     {
         glMatrixMode(GL_PROJECTION);
-        glPushMatrix(); //não fecha
+        glPushMatrix(); //nao fecha
         glLoadIdentity();
 
         // coloca projecao ortografica 2d

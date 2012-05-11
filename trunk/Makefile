@@ -1,32 +1,36 @@
+########################################################
+#						Makefile 
+########################################################
 CC = g++
 CFLAGS =$(GLFLAGS) -I./ -O3 -Os -g $(PROBLENS)
 
 PROBLENS=-Wall -pedantic -fpermissive
-
-ifeq ($(USER),luiz)
-#Linux OS
-GLFLAGS = -lglut -lglui -lGLU -lGL
-else
-# Mac OS X: OpenGL and GLUT are frameworks, override GLFLAGS above with these
-#GLFLAGS = -framework OpenGL -framework GLUT
-GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee
+UNAME = $(shell uname)
+ifeq ($(UNAME),Linux) # Linux OS
+	GLFLAGS = -lglut -lglui -lGLU -lGL 
+	else
+	ifeq ($(UNAME),Darwin) # MAC OS X
+		GLFLAGS = -framework OpenGL -framework GLUT
+	else #Windows
+		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee
+	endif
 endif
 
 all:*.cpp
-	echo -n "compillando..."
+	echo "System: "$(UNAME) "OS"
+	echo -n "compiling..."
 	$(CC) *.cpp -o prog $(CFLAGS) 
 	echo "ok" 
-
-#	$(CC) *.c -c $(CFLAGS) 
 	
 clean:
+	echo "cleaning..."
 	rm -rfv prog *.o
 
 run: all
-	echo "executando..."
-	./prog *.ply
+	echo "Running..."
+	./prog
 
 check:
-	$(CC) luiz.cpp maze.cpp -o testing
+	echo "Nothing to be check."
 	
 .SILENT:
