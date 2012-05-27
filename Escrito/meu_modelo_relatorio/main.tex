@@ -24,6 +24,8 @@
 \usepackage[small,bf]{caption}
 \usepackage{lipsum}					% Pra encher linguiça
 \usepackage{ifthen}
+\setcounter{secnumdepth}{6}
+\setcounter{tocdepth}{6}
 
 %\usepackage{fancyhdr}
 %\lhead{O que quero no cabeçalho parte esquerda}
@@ -49,6 +51,8 @@
 \usepackage{listings}
 %\lstnewenvironment{C}
 \lstset{%
+%inputencoding=utf8,
+extendedchars=true,
 language=C,							%linguagem
 numbers=left,						%posição dos números
 stepnumber=1,						%frequencia de aparição dos números
@@ -88,7 +92,7 @@ morecomment=[s]{/*}{*/},
 
 \ifCLASSINFOpdf
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
 % \usepackage{tikzgraphicx}
 %  \usepackage[pdftex]{graphicx}  
 %  \pdfcompresslevel=1

@@ -3,7 +3,7 @@
 %------------------------------------------------------------------------------%		
 % Anexar source main.c com link
 %\hypertarget{main}{
-%\lstinputlisting[language=C]{../main.c} }
+%\lstinputlisting[language=C,texcl=true]{../main.c} }
 %anexar source main.c sem link
 %\lstinputlisting[language=C]{../main.c}
 %------------------------------------------------------------------------------%		
@@ -12,27 +12,47 @@
 %\listoftables %Lista de tabelas
 %\listoffigures %Lista de figuras
 %------------------------------------------------------------------------------%		
+\subsection{Headers}\label{.h}
 
-\lstinputlisting[language=C]{../../trunk/camera.h}
-\lstinputlisting[language=C]{../../trunk/entidade.h}
-\lstinputlisting[language=C]{../../trunk/framerate.h}
-\lstinputlisting[language=C]{../../trunk/map.h}
-\lstinputlisting[language=C]{../../trunk/textureloader.h}
-\lstinputlisting[language=C]{../../trunk/defines.h}
-\lstinputlisting[language=C]{../../trunk/eventos.h}
-\lstinputlisting[language=C]{../../trunk/text.h}
+\subsubsection{Camera}
+\lstinputlisting[language=C++]{../../trunk/camera.h}
+\subsubsection{Entidade}
+\lstinputlisting[language=C++]{../../trunk/entidade.h}
+\subsubsection{Framerate}
+\lstinputlisting[language=C++]{../../trunk/framerate.h}
+\subsubsection{Map}
+\lstinputlisting[language=C++]{../../trunk/map.h}
+\subsubsection{Texture Loader}
+\lstinputlisting[language=C++]{../../trunk/textureloader.h}
+\subsubsection{Defines}
+\lstinputlisting[language=C++]{../../trunk/defines.h}
+\subsubsection{Eventos}
+\lstinputlisting[language=C++]{../../trunk/eventos.h}
+\subsubsection{Text}
+\lstinputlisting[language=C++]{../../trunk/text.h}
 
+\subsection{Sources}\label{.cpp}
 
-\lstinputlisting[language=C]{../../trunk/camera.cpp}
-\lstinputlisting[language=C]{../../trunk/entidade.cpp}
-\lstinputlisting[language=C]{../../trunk/framerate.cpp}
-\lstinputlisting[language=C]{../../trunk/map.cpp}
-\lstinputlisting[language=C]{../../trunk/textureloader.cpp}
-\lstinputlisting[language=C]{../../trunk/defines.cpp}
-\lstinputlisting[language=C]{../../trunk/eventos.cpp}
-\lstinputlisting[language=C]{../../trunk/gamemanager.cpp}
-\lstinputlisting[language=C]{../../trunk/text.cpp}
-\lstinputlisting[language=C]{../../trunk/tile.cpp}
+\subsubsection{Camera}
+\lstinputlisting[language=C++]{../../trunk/camera.cpp}
+\subsubsection{Entidade}
+\lstinputlisting[language=C++]{../../trunk/entidade.cpp}
+\subsubsection{Framerate}
+\lstinputlisting[language=C++]{../../trunk/framerate.cpp}
+\subsubsection{Map}
+\lstinputlisting[language=C++]{../../trunk/map.cpp}
+\subsubsection{Texture Loader}
+\lstinputlisting[language=C++]{../../trunk/textureloader.cpp}
+\subsubsection{Defines}
+\lstinputlisting[language=C++]{../../trunk/defines.cpp}
+\subsubsection{Eventos}
+\lstinputlisting[language=C++]{../../trunk/eventos.cpp}
+\subsubsection{Game Maneger}
+\lstinputlisting[language=C++]{../../trunk/gamemanager.cpp}
+\subsubsection{Text}
+\lstinputlisting[language=C++]{../../trunk/text.cpp}
+\subsubsection{Title}
+\lstinputlisting[language=C++]{../../trunk/tile.cpp}
 
 \onecolumn
 \section{Anexos}\label{anexo}
@@ -55,37 +75,37 @@
 
 
 %\begin{multicols}{4}
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-    minimum height=2em]
-\tikzstyle{phanton} = []   
-\tikzstyle{line} = [->,bend left] %[draw, -latex']
-\tikzstyle{arrow} = [loop above]
-
-\begin{center}
-\begin{tikzpicture}[node distance = 2cm]
-	\tiny\ttfamily
-	%-- Estados
-	\node [cloud] (E0) at(0,2) {E0};
-	\node [cloud] (E1) at(2,1) {E1};
-	\node [cloud] (E2) at(2,-1) {E2};
-	\node [cloud] (E3) at(0,-2) {E3};
-	\node [cloud] (E4) at(-2,-1) {E4};
-	\node [cloud] (E5) at(-2,1) {E5};
-	%-- setas
-	\path (E0) edge [line] (E1);
-	\path (E1) edge [line] (E2);
-	\path (E2) edge [line] (E3);
-	\path (E3) edge [line] (E4);
-	\path (E4) edge [line] (E5);
-	\path (E5) edge [line] (E0);
-	%-- Desvios
-	\path (E0) edge [draw,loop above] node{controle1=1} (E0);
-	\path (E3) edge [draw,loop below] node{controle2=1} (E3);
-	\path (E2) edge [bend right,->]  node[anchor=east]{controle1=1\&\&controle2=0} (E0);
-	\path (E5) edge [bend right,->]  node[anchor=west]{controle1=0\&\&controle2=1} (E3);
-\end{tikzpicture}
-\\\hypertarget{diagrama}{Diagrama de Estados}
-\end{center}
+%\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+%    minimum height=2em]
+%\tikzstyle{phanton} = []   
+%\tikzstyle{line} = [->,bend left] %[draw, -latex']
+%\tikzstyle{arrow} = [loop above]
+%
+%\begin{center}
+%\begin{tikzpicture}[node distance = 2cm]
+%	\tiny\ttfamily
+%	%-- Estados
+%	\node [cloud] (E0) at(0,2) {E0};
+%	\node [cloud] (E1) at(2,1) {E1};
+%	\node [cloud] (E2) at(2,-1) {E2};
+%	\node [cloud] (E3) at(0,-2) {E3};
+%	\node [cloud] (E4) at(-2,-1) {E4};
+%	\node [cloud] (E5) at(-2,1) {E5};
+%	%-- setas
+%	\path (E0) edge [line] (E1);
+%	\path (E1) edge [line] (E2);
+%	\path (E2) edge [line] (E3);
+%	\path (E3) edge [line] (E4);
+%	\path (E4) edge [line] (E5);
+%	\path (E5) edge [line] (E0);
+%	%-- Desvios
+%	\path (E0) edge [draw,loop above] node{controle1=1} (E0);
+%	\path (E3) edge [draw,loop below] node{controle2=1} (E3);
+%	\path (E2) edge [bend right,->]  node[anchor=east]{controle1=1\&\&controle2=0} (E0);
+%	\path (E5) edge [bend right,->]  node[anchor=west]{controle1=0\&\&controle2=1} (E3);
+%\end{tikzpicture}
+%\\\hypertarget{diagrama}{Diagrama de Estados}
+%\end{center}
 
 
 %\end{multicols}
