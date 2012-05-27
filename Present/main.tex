@@ -1,0 +1,57 @@
+% 
+% This text is proprietary.
+% It's a part of presentation made by myself.
+% It may not used commercial.
+% The noncommercial use such as private and study is free
+% Sep. 2005 
+% Author: Sascha Frank 
+% University Freiburg 
+% www.informatik.uni-freiburg.de/~frank/
+%
+% additional usepackage{beamerthemeshadow} is used
+\documentclass{beamer}
+\usepackage{beamerthemeshadow}
+\input{nomes}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,brazil]{babel}	
+\usepackage{listings}
+
+\lstset{%
+%inputencoding=utf8,
+extendedchars=true,
+language=C,							%linguagem
+numbers=left,						%posição dos números
+stepnumber=1,						%frequencia de aparição dos números
+numbersep=3pt,
+tabsize=4,
+commentstyle=\color{blue},
+basicstyle=\scriptsize\ttfamily}
+
+
+\begin{document}
+\title{\assunto}  
+\author{\allnames}
+\date{\today} 
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Índice}\tableofcontents} 
+
+
+\section{Apresentação} 
+\begin{frame}\frametitle{\assunto} 
+O que tínhamos em mãos
+\begin{itemize}
+\item<2-> C/C++
+\item<3-> OpenCL
+\item<4-> Múltiplos SO
+\end{itemize}
+\end{frame}
+
+\subsection{Engine Básica}
+\begin{frame} \frametitle{Começando do zero?} 
+
+\end{frame}
+
+
+\end{document}
