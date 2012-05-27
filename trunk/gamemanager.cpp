@@ -79,7 +79,7 @@ void GameManager::inicializa(void)
     */
 
     Map::MapControl.reset();
-    Map::MapControl.load((char*) "test.txt");
+    Map::MapControl.load((char*) "map_pacman.txt");
     Map::MapControl.iniciaDisplayList();
 
 
