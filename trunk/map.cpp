@@ -32,7 +32,7 @@ Map::Map()
     RENDER_MODE = 0x0007; //GL_QUADS
 }
 
-void Map::renderBloco(float width, float height, float flatness, bool left, 
+void Map::renderBloco(float width, float height, float flatness, bool left,
 		bool right, bool front, bool back, bool top, int TYPE = GL_QUADS)
 {
     float w = width/2;
@@ -153,12 +153,12 @@ glDisable(GL_TEXTURE_2D);
 	glEnd();
 }
 
-
+/*
 void Map::render()
 {
     glPushMatrix();
     float offset = (float)TAMANHO_BLOCO/2.0f;
-    glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
+    glTranslated(offset, offset, offset); //Pois imprime a partir do centro
     glColor3f(COR_PAREDE);
 
 
@@ -173,6 +173,8 @@ void Map::render()
     glPopMatrix();
 
 }
+
+*/
 void Map::render(float cameraX, float cameraY, float cameraZ)
 {
     glPushMatrix();
@@ -229,19 +231,31 @@ void Map::renderTileOptimizado(unsigned int i)
     else
     if(listaRetangulos[i].typeId == TILE_TIPO_CHAO )
     {
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, floorTexture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
         float offset = (float)TAMANHO_BLOCO/2.0f;
         glColor3f(COR_CHAO);
         glBegin(RENDER_MODE);
             glNormal3f(0.0f, 1.0f, 0.0f);
+                glTexCoord2f(0.0f, 0.0f);
             glVertex3f(-offset, -offset, -offset);
+                glTexCoord2f(0.0f, 1.0f);
             glVertex3f(-offset, -offset, offset);
+                glTexCoord2f(1.0f, 1.0f);
             glVertex3f(offset, -offset, offset);
+                glTexCoord2f(1.0f, 0.0f);
             glVertex3f(offset, -offset, -offset);
         glEnd();
         glColor3f(COR_PAREDE);
+        glDisable(GL_TEXTURE_2D);
 
     }
 }
+
+/*
 void Map::renderTile(unsigned int i)
 {
     //Move ponto de referencia
@@ -255,7 +269,7 @@ void Map::renderTile(unsigned int i)
     }
     if(listaTiles[i].typeId == TILE_TIPO_PAREDE )
     {
-            renderBloco(listaTiles[i].tamanho, listaTiles[i].tamanho, 
+            renderBloco(listaTiles[i].tamanho, listaTiles[i].tamanho,
             listaTiles[i].tamanho,true,true,true,true,true, RENDER_MODE);
     }
     else
@@ -275,12 +289,13 @@ void Map::renderTile(unsigned int i)
     }
 
 }
-
+*/
+/*
 void Map::iniciaDisplayList()
 {
 
 }
-
+*/
 int Map::load(char* filename)
 {
     listaTiles.clear();

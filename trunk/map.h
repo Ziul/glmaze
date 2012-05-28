@@ -16,9 +16,9 @@ class Map
         int RENDER_MODE;
 
 
-        void renderTile(unsigned int i);
+        //void renderTile(unsigned int i);
         void renderTileOptimizado(unsigned int i);
-        void renderBloco(float width, float height, float flatness, bool left, 
+        void renderBloco(float width, float height, float flatness, bool left,
         				bool right, bool front, bool back, bool top, int TYPE);
         bool mostraWired;
     public:
@@ -38,11 +38,11 @@ class Map
 
         Map();
 
-        void render();
+        //void render();
         void render(float cameraX, float cameraY, float cameraZ);
         int load(char* filename);
 
-        void iniciaDisplayList();
+        //void iniciaDisplayList();
         GLuint dlMap;
 
         //Usado pra outras classes obterem info sobre o mapa.

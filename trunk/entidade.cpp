@@ -17,7 +17,7 @@ Entidade::Entidade()
 {
     flags = ENTIDADE_FLAG_NENHUM;
     entidadeColidida.clear();
-    deltaTicks = glutGet(GLUT_ELAPSED_TIME);
+    deltaTicks = 9999999;
     deltaTicks = 0;
     tamanho.x = tamanho.y = tamanho.z = 10;
     visible = true;
@@ -31,9 +31,6 @@ Entidade::Entidade()
 
 void Entidade::reset()
 {
-
-
-
     Entidade();
     deltaTicks = glutGet(GLUT_ELAPSED_TIME);
     addToEntidadeList(); // Por algum motivo nao esta funcionando quando chamado no construtor no linux

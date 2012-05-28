@@ -55,32 +55,23 @@ void GameManager::inicializa(void)
     inicializaRender();
 //---------------------------
     //Especifica a cor de fundo
-    glClearColor(0.1f,0.1f,0.5f,1.0f);
+    glClearColor(0.3f,0.3f,0.9f,1.0f);
 
 
 
 
 
-    GLfloat fog_color[4] = {0.1f,0.1f,0.5f,1.0};
+    GLfloat fog_color[4] = {0.0f,0.0f,0.0f,1.0};
     glFogfv(GL_FOG_COLOR, fog_color);
     glFogf(GL_FOG_DENSITY, 0.35f);
 
     glFogi(GL_FOG_MODE, GL_LINEAR);
     glHint(GL_FOG_HINT, GL_DONT_CARE);
-    glFogf(GL_FOG_START, 1.0f);
-    glFogf(GL_FOG_END, 50.0f);
+    glFogf(GL_FOG_START, TAMANHO_BLOCO*4.0f);
+    glFogf(GL_FOG_END, TAMANHO_BLOCO*10.0f);
     glEnable(GL_FOG);
-    /*
-    glFogfv(GL_FOG_COLOR, fog_color);
-    glFogf(GL_FOG_START, 10.0f );
-    glFogf(GL_FOG_END, 70.0f );
-    glFogi(GL_FOG_MODE, GL_LINEAR);
-    glEnable(GL_FOG);
-    */
 
-    Map::MapControl.reset();
     Map::MapControl.load((char*) "map_pacman.txt");
-    Map::MapControl.iniciaDisplayList();
 
 
     Entidade* player2 = new Entidade();
