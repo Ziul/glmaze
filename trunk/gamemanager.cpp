@@ -71,7 +71,7 @@ void GameManager::inicializa(void)
     glFogf(GL_FOG_END, TAMANHO_BLOCO*10.0f);
     glEnable(GL_FOG);
 
-    Map::MapControl.load((char*) "map_pacman.txt");
+    Map::MapControl.load((char*) "map_pacman_new.txt");
 
 
     Entidade* player2 = new Entidade();

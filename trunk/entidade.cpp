@@ -102,7 +102,7 @@ bool Entidade::isColisaoMapa(Vetor3D newPosicao)
 bool Entidade::isColisaoTile(Tile* bloco, float posY)
 {
     if ( //Se o bloco for uma parede e se posY for menor que a altura maxima Y do bloco, ou seja, esta abaixo do bloco
-        (bloco->typeId & TILE_TIPO_PAREDE) &&
+        (bloco->typeId == TILE_TIPO_PAREDE) &&
         (posY < (bloco->posY+bloco->tamanho) ) &&
         ((posY+tamanho.y) > bloco->posY)
         )

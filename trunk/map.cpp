@@ -228,8 +228,7 @@ void Map::renderTileOptimizado(unsigned int i)
                     RENDER_MODE);
 
     }
-    else
-    if(listaRetangulos[i].typeId == TILE_TIPO_CHAO )
+    else //Imprime chao
     {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, floorTexture);
@@ -251,6 +250,17 @@ void Map::renderTileOptimizado(unsigned int i)
         glEnd();
         glColor3f(COR_PAREDE);
         glDisable(GL_TEXTURE_2D);
+        if (listaRetangulos[i].typeId == TILE_TIPO_CHAO_COM_BOLA)
+        {
+            glTranslated(0,-2,0);
+            glutSolidSphere(1,5,5);
+        }
+        else
+        if (listaRetangulos[i].typeId == TILE_TIPO_CHAO_COM_BOLA_ESPECIAL)
+        {
+            glTranslated(0,-2,0);
+            glutSolidSphere(3,5,5);
+        }
 
     }
 }
@@ -335,9 +345,9 @@ void Map::geraQuadradosOptimizados()
        {
            Tile retangulo;
            int index = iX + MAP_WIDTH*iY;
-           if (listaTiles[index].typeId == TILE_TIPO_CHAO)
+           if (listaTiles[index].typeId != TILE_TIPO_PAREDE)
            {
-               retangulo.typeId = TILE_TIPO_CHAO;
+               retangulo.typeId = listaTiles[index].typeId;
                retangulo.posX = iX;
                retangulo.posZ = iY;
                listaRetangulos.push_back(retangulo);
@@ -349,22 +359,22 @@ void Map::geraQuadradosOptimizados()
             if (index-1 < 0)
                 retangulo.left = true;
             else //Se for chao, entao tem parede naquela direcao
-                if (listaTiles[index-1].typeId == TILE_TIPO_CHAO)
+                if (listaTiles[index-1].typeId != TILE_TIPO_PAREDE)
                     retangulo.left = true;
             if (index - MAP_WIDTH < 0)
                 retangulo.back = true;
             else //Se for chao, entao tem parede naquela direcao
-                if (listaTiles[index - MAP_WIDTH].typeId == TILE_TIPO_CHAO)
+                if (listaTiles[index - MAP_WIDTH].typeId != TILE_TIPO_PAREDE)
                     retangulo.back = true;
             if (index +1 >= (int)listaTiles.size())
                 retangulo.right = true;
             else //Se for chao, entao tem parede naquela direcao
-                if (listaTiles[index +1].typeId == TILE_TIPO_CHAO)
+                if (listaTiles[index +1].typeId != TILE_TIPO_PAREDE)
                     retangulo.right = true;
             if (index + MAP_WIDTH >= (int)listaTiles.size())
                 retangulo.front = true;
             else //Se for chao, entao tem parede naquela direcao
-                if (listaTiles[index + MAP_WIDTH].typeId == TILE_TIPO_CHAO)
+                if (listaTiles[index + MAP_WIDTH].typeId != TILE_TIPO_PAREDE)
                     retangulo.front = true;
 
             retangulo.posX = iX;
