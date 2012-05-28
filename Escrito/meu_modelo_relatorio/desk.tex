@@ -5,6 +5,56 @@
 %\cite{Advpdf}
 %\cite{thepdf}
 %\cite{dsl}
+
+\subsection{Estruturas}\label{struct}
+
+\subsubsection{Arquitetura}\label{arq}
+
+No intuito de manter o jogo compatível com qualquer sistema operacional, foi decidido centralizar as inclusões de bibliotecas em um único arquivo. Para essa função foi criado o arquivo \textit{"defines.h"}, que é responsável por reconhecer o sistema em que esta sendo compilado e incluir os devidos \textit{headers}.
+
+\begin{lstlisting}[language=C++,title=\textit{defines.h},firstnumber=5,numbers=none]
+#if defined (__APPLE__) || defined (MACOSX) /*MAC OS*/
+    #include <GLUT/glut.h>
+#else
+    #ifdef _WIN32                           /* Windows */
+    	#define WIN32_LEAN_AND_MEAN
+        #include <glee.h>
+        #include <gl/gl.h>
+		#include <gl/glut.h>
+        #include <windows.h>
+        #define sleep(x) Sleep(x)
+    #else                                   /*Linux*/
+    	#include <cstdarg>
+    	#include <unistd.h>
+        #include <GL/gl.h>
+        #include <GL/glut.h>
+        #include <GL/glu.h>
+        #define Sleep(x) usleep(x<1000000?10000+300*x:x)
+    #endif
+#endif
+\end{lstlisting}
+
+No trecho mostrado acima, podemos ver como o programa reconhece em qual sistema esta sendo compilado e em qual endereço irá procurar pelas bibliotecas. A decisão é tomada de forma bem simples e objetiva, buscando apenas saber se as definições \textbf{MACOSX} ou \textbf{\_WIN32} existem. Com estas duas definições é suficiente para dividir entre os três sistemas operacionais que o programa se propõe a dar suporte. 
+
+Porém este não é o único problema enfrentado quando se trata de um programa multiplataforma, mas também existem as dificuldades com a própria compilação.
+
+Visando isso, foi feito um arquivo \textit{makefile} que procede com teste semelhante ao feito no \textit{defines.h} para verificar em que sistema se encontra e assim efetuar os links corretamente. Um trecho do \textit{makefile} pode ser observado a seguir:
+
+\begin{lstlisting}[language=make,title=\textit{Makefile},firstnumber=8,numbers=none]
+UNAME = $(shell uname)
+ifeq ($(UNAME),Linux) # Linux OS
+	GLFLAGS = -lglut -lglui -lGLU -lGL 
+	else
+	ifeq ($(UNAME),Darwin) # MAC OS X
+		GLFLAGS = -framework OpenGL -framework GLUT
+	else #Windows
+		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee
+	endif
+endif
+\end{lstlisting}
+
+
+%-----------------------------------------------------------------------------------------------------------------
 Na seção desenvolvimento deve ser respondidas as seguintes perguntas:
  
 	\begin{itemize}
