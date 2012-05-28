@@ -12,7 +12,45 @@
 %
 %\nocite{dsl} %Apresenta a referência, porém não cita no texto
 
-\IEEEPARstart{D}{escrição} das principais funcionalidades do programa:
+\IEEEPARstart{E}{ste} programa , \assunto, trás não apenas as lições ensinadas em sala de aula, mas também alguns conhecimentos adquiridos no decorrer do curso de engenharia que serão compartilhados neste documento.
+
+\subsection{Objetivos}\label{obj}
+
+
+No inicio do projeto, tínhamos os seguintes desafios:
+
+\begin{itemize}
+	\item Criar um programa que faça de uso das ferramentas do OpenGL.
+	\item Aperfeiçoar o conhecimento da linguagem $C$ para viabilizar a construção de um programa com grande volume de dados de forma pratica e passível de modulação.
+\end{itemize}
+
+Devido ao OpenGL ser uma ferramenta bastante conhecida, é extremamente fácil encontrar na internet exemplos e modelos utilizando a ferramenta, porém com o decorrer do projeto, o grupo tratou de incluir alguns novos itens como desafios para o projeto, a fim de melhorar a qualidade do produto final. Estes foram os pontos incluídos:
+
+\begin{itemize}
+	\item \textbf{Uso da linguagem C++}, no intuito de aproveitar o conceito de orientação de objetos para expandir o projeto para um jogo mais próximo de algo com formato profissional.
+	\item \textbf{Caracterização dos módulos}, dividindo assim o programa em vários arquivos fontes menores, facilitando assim a localização de $bugs$ e permitindo também a possibilidade de que varias pessoas editem o código simultaneamente.
+	\item \textbf{Uso de ferramentas VCS/SVN}, permitindo vários backups e facilitando a construção de varias partes do código em múltiplos computadores.
+	\item \textbf{Portabilidade}. O conhecimento de que o OpenGL não se restringia apenas a plataforma $Windows$ acabou gerando o desejo de produzir um código que pudesse ser compilado em qualquer computador, seja $Windows$, $Mac$ ou $Linux$.
+\end{itemize}
+
+\subsection{Entradas e Saídas}\label{inputs}
+
+Inicialmente, o grupo precisava de uma sala complexa, com varias paredes e corredores. Assim poderíamos levantar estruturas de colisões, movimentação, iluminação e texturas. De inicio, foi utilizado um algoritmo chamado e \textit{"Growing Tree"}, utilizado para a criação de labirintos. Inicialmente foram escolhidos dois programas base para a criação de um labirinto randômico e posteriormente a exportação do labirinto para o programa.
+
+Com a evolução do programa e as ferramentas feitas, foi adotado um labirinto fixo, que tivesse as características dos jogos clássicos de PAC-MAN.
+
+\begin{SCfigure}[1][h] %%Cuidado..ela não se mantem no lugar
+  \centering
+  \includegraphics[width=4cm]{./fts/lvl1}
+  \caption{Pac-Man.\\O clássico dos anos 80 só foi ter um score perfeito - máximo de pontos, sem falhas ou mortes - em 1999, quando \textit{Billy Mitchell} consegui a incrível marca de $3,333,360$ pontos, após vencer os consecutivos 256 leveis do jogo.}
+  \label{pac1}
+\end{SCfigure}
+
+O programa ainda continua fazendo leituras do teclado e do mouse para a movimentação do usuário, apresentando apenas como saída o \textit{framebuffer} na tela do usuário.
+
+
+
+%--------------------------------------------------------------------------
 
 \begin{itemize}
 	\item Objetivo do programa: Quais são os principais objetivos do presente programa dentro do contexto da disciplina. Listar os principais pontos a serem abordados no programa
