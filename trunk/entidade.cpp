@@ -29,7 +29,7 @@ Entidade::Entidade()
 
 }
 
-void Entidade::reset()
+void Entidade::init()
 {
     Entidade();
     deltaTicks = glutGet(GLUT_ELAPSED_TIME);

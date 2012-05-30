@@ -2,7 +2,6 @@
 #define _CAMERAS_H_
 
 #include "defines.h"
-#include "entidade.h"
 
 
 #define CAMERA_ANDA 20
@@ -10,8 +9,6 @@
 
 class Camera
 {
-    private:
-        Entidade entidadeCamera;
     public:
         float lookX, lookY, lookZ;
         float cameraX, cameraY, cameraZ;
@@ -56,7 +53,7 @@ class Camera
         //Liga ou desliga correr
         void setCorrer(void);
         void setAndar(void);
-    private:
+
 
         void calculaMovimento(float delta);
         void calculaMovimentoLateral(float delta);

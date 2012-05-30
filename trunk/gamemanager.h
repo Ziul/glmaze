@@ -12,8 +12,9 @@
 #include "map.h"
 #include "text.h"
 #include "entidade.h"
-#include "textureloader.h"
+#include "player.h"
 
+#include "textureloader.h"
 class GameManager
 {
     private:
@@ -22,7 +23,7 @@ class GameManager
         void loop(void);
         void cleanup(void);
     public:
-        Entidade player;
+
         void render(void);
         void executa(int argc, char* args[]);
 };

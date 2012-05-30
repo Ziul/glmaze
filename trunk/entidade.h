@@ -23,7 +23,7 @@
 #include "vetor3d.h"
 #include "defines.h"
 #include "map.h"
-
+#include "camera.h"
 //Lista de flags
 enum
 {
@@ -50,6 +50,9 @@ class Entidade
         bool dead;
         std::vector<Entidade*> entidadeColidida;
 
+
+        void addToEntidadeList();
+
     public:
         bool isColisaoMapa(Vetor3D newPosicao);
         void setColisao(Entidade* ent);
@@ -68,9 +71,9 @@ class Entidade
         bool isVisible();
         void setTamanho(float newTamanho);
     public:
-        void reset();
+        void init();
         void removeFromEntidadeList();
-        void addToEntidadeList();
+
 
         virtual bool carregaModelo(char* file);
         virtual void loop();

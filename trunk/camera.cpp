@@ -16,13 +16,7 @@ Camera::Camera()
     cameraY = 5.0f;
     cameraZ = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
     //testes
-    entidadeCamera.reset();
-    entidadeCamera.addToEntidadeList();
-    entidadeCamera.setTamanho(2.5f);
-    entidadeCamera.posicao.x = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (entidadeCamera.tamanho.x/2);
-    entidadeCamera.posicao.y = entidadeCamera.tamanho.y/2;
-    entidadeCamera.posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (entidadeCamera.tamanho.z/2);
-    entidadeCamera.showWired = true;
+
     //testes
     deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotacao da direcao horizontal e vertical
 
@@ -49,34 +43,11 @@ void Camera::reset()
     Camera();
     ticks = glutGet(GLUT_ELAPSED_TIME);
 }
+
+
+//Chamada internamente por Player.
 void Camera::ajustaCamera()
 {
-
-    if (deltaMove)
-    {
-        calculaMovimento(deltaMove);                        //Calcula posicao da camera
-        Vetor3D pos;
-        pos.x = cameraX-(entidadeCamera.tamanho.x/2);
-        pos.y = cameraY-(entidadeCamera.tamanho.y/2);
-        pos.z = cameraZ-(entidadeCamera.tamanho.z/2);
-        if( entidadeCamera.isColisaoMapa(pos) == false)  //Verifica se colidiu
-            entidadeCamera.setPosicao(pos.x, pos.y, pos.z); // e setado para poder calcular colisoes com entidades no futuro
-        else
-            calculaMovimento(-deltaMove);                   //Recalcula para posicao anterior se colidiu
-    }
-
-    if (deltaMoveLado)
-    {
-        calculaMovimentoLateral(deltaMoveLado);
-        Vetor3D pos;
-        pos.x = cameraX-(entidadeCamera.tamanho.x/2);
-        pos.y = cameraY-(entidadeCamera.tamanho.y/2);
-        pos.z = cameraZ-(entidadeCamera.tamanho.z/2);
-        if (entidadeCamera.isColisaoMapa(pos) == false)
-            entidadeCamera.setPosicao(pos.x, pos.y, pos.z);
-        else
-            calculaMovimentoLateral(-deltaMoveLado);
-    }
 
     if (deltaAngleX || deltaAngleY)
         calculaDirecao();
@@ -84,8 +55,6 @@ void Camera::ajustaCamera()
     gluLookAt(  cameraX      , cameraY      , cameraZ,
                 cameraX+lookX, cameraY+lookY, cameraZ+lookZ,
                 0.0f   , 1.0f,    0.0f);
-
-    entidadeCamera.render();
 
     ticks = glutGet(GLUT_ELAPSED_TIME);
 }

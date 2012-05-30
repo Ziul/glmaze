@@ -2,14 +2,16 @@
 
 #include "gamemanager.h"
 
+#include "player.h"
+
 void teclasNormais(unsigned char key, int x, int y)
 {
 
     int mod = glutGetModifiers();
     if (mod == GLUT_ACTIVE_SHIFT)
-        Camera::CameraControl.setCorrer();
+        Player::PlayerControl.setCorrer();
     else
-        Camera::CameraControl.setAndar();
+        Player::PlayerControl.setAndar();
 
     switch(key)
     {
@@ -19,38 +21,38 @@ void teclasNormais(unsigned char key, int x, int y)
         case 'W':
         case 'w':
         {
-            Camera::CameraControl.moveFrente(true);
+            Player::PlayerControl.moveFrente(true);
             break;
         }
         case 'S':
         case 's':
         {
 
-            Camera::CameraControl.moveTraz(true);
+            Player::PlayerControl.moveTraz(true);
             break;
         }
 
         case 'A':
         case 'a':
-            Camera::CameraControl.moveEsquerda(true);
+            Player::PlayerControl.moveEsquerda(true);
             break;
         case 'D':
         case 'd':
-            Camera::CameraControl.moveDireita(true);
+            Player::PlayerControl.moveDireita(true);
             break;
         case 'Q':
         case 'q':
-            Camera::CameraControl.giraEsquerda(true);
+            Player::PlayerControl.giraEsquerda(true);
             break;
         case 'E':
         case 'e':
-            Camera::CameraControl.giraDireita(true);
+            Player::PlayerControl.giraDireita(true);
             break;
         case '2':
-            Camera::CameraControl.giraCima(true);
+            Player::PlayerControl.giraCima(true);
             break;
         case '3':
-            Camera::CameraControl.giraBaixo(true);
+            Player::PlayerControl.giraBaixo(true);
             break;
         case '1': // reseta angulo Y
             Camera::CameraControl.angleY = 0;
@@ -105,31 +107,31 @@ void teclasNormaisUp(unsigned char key, int x, int y)
     {
         case 'W':
         case 'w':
-            Camera::CameraControl.moveFrente(false);
+            Player::PlayerControl.moveFrente(false);
             break;
         case 'S':
         case 's':
-            Camera::CameraControl.moveTraz(false);
+            Player::PlayerControl.moveTraz(false);
             break;
         case 'A':
         case 'a':
-            Camera::CameraControl.moveEsquerda(false);
+            Player::PlayerControl.moveEsquerda(false);
             break;
         case 'D':
         case 'd':
-            Camera::CameraControl.moveDireita(false);
+            Player::PlayerControl.moveDireita(false);
             break;
         case 'Q': case 'q':
-            Camera::CameraControl.giraEsquerda(false);
+            Player::PlayerControl.giraEsquerda(false);
             break;
         case 'E': case 'e':
-            Camera::CameraControl.giraDireita(false);
+            Player::PlayerControl.giraDireita(false);
             break;
         case '2':
-            Camera::CameraControl.giraCima(false);
+            Player::PlayerControl.giraCima(false);
             break;
         case '3':
-            Camera::CameraControl.giraBaixo(false);
+            Player::PlayerControl.giraBaixo(false);
             break;
         default:break;
 
@@ -141,10 +143,10 @@ void teclasEspeciais(int key, int x, int y )
 
     switch(key)
     {
-        case GLUT_KEY_UP: Camera::CameraControl.moveFrente(true); break;
-        case GLUT_KEY_DOWN: Camera::CameraControl.moveTraz(true); break;
-        case GLUT_KEY_LEFT: Camera::CameraControl.giraEsquerda(true); break;
-        case GLUT_KEY_RIGHT: Camera::CameraControl.giraDireita(true); break;
+        case GLUT_KEY_UP: Player::PlayerControl.moveFrente(true); break;
+        case GLUT_KEY_DOWN: Player::PlayerControl.moveTraz(true); break;
+        case GLUT_KEY_LEFT: Player::PlayerControl.giraEsquerda(true); break;
+        case GLUT_KEY_RIGHT: Player::PlayerControl.giraDireita(true); break;
         default: break;
     }
 
@@ -155,10 +157,10 @@ void teclasEspeciaisSoltar(int key, int x, int y)
 {
     switch(key)
     {
-        case GLUT_KEY_UP: Camera::CameraControl.moveFrente(false); break;
-        case GLUT_KEY_DOWN: Camera::CameraControl.moveTraz(false); break;
-        case GLUT_KEY_LEFT: Camera::CameraControl.giraEsquerda(false); break;
-        case GLUT_KEY_RIGHT: Camera::CameraControl.giraDireita(false); break;
+        case GLUT_KEY_UP: Player::PlayerControl.moveFrente(false); break;
+        case GLUT_KEY_DOWN: Player::PlayerControl.moveTraz(false); break;
+        case GLUT_KEY_LEFT: Player::PlayerControl.giraEsquerda(false); break;
+        case GLUT_KEY_RIGHT: Player::PlayerControl.giraDireita(false); break;
         default: break;
     }
 }
@@ -169,16 +171,16 @@ void mouseButton(int button, int state, int x, int y)
     {
         if (state == GLUT_UP) //Reseta posicoes e ajusta deslocamento
         {
-            Camera::CameraControl.setMouse(-1,-1);
+            Player::PlayerControl.setMouse(-1,-1);
         }
         else
         {
-            Camera::CameraControl.setMouse(x,y);
+            Player::PlayerControl.setMouse(x,y);
         }
     }
 }
 
 void moveMouse(int x, int y)
 {
-    Camera::CameraControl.moveMouse(x,y);
+    Player::PlayerControl.moveMouse(x,y);
 }

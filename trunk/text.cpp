@@ -24,6 +24,7 @@ namespace txt
     ///ARRUMA PROJECOES
     extern void setProjecaoOrto()
     {
+        glDisable(GL_DEPTH_TEST);
         glMatrixMode(GL_PROJECTION);
         glPushMatrix(); //nao fecha
         glLoadIdentity();
@@ -36,6 +37,7 @@ namespace txt
     {
         glMatrixMode(GL_PROJECTION);
         glPopMatrix(); // fecha o pushMatrix do projecaoOrtho
+        glEnable(GL_DEPTH_TEST);
         glMatrixMode(GL_MODELVIEW);
     }
 

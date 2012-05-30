@@ -3,6 +3,9 @@
 
 #include "defines.h"
 #include "tile.h"
+
+#include "camera.h"
+
 #include <vector>
 #include <stdio.h>
 
@@ -22,8 +25,6 @@ class Map
         				bool right, bool front, bool back, bool top, int TYPE);
         bool mostraWired;
     public:
-
-        void reset();
         Tile* getTile(int x, int y);
         inline int getX(int i);
         inline int getY(int i);
@@ -39,7 +40,7 @@ class Map
         Map();
 
         //void render();
-        void render(float cameraX, float cameraY, float cameraZ);
+        void render();
         int load(char* filename);
 
         //void iniciaDisplayList();

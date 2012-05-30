@@ -74,30 +74,31 @@ void GameManager::inicializa(void)
     Map::MapControl.load((char*) "map_pacman_new.txt");
 
 
-    Entidade* player2 = new Entidade();
-    player2->reset();
-    player2->addToEntidadeList();
-    player2->posicao.x = 12*2;
-    player2->posicao.y = 0;
-    player2->posicao.z = 12;
+    Entidade* enemy1 = new Entidade();
+    Entidade* enemy2 = new Entidade();
 
-    player2->aceleracao.x = 15.f;
-    player2->aceleracao.z = 4.2f;
-
-    player2->setTamanho(5);
     //testes
-    player.reset();
-    player.addToEntidadeList();
-    player.posicao.x = 12*2;
-    player.posicao.y = 0;
-    player.posicao.z = 12;
+    enemy1->init();
+    enemy1->posicao.x = 12*2;
+    enemy1->posicao.y = 0;
+    enemy1->posicao.z = 12;
 
-    player.aceleracao.x = 10.f;
-    player.aceleracao.z = 0.2f;
+    enemy1->aceleracao.x = 10.f;
+    enemy1->aceleracao.z = 0.2f;
 
-    player.setTamanho(5);
+    enemy1->setTamanho(5);
+    //
+    enemy2->init();
+    enemy2->posicao.x = 12*2;
+    enemy2->posicao.y = 0;
+    enemy2->posicao.z = 12;
 
-    Map::MapControl.reset();
+    enemy2->aceleracao.x = 15.f;
+    enemy2->aceleracao.z = 4.2f;
+
+    enemy2->setTamanho(5);
+
+    Player::PlayerControl.init();
 
 }
 void desenhaTela(void)
@@ -126,19 +127,19 @@ void GameManager::render(void)
     //Iluminacao
     GLfloat ambientLight[] = {0.1f, 0.1f, 0.1f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
-
 	GLfloat directedLight[] = {0.7f, 0.7f, 0.7f, 0.0f};
 	GLfloat directedLightPos[] = {0.0f, 20.0f, -100.0f, 1.0f};
-
 	GLfloat light[] = {0.9f, 0.9f, 0.9f, 1.0f};
 	GLfloat lightPos[] = {100.0f, 30.0f, -10.0f, 1.0f};
-
-
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, light);
+	glLightfv(GL_LIGHT1, GL_POSITION, lightPos);
     //Fim Iluminacao
 
-    Camera::CameraControl.ajustaCamera();
+    Player::PlayerControl.ajustaCamera();
 
-    Map::MapControl.render(Camera::CameraControl.cameraX, Camera::CameraControl.cameraY, Camera::CameraControl.cameraZ);
+    Map::MapControl.render();
     //unsigned int temp = Entidade::EntidadeList.size();
     for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
     {
@@ -148,23 +149,19 @@ void GameManager::render(void)
 
     txt::renderText2dOrtho(10,10,0,"FPS: %.2f",FrameRate::FPSControl.getFPS());
 
+    //Imprime SOL's
     glPushMatrix();
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(directedLightPos[0],directedLightPos[1],directedLightPos[2]);
         glutSolidSphere(10.0f, 18.0f, 18.0f);
 	glPopMatrix();
-
 	glPushMatrix();
         glColor3f(1.0f, 0.0f, 0.0f);
         glTranslatef(lightPos[0],lightPos[1],lightPos[2]);
         glutSolidSphere(10.0f, 18.0f, 18.0f);
 	glPopMatrix();
 
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
 
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, light);
-	glLightfv(GL_LIGHT1, GL_POSITION, lightPos);
     glutSwapBuffers();
 }
 void GameManager::cleanup(void)

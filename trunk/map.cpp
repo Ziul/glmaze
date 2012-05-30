@@ -175,15 +175,15 @@ void Map::render()
 }
 
 */
-void Map::render(float cameraX, float cameraY, float cameraZ)
+void Map::render()
 {
     glPushMatrix();
     float offset = (float)TAMANHO_BLOCO/2.0f;
     glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
     glColor3f(COR_PAREDE);
 
-    int indexX = (cameraX / TAMANHO_BLOCO);
-    int indexY = (cameraZ / TAMANHO_BLOCO);
+    int indexX = (Camera::CameraControl.cameraX / TAMANHO_BLOCO);
+    int indexY = (Camera::CameraControl.cameraZ / TAMANHO_BLOCO);
 
     int beginX = indexX - GAME_FOV;
     int beginY = indexY - GAME_FOV;
@@ -264,48 +264,6 @@ void Map::renderTileOptimizado(unsigned int i)
 
     }
 }
-
-/*
-void Map::renderTile(unsigned int i)
-{
-    //Move ponto de referencia
-    if (i != 0) //No primeiro nao ha deslocamento
-    {
-            if (getY(i) > getY(i-1) ) //Se tiver pulado de linha, volta em X e avanca em Z
-                glTranslated(
-                             -(TAMANHO_BLOCO*(MAP_WIDTH-1)  ),     0, TAMANHO_BLOCO);
-            else   //Moveu em X
-                glTranslated(TAMANHO_BLOCO,0,0);
-    }
-    if(listaTiles[i].typeId == TILE_TIPO_PAREDE )
-    {
-            renderBloco(listaTiles[i].tamanho, listaTiles[i].tamanho,
-            listaTiles[i].tamanho,true,true,true,true,true, RENDER_MODE);
-    }
-    else
-    if(listaTiles[i].typeId == TILE_TIPO_CHAO )
-    {
-        float offset = (float)TAMANHO_BLOCO/2.0f;
-        glColor3f(COR_CHAO);
-        glBegin(GL_QUADS);
-            glNormal3f(0.0f, 1.0f, 0.0f);
-            glVertex3f(-offset, -offset, -offset);
-            glVertex3f(-offset, -offset, offset);
-            glVertex3f(offset, -offset, offset);
-            glVertex3f(offset, -offset, -offset);
-        glEnd();
-        glColor3f(COR_PAREDE);
-
-    }
-
-}
-*/
-/*
-void Map::iniciaDisplayList()
-{
-
-}
-*/
 int Map::load(char* filename)
 {
     listaTiles.clear();
@@ -407,11 +365,5 @@ bool Map::isWire()
 {
     return mostraWired;
 }
-
-void Map::reset()
-{
-    Map();
-}
-
 
 
