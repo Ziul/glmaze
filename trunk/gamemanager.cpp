@@ -3,6 +3,12 @@
 
 GameManager game;
 
+void startButtonAction()
+{
+    menuPrincipal = false;
+    for(unsigned int i = 0;i < Entidade::EntidadeList.size(); i++)
+        Entidade::EntidadeList[i]->init();
+}
 void changeSize(int w, int h)
 {
     //Previne divisao por zero
@@ -74,11 +80,23 @@ void GameManager::inicializa(void)
 
     Map::MapControl.load((char*) "map_pacman_new.txt");
 
+    //Testes menu
+    menuPrincipal = true;
 
+    Button* start = new Button();
+
+    start->setXY(220, 200);
+    start->setEstados(1, 350, 60, 0);
+
+    start->ClickAction = startButtonAction;
+
+    Button::ButtonList.push_back(start);
+
+    //testes
     Entidade* enemy1 = new Entidade();
     Entidade* enemy2 = new Entidade();
 
-    //testes
+
     enemy1->init();
     enemy1->posicao.x = 12*4;
     enemy1->posicao.y = 0;
@@ -88,6 +106,7 @@ void GameManager::inicializa(void)
     enemy1->aceleracao.z = 0.2f;
 
     enemy1->setTamanho(5);
+    enemy1->addToEntidadeList();
     //
     enemy2->init();
     enemy2->posicao.x = 12*3;
@@ -98,8 +117,10 @@ void GameManager::inicializa(void)
     enemy2->aceleracao.z = 4.2f;
 
     enemy2->setTamanho(5);
+    enemy2->addToEntidadeList();
 
     Player::PlayerControl.init();
+    Player::PlayerControl.addToEntidadeList();
 
 }
 void desenhaTela(void)
@@ -113,6 +134,7 @@ void desenhaTela(void)
 
 void GameManager::loop(void)
 {
+
     FrameRate::FPSControl.loop();
     for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
     {
@@ -131,11 +153,24 @@ void GameManager::loop(void)
 void GameManager::render(void)
 {
 
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    if (menuPrincipal)
+    {
+        for(unsigned int i = 0; i < Button::ButtonList.size();i++)
+            Button::ButtonList[i]->render();
+
+        txt::renderText2dOrtho(30,150,8,"Aperte o grande quadrado branco para comecar!!!");
+
+        return; /// IGNORA ABAIXO
+    }
+
+
+
+
     //Iluminacao
     GLfloat ambientLight[] = {0.1f, 0.1f, 0.1f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
@@ -181,12 +216,17 @@ void GameManager::render(void)
 	MiniMap::renderMiniMap();
 
 }
+
+GameManager::~GameManager()
+{
+    cleanup();
+}
 void GameManager::cleanup(void)
 {
-    for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
-    {
-        delete Entidade::EntidadeList[i];
-    }
+   // for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+   //     delete Entidade::EntidadeList[i];
+   // for(unsigned int i = 0; i < Button::ButtonList.size(); i++)
+   //     delete Button::ButtonList[i];
 }
 
 

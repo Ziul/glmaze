@@ -15,7 +15,6 @@ Player::Player()
     posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (tamanho.z/2);
     showWired = true;
     score = 0;
-    entidadeColidida.clear();
 }
 void Player::ajustaCamera()
 {

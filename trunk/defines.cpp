@@ -2,6 +2,8 @@
 
 float wScreen = SCREEN_WIDTH;
 float hScreen = SCREEN_HEIGHT;
+
+bool menuPrincipal = false;
 GLuint wallTexture;
 GLuint floorTexture;
 

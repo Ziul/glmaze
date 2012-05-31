@@ -6,6 +6,8 @@
 
 void teclasNormais(unsigned char key, int x, int y)
 {
+    if (menuPrincipal)
+        return; /// IGNORA ABAIXO
 
     int mod = glutGetModifiers();
     if (mod == GLUT_ACTIVE_SHIFT)
@@ -103,6 +105,9 @@ void teclasNormais(unsigned char key, int x, int y)
 }
 void teclasNormaisUp(unsigned char key, int x, int y)
 {
+    if (menuPrincipal)
+        return; /// IGNORA ABAIXO
+
     switch(key)
     {
         case 'W':
@@ -140,6 +145,8 @@ void teclasNormaisUp(unsigned char key, int x, int y)
 
 void teclasEspeciais(int key, int x, int y )
 {
+    if (menuPrincipal)
+        return; /// IGNORA ABAIXO
 
     switch(key)
     {
@@ -155,6 +162,9 @@ void teclasEspeciais(int key, int x, int y )
 
 void teclasEspeciaisSoltar(int key, int x, int y)
 {
+    if (menuPrincipal)
+        return; /// IGNORA ABAIXO
+
     switch(key)
     {
         case GLUT_KEY_UP: Player::PlayerControl.moveFrente(false); break;
@@ -167,6 +177,13 @@ void teclasEspeciaisSoltar(int key, int x, int y)
 
 void mouseButton(int button, int state, int x, int y)
 {
+    if (menuPrincipal)
+    {
+        for(unsigned int i = 0; i < Button::ButtonList.size();i++)
+            Button::ButtonList[i]->handleMouse(button, state, x, y);
+        return; /// IGNORA ABAIXO
+    }
+
     if (button == GLUT_LEFT_BUTTON)
     {
         if (state == GLUT_UP) //Reseta posicoes e ajusta deslocamento
@@ -182,5 +199,8 @@ void mouseButton(int button, int state, int x, int y)
 
 void moveMouse(int x, int y)
 {
+    if (menuPrincipal)
+        return; /// IGNORA ABAIXO
+
     Player::PlayerControl.moveMouse(x,y);
 }

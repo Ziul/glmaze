@@ -53,9 +53,10 @@ class Entidade
         std::vector<Entidade*> entidadeColidida;
 
 
-        void addToEntidadeList();
+
 
     public:
+        void addToEntidadeList();
         Tile* isColisaoMapa(Vetor3D newPosicao, int type = TILE_TIPO_PAREDE);
         void setColisao(Entidade* ent);
         void setPosicao(float x, float y, float z);

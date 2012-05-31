@@ -45,6 +45,8 @@ extern float hScreen;
 //Texturas
 extern GLuint wallTexture;
 extern GLuint floorTexture;
+//Menu
+extern bool menuPrincipal;
 
 
 

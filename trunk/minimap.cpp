@@ -5,7 +5,7 @@ namespace MiniMap
 {
     void renderMiniMap()
     {
-        glEnable(GL_BLEND);
+    glEnable(GL_BLEND);
     txt::setProjecaoOrto();
 
     int tileMiniSize = 10;
@@ -47,7 +47,7 @@ namespace MiniMap
                     float raio = 3.5;
                     glBegin(GL_TRIANGLE_FAN);
                         glVertex2f(0, 0);
-                        for (int angle = 0; angle < 360; angle+=5)
+                        for (int angle = 0; angle < 360; angle+=35)
                             glVertex2f(sin(M_PI*angle/180) * raio, cos(M_PI*angle/180) * raio);
                     glEnd();
                 }

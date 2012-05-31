@@ -14,6 +14,7 @@
 #include "entidade.h"
 #include "player.h"
 #include "minimap.h"
+#include "button.h"
 
 #include "textureloader.h"
 class GameManager
@@ -24,7 +25,7 @@ class GameManager
         void loop(void);
         void cleanup(void);
     public:
-
+        ~GameManager();
         void render(void);
         void executa(int argc, char* args[]);
 };
