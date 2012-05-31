@@ -49,6 +49,8 @@
 		<Unit filename="gamemanager.h" />
 		<Unit filename="map.cpp" />
 		<Unit filename="map.h" />
+		<Unit filename="minimap.cpp" />
+		<Unit filename="minimap.h" />
 		<Unit filename="notas.txt" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />

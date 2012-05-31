@@ -35,6 +35,8 @@
 #define PONTOS_BOLA             10
 #define PONTOS_BOLA_ESPECIAL    50
 
+#define TAMANHO_INIMIGO         5
+
 
 
 //Tamanho da tela atual

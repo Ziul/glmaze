@@ -189,6 +189,7 @@ void Map::render()
 
     //Desenha chao
     glPopMatrix();
+
 }
 void Map::renderTileOptimizado(unsigned int i)
 {
@@ -231,17 +232,19 @@ void Map::renderTileOptimizado(unsigned int i)
         if (listaTilesOptimizados[i].typeId == TILE_TIPO_CHAO_COM_BOLA)
         {
             glTranslated(0,-2,0);
-            glutSolidSphere(1,5,5);
+            glutSolidSphere(1,8,8);
         }
         else
         if (listaTilesOptimizados[i].typeId == TILE_TIPO_CHAO_COM_BOLA_ESPECIAL)
         {
             glTranslated(0,-2,0);
-            glutSolidSphere(3,5,5);
+            glutSolidSphere(3,8,8);
         }
 
     }
 }
+
+
 int Map::load(char* filename)
 {
     listaTiles.clear();

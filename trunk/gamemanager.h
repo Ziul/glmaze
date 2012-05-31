@@ -13,6 +13,7 @@
 #include "text.h"
 #include "entidade.h"
 #include "player.h"
+#include "minimap.h"
 
 #include "textureloader.h"
 class GameManager

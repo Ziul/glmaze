@@ -4,7 +4,7 @@
 #include "entidade.h"
 #include "text.h"
 
-class Player : public Entidade{
+class Player : public Entidade {
 
     public:
         void ajustaCamera();

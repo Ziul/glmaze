@@ -30,7 +30,8 @@ void changeSize(int w, int h)
 }
 void GameManager::inicializaRender(void)
 {
-
+    //Transparencia
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE);
 
     glEnable(GL_LIGHTING); //Habilita luz
     glEnable(GL_LIGHT0); //Habilita luz #0
@@ -103,7 +104,11 @@ void GameManager::inicializa(void)
 }
 void desenhaTela(void)
 {
+
     game.render();
+
+
+    glutSwapBuffers();
 }
 
 void GameManager::loop(void)
@@ -135,7 +140,7 @@ void GameManager::render(void)
     GLfloat ambientLight[] = {0.1f, 0.1f, 0.1f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
 	GLfloat directedLight[] = {0.7f, 0.7f, 0.7f, 0.0f};
-	GLfloat directedLightPos[] = {0.0f, 20.0f, -100.0f, 1.0f};
+	GLfloat directedLightPos[] = {0.0f, 20.0f, -20.0f, 1.0f};
 	GLfloat light[] = {0.9f, 0.9f, 0.9f, 1.0f};
 	GLfloat lightPos[] = {100.0f, 30.0f, -10.0f, 1.0f};
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
@@ -147,16 +152,6 @@ void GameManager::render(void)
 
     //Calcula iteracoes
     this->loop();
-
-    Map::MapControl.render();
-    //unsigned int temp = Entidade::EntidadeList.size();
-    for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
-    {
-        if (Entidade::EntidadeList[i]->isVisible())
-            Entidade::EntidadeList[i]->render();
-    }
-
-    txt::renderText2dOrtho(10,15,0,"FPS: %.2f",FrameRate::FPSControl.getFPS());
 
     //Imprime SOL's
     glPushMatrix();
@@ -170,8 +165,21 @@ void GameManager::render(void)
         glutSolidSphere(10.0f, 18.0f, 18.0f);
 	glPopMatrix();
 
+    Map::MapControl.render();
+    //unsigned int temp = Entidade::EntidadeList.size();
+    for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+    {
+        if (Entidade::EntidadeList[i]->isVisible())
+            Entidade::EntidadeList[i]->render();
+    }
 
-    glutSwapBuffers();
+    txt::renderText2dOrtho(10,15,0,"FPS: %.2f",FrameRate::FPSControl.getFPS());
+
+
+
+
+	MiniMap::renderMiniMap();
+
 }
 void GameManager::cleanup(void)
 {

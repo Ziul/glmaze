@@ -9,7 +9,7 @@ Player::Player()
 
 
 
-    setTamanho(2.5f);
+    setTamanho(5);
     posicao.x = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (tamanho.x/2);
     posicao.y = tamanho.y/2;
     posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (tamanho.z/2);

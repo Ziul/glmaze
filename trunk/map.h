@@ -3,11 +3,12 @@
 
 #include "defines.h"
 #include "tile.h"
-
 #include "camera.h"
-
+#include "text.h"
 #include <vector>
 #include <stdio.h>
+#include <math.h>
+
 
 class Map
 {
@@ -23,6 +24,8 @@ class Map
         void renderTileOptimizado(unsigned int i);
         void renderBloco(float width, float height, float flatness, bool left,
         				bool right, bool front, bool back, bool top, int TYPE);
+
+
         bool mostraWired;
     public:
         Tile* getTile(int x, int y);

@@ -25,6 +25,7 @@ namespace txt
     extern void setProjecaoOrto()
     {
         glDisable(GL_DEPTH_TEST);
+        glDisable(GL_LIGHTING);
         glMatrixMode(GL_PROJECTION);
         glPushMatrix(); //nao fecha
         glLoadIdentity();
@@ -32,12 +33,17 @@ namespace txt
         // coloca projecao ortografica 2d
         gluOrtho2D(0, wScreen, hScreen, 0);
         glMatrixMode(GL_MODELVIEW);
+
+        glPushMatrix();
+        glLoadIdentity();
     }
     extern void restauraProjecaoPerspectiva()
     {
+        glPopMatrix();
         glMatrixMode(GL_PROJECTION);
         glPopMatrix(); // fecha o pushMatrix do projecaoOrtho
         glEnable(GL_DEPTH_TEST);
+        glEnable(GL_LIGHTING);
         glMatrixMode(GL_MODELVIEW);
     }
 
@@ -51,10 +57,7 @@ namespace txt
 
         glDisable(GL_LIGHTING);
         setProjecaoOrto();
-            glPushMatrix();
-            glLoadIdentity();
             renderBitmapString(x,y, spacing, font_glut, string);
-            glPopMatrix();
         restauraProjecaoPerspectiva();
         glEnable(GL_LIGHTING);
 
