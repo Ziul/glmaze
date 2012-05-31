@@ -79,7 +79,7 @@ bool Entidade::isColisaoObjeto(Entidade* objeto)
 //==============================================================================
 // Retorna true se estiver colidindo com o mapa
 //==============================================================================
-bool Entidade::isColisaoMapa(Vetor3D newPosicao)
+Tile* Entidade::isColisaoMapa(Vetor3D newPosicao, int type)
 {
     //Calcula o Id do tile que deve ser testado
     //Ex: X = 5 tal que startX = 0,41 = 0 endX = 1,3 = 1
@@ -93,23 +93,17 @@ bool Entidade::isColisaoMapa(Vetor3D newPosicao)
         for(int iX = startX; iX <= endX; iX++) {
             Tile* bloco = Map::MapControl(iX, iZ);
 
-            if(isColisaoTile(bloco, newPosicao.y))
-                return true;
+            if(
+               (bloco->typeId == type) &&
+               (posicao.y < (bloco->posY+bloco->tamanho) ) &&
+               ((posicao.y+tamanho.y) > bloco->posY)
+               )
+                return bloco;
             }
     }
-    return false;
+    return 0;
 }
-bool Entidade::isColisaoTile(Tile* bloco, float posY)
-{
-    if ( //Se o bloco for uma parede e se posY for menor que a altura maxima Y do bloco, ou seja, esta abaixo do bloco
-        (bloco->typeId == TILE_TIPO_PAREDE) &&
-        (posY < (bloco->posY+bloco->tamanho) ) &&
-        ((posY+tamanho.y) > bloco->posY)
-        )
-        return true;
-    else
-        return false;
-}
+
 
 void Entidade::removeFromEntidadeList()
 {

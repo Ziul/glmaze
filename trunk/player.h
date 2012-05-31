@@ -2,6 +2,7 @@
 #define __PLAYER__H_
 
 #include "entidade.h"
+#include "text.h"
 
 class Player : public Entidade{
 
@@ -29,6 +30,16 @@ class Player : public Entidade{
         //Liga ou desliga correr
         void setCorrer(void);
         void setAndar(void);
+
+        //Virtuais
+        void loop();
+        void testaColisao();
+        void executaColisao();
+        void render();
+    private:
+
+        int score;
+        void renderScore();
 
     public:
         static Player PlayerControl;

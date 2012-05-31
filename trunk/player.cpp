@@ -14,6 +14,7 @@ Player::Player()
     posicao.y = tamanho.y/2;
     posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (tamanho.z/2);
     showWired = true;
+    score = 0;
 }
 void Player::ajustaCamera()
 {
@@ -92,4 +93,47 @@ void Player::setCorrer(void){
 }
 void Player::setAndar(void){
     Camera::CameraControl.setAndar();
+    deltaTicks = glutGet(GLUT_ELAPSED_TIME);
+}
+
+//
+void Player::loop()
+{
+    //int delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
+    //float fator = delta/1000.f;
+    //deltaTicks = glutGet(GLUT_ELAPSED_TIME);
+    testaColisao();
+
+}
+void Player::testaColisao()
+{
+    Tile* tileBall = 0;
+
+    //Se for diferente de 0, isto é, NULL.
+    if ( (tileBall = isColisaoMapa(posicao, TILE_TIPO_CHAO_COM_BOLA)) ) {
+        //BOLA NORMAL, ACUMULA PONTOS
+        score += PONTOS_BOLA;
+        tileBall->typeId = TILE_TIPO_CHAO;
+        ///TOCA SOM!!!!
+
+    } else if ((tileBall = isColisaoMapa(posicao, TILE_TIPO_CHAO_COM_BOLA_ESPECIAL)) ){
+        score += PONTOS_BOLA_ESPECIAL;
+        tileBall->typeId = TILE_TIPO_CHAO;
+    }
+
+    //Executa
+
+}
+void Player::renderScore()
+{
+   txt::renderText2dOrtho(wScreen -100, 10,0,"Pontos:%d",score);
+}
+void Player::render()
+{
+    Entidade::render();
+    renderScore();
+}
+void Player::executaColisao()
+{
+
 }

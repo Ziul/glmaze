@@ -147,7 +147,7 @@ void GameManager::render(void)
             Entidade::EntidadeList[i]->render();
     }
 
-    txt::renderText2dOrtho(10,10,0,"FPS: %.2f",FrameRate::FPSControl.getFPS());
+    txt::renderText2dOrtho(10,15,0,"FPS: %.2f",FrameRate::FPSControl.getFPS());
 
     //Imprime SOL's
     glPushMatrix();

@@ -32,6 +32,9 @@
 #define COR_CHAO                1.0f, 1.0f, 1.0f
 #define GAME_FOV                28
 
+#define PONTOS_BOLA             10
+#define PONTOS_BOLA_ESPECIAL    50
+
 
 
 //Tamanho da tela atual

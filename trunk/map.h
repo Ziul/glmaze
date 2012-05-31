@@ -13,7 +13,7 @@ class Map
 {
     private:
         std::vector<Tile> listaTiles;
-        std::vector<Tile> listaRetangulos;
+        std::vector<Tile> listaTilesOptimizados;
         void geraQuadradosOptimizados();
 
         int RENDER_MODE;

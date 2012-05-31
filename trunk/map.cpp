@@ -13,7 +13,7 @@ Tile* Map::getTile(int x, int y)
 
     ID = (y * MAP_WIDTH) + x;
 
-    return &listaTiles[ID];
+    return &listaTilesOptimizados[ID];
 }
 inline int Map::getX(int i)
 {
@@ -153,28 +153,6 @@ glDisable(GL_TEXTURE_2D);
 	glEnd();
 }
 
-/*
-void Map::render()
-{
-    glPushMatrix();
-    float offset = (float)TAMANHO_BLOCO/2.0f;
-    glTranslated(offset, offset, offset); //Pois imprime a partir do centro
-    glColor3f(COR_PAREDE);
-
-
-    for(unsigned int i = 0; i < listaTiles.size(); i++)
-    {
-        glPushMatrix();
-            renderTile(i);
-        glPopMatrix();
-    }
-
-    //Desenha chao
-    glPopMatrix();
-
-}
-
-*/
 void Map::render()
 {
     glPushMatrix();
@@ -215,16 +193,16 @@ void Map::render()
 void Map::renderTileOptimizado(unsigned int i)
 {
     //Camera no centro do quadrado 0,0,0
-    glTranslated(listaRetangulos[i].posX * TAMANHO_BLOCO,
-                 listaRetangulos[i].posY * TAMANHO_BLOCO,
-                 listaRetangulos[i].posZ * TAMANHO_BLOCO);
+    glTranslated(listaTilesOptimizados[i].posX * TAMANHO_BLOCO,
+                 listaTilesOptimizados[i].posY * TAMANHO_BLOCO,
+                 listaTilesOptimizados[i].posZ * TAMANHO_BLOCO);
 
 
-    if(listaRetangulos[i].typeId == TILE_TIPO_PAREDE )
+    if(listaTilesOptimizados[i].typeId == TILE_TIPO_PAREDE )
     {
-        renderBloco(listaRetangulos[i].tamanho, listaRetangulos[i].tamanho, listaRetangulos[i].tamanho,
-                    listaRetangulos[i].left,listaRetangulos[i].right,listaRetangulos[i].front,
-                    listaRetangulos[i].back,listaRetangulos[i].top,
+        renderBloco(listaTilesOptimizados[i].tamanho, listaTilesOptimizados[i].tamanho, listaTilesOptimizados[i].tamanho,
+                    listaTilesOptimizados[i].left,listaTilesOptimizados[i].right,listaTilesOptimizados[i].front,
+                    listaTilesOptimizados[i].back,listaTilesOptimizados[i].top,
                     RENDER_MODE);
 
     }
@@ -250,13 +228,13 @@ void Map::renderTileOptimizado(unsigned int i)
         glEnd();
         glColor3f(COR_PAREDE);
         glDisable(GL_TEXTURE_2D);
-        if (listaRetangulos[i].typeId == TILE_TIPO_CHAO_COM_BOLA)
+        if (listaTilesOptimizados[i].typeId == TILE_TIPO_CHAO_COM_BOLA)
         {
             glTranslated(0,-2,0);
             glutSolidSphere(1,5,5);
         }
         else
-        if (listaRetangulos[i].typeId == TILE_TIPO_CHAO_COM_BOLA_ESPECIAL)
+        if (listaTilesOptimizados[i].typeId == TILE_TIPO_CHAO_COM_BOLA_ESPECIAL)
         {
             glTranslated(0,-2,0);
             glutSolidSphere(3,5,5);
@@ -308,7 +286,7 @@ void Map::geraQuadradosOptimizados()
                retangulo.typeId = listaTiles[index].typeId;
                retangulo.posX = iX;
                retangulo.posZ = iY;
-               listaRetangulos.push_back(retangulo);
+               listaTilesOptimizados.push_back(retangulo);
                continue;
            }
 
@@ -339,7 +317,7 @@ void Map::geraQuadradosOptimizados()
             retangulo.posZ = iY;
             retangulo.typeId = listaTiles[index].typeId;
 
-            listaRetangulos.push_back(retangulo);
+            listaTilesOptimizados.push_back(retangulo);
 
         }
     }

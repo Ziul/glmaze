@@ -44,7 +44,6 @@ class Entidade
         virtual ~Entidade();
     protected:
         bool isColisaoObjeto(Entidade* objeto);
-        bool isColisaoTile(Tile* bloco, float posY);
         bool isColidido();
         bool visible;
         bool dead;
@@ -54,7 +53,7 @@ class Entidade
         void addToEntidadeList();
 
     public:
-        bool isColisaoMapa(Vetor3D newPosicao);
+        Tile* isColisaoMapa(Vetor3D newPosicao, int type = TILE_TIPO_PAREDE);
         void setColisao(Entidade* ent);
         void setPosicao(float x, float y, float z);
         //Ex: int delta = getTicks() - deltaTicks;
