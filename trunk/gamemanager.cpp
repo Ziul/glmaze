@@ -79,9 +79,9 @@ void GameManager::inicializa(void)
 
     //testes
     enemy1->init();
-    enemy1->posicao.x = 12*2;
+    enemy1->posicao.x = 12*3;
     enemy1->posicao.y = 0;
-    enemy1->posicao.z = 12;
+    enemy1->posicao.z = 12*1;
 
     enemy1->aceleracao.x = 10.f;
     enemy1->aceleracao.z = 0.2f;
@@ -91,7 +91,7 @@ void GameManager::inicializa(void)
     enemy2->init();
     enemy2->posicao.x = 12*2;
     enemy2->posicao.y = 0;
-    enemy2->posicao.z = 12;
+    enemy2->posicao.z = 12*1;
 
     enemy2->aceleracao.x = 15.f;
     enemy2->aceleracao.z = 4.2f;
@@ -112,6 +112,14 @@ void GameManager::loop(void)
     for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
     {
         Entidade::EntidadeList[i]->loop();
+    }
+    for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+    {
+        Entidade::EntidadeList[i]->testaColisao();
+    }
+    for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+    {
+        Entidade::EntidadeList[i]->executaColisao();
     }
 
 }

@@ -13,6 +13,8 @@
     if (flags ^ ENTIDADE_TIPO_GHOST) checa se NAO tem a flag
 
 
+    NOTA: Z positivo aumenta para direita da posição inicial. (lado menor do mapa)
+          X positivo aumenta para frente
 
 */
 //==============================================================================
@@ -47,6 +49,7 @@ class Entidade
         bool isColidido();
         bool visible;
         bool dead;
+        int delta;
         std::vector<Entidade*> entidadeColidida;
 
 

@@ -102,7 +102,7 @@ void Player::loop()
     //int delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
     //float fator = delta/1000.f;
     //deltaTicks = glutGet(GLUT_ELAPSED_TIME);
-    testaColisao();
+    //testaColisao();
 
 }
 void Player::testaColisao()

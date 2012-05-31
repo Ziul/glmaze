@@ -134,7 +134,7 @@ void Entidade::loop()
 {
     if(dead) return;
     //deltaTicks reseta o render
-    int delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
+    delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
     float fator = delta/1000.f;
 
     if (flags & ENTIDADE_FLAG_GRAVIDADE)
@@ -234,8 +234,19 @@ bool Entidade::isColidido()
 }
 void Entidade::executaColisao()
 {
+    bool testes = isColidido();
     if ( !isColidido() )
         return; // sem colisoes
+
+    //Volta o que tinha movido.
+    float fator = delta/1000.f;
+    posicao = posicao - (velocidade * fator );
+    //Para, e vai na direção oposta
+    velocidade.x = 0;
+    velocidade.z = 0;
+    aceleracao.x = -aceleracao.x;
+    aceleracao.z = -aceleracao.z;
+
     entidadeColidida.clear();
 }
 
