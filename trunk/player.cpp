@@ -15,12 +15,15 @@ Player::Player()
     posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (tamanho.z/2);
     showWired = true;
     score = 0;
+    entidadeColidida.clear();
 }
 void Player::ajustaCamera()
 {
+    Camera::CameraControl.loop(); //Ajusta timer.
+
     float deltaMove = Camera::CameraControl.deltaMove;
     //Se estiver movendo (frente ou traz)
-    if (deltaMove)
+    if (deltaMove) //Se estiver colidido, nem calcula o movimento
     {   //Efetua movimento
         Camera::CameraControl.calculaMovimento(deltaMove);                        //Calcula posicao da camera
         Vetor3D pos;
@@ -103,6 +106,7 @@ void Player::loop()
     //float fator = delta/1000.f;
     //deltaTicks = glutGet(GLUT_ELAPSED_TIME);
     //testaColisao();
+    ajustaCamera();
 
 }
 void Player::testaColisao()
@@ -135,5 +139,10 @@ void Player::render()
 }
 void Player::executaColisao()
 {
-
+    if (!isColidido())
+        return;
+    Camera::CameraControl.calculaMovimento(-Camera::CameraControl.deltaMove);
+    Camera::CameraControl.calculaMovimentoLateral(-Camera::CameraControl.deltaMoveLado);
+    setPosicao(Camera::CameraControl.cameraX-(tamanho.x/2), Camera::CameraControl.cameraY-(tamanho.x/2), Camera::CameraControl.cameraZ-(tamanho.x/2));
+    entidadeColidida.clear();
 }

@@ -59,9 +59,13 @@ void Camera::ajustaCamera()
     ticks = glutGet(GLUT_ELAPSED_TIME);
 }
 
+void Camera::loop()
+{
+    deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
+}
+
 void Camera::calculaDirecao(void)
 {
-    unsigned int deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
     float fator = deltaTicks/1000.f;
     angleX += deltaAngleX*fator;
     angleY += deltaAngleY*fator;
@@ -87,8 +91,6 @@ void Camera::calculaDirecao(void)
 void Camera::calculaMovimento(float delta)
 {
     //Adiciona ao movimento
-
-    unsigned int deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
     float fator = deltaTicks/1000.f;
 
     //Fator delta vezes direcao. 0.1f para ajustar velocidade.
@@ -97,7 +99,6 @@ void Camera::calculaMovimento(float delta)
 }
 void Camera::calculaMovimentoLateral(float delta)
 {
-    unsigned int deltaTicks = glutGet(GLUT_ELAPSED_TIME) - ticks;
     float fator = deltaTicks/1000.f;
 
     float lateralX = sin( (angleX-90)*M_PI/180);

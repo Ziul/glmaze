@@ -25,7 +25,7 @@ Entidade::Entidade()
     showWired = false;
 
     maxVelocidade.x = maxVelocidade.y = maxVelocidade.z = 50.f;
-
+    entidadeColidida.clear();
 
 }
 
@@ -234,7 +234,6 @@ bool Entidade::isColidido()
 }
 void Entidade::executaColisao()
 {
-    bool testes = isColidido();
     if ( !isColidido() )
         return; // sem colisoes
 

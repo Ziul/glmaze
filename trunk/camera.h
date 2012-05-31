@@ -28,11 +28,13 @@ class Camera
 
         int xOrigem, yOrigem;
         unsigned int ticks;
+        unsigned int deltaTicks;
     public:
         Camera();
         static Camera CameraControl;
 
         void ajustaCamera(); //seta posicao e direcao da camera
+        void loop();  //ajusta timer
         void reset();
 
         void moveFrente(bool mover);

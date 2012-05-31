@@ -79,7 +79,7 @@ void GameManager::inicializa(void)
 
     //testes
     enemy1->init();
-    enemy1->posicao.x = 12*3;
+    enemy1->posicao.x = 12*4;
     enemy1->posicao.y = 0;
     enemy1->posicao.z = 12*1;
 
@@ -89,7 +89,7 @@ void GameManager::inicializa(void)
     enemy1->setTamanho(5);
     //
     enemy2->init();
-    enemy2->posicao.x = 12*2;
+    enemy2->posicao.x = 12*3;
     enemy2->posicao.y = 0;
     enemy2->posicao.z = 12*1;
 
@@ -125,8 +125,7 @@ void GameManager::loop(void)
 }
 void GameManager::render(void)
 {
-    //Calcula iteracoes
-    this->loop();
+
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -145,7 +144,9 @@ void GameManager::render(void)
 	glLightfv(GL_LIGHT1, GL_POSITION, lightPos);
     //Fim Iluminacao
 
-    Player::PlayerControl.ajustaCamera();
+
+    //Calcula iteracoes
+    this->loop();
 
     Map::MapControl.render();
     //unsigned int temp = Entidade::EntidadeList.size();
