@@ -35,11 +35,10 @@ void Entidade::init()
 }
 Entidade::~Entidade()
 {
-    cleanup();
 }
 void Entidade::cleanup()
 {
-    removeFromEntidadeList();
+    //removeFromEntidadeList();
 }
 bool Entidade::isColisaoObjeto(Entidade* objeto)
 {
@@ -101,7 +100,6 @@ Tile* Entidade::isColisaoMapa(Vetor3D newPosicao, int type)
     }
     return 0;
 }
-
 
 void Entidade::removeFromEntidadeList()
 {

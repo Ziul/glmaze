@@ -11,6 +11,7 @@ class Player : public Entidade {
     public:
 
         Player();
+        ~Player();
 
         void moveFrente(bool mover);
         void moveTraz(bool mover);

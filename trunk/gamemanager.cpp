@@ -217,21 +217,77 @@ void GameManager::render(void)
 
 }
 
+//Quanda chamado cleanup durante o destructor ocorre falha de
+//segmentação somente no delete Entidade
 GameManager::~GameManager()
 {
-    cleanup();
 }
-void GameManager::cleanup(void)
+void cleanup(void)
 {
-   // for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
-   //     delete Entidade::EntidadeList[i];
-   // for(unsigned int i = 0; i < Button::ButtonList.size(); i++)
-   //     delete Button::ButtonList[i];
+    printf("Entidade cleanup size: %d\n", Entidade::EntidadeList.size());
+    for(unsigned int i = 0; i < Entidade::EntidadeList.size();i++)
+        delete Entidade::EntidadeList[i];
+    printf("Button cleanup size: %d\n", Button::ButtonList.size());
+    for(unsigned int i = 0; i < Button::ButtonList.size(); i++)
+        delete Button::ButtonList[i];
 }
+void testOpenAL()
+{
+    unsigned int g_buf = -1;
+    unsigned int g_src = -1;
 
+    if(!alutInit(NULL, NULL))
+    {
+        printf("%s",alutGetErrorString(alutGetError()));
+        return;
+    }
+    alGetError();
+    alutGetError();
 
+    g_buf = alutCreateBufferFromFile("testing.wav");
+
+    if (alutGetError() != ALUT_ERROR_NO_ERROR)
+     {
+         alDeleteBuffers(1, &g_buf);
+         alutExit();
+         return;
+     }
+
+     alGenSources(1, &g_src);
+
+     if(alGetError() != AL_NO_ERROR)
+     {
+         alDeleteBuffers(1, &g_buf);
+         alDeleteSources(1, &g_buf);
+         alutExit();
+         return;
+     }
+
+     alSourcei(g_src, AL_BUFFER, g_buf);
+
+     alSourcePlay(g_src);
+     alutSleep(4.0f);
+
+     alutExit();
+}
+void testSoundALClass()
+{
+    SoundAL sn;
+    sn.init();
+
+    int m_i = sn.loadSound("testing.wav", 1);
+    sn.play(m_i);
+
+    alutSleep(4.0f);
+
+    sn.exit();
+}
 int main(int argc, char* args[])
 {
+
+    testOpenAL();
+    testSoundALClass();
+
     game.executa(argc, args);
     return 0;
 }
@@ -255,6 +311,8 @@ void GameManager::executa(int argc, char* args[])
     glutSpecialUpFunc(teclasEspeciaisSoltar);
     glutMotionFunc(moveMouse);
     glutMouseFunc(mouseButton);
+
+    atexit(cleanup);
 
     glutIgnoreKeyRepeat(0);
     //Entra no loop de processamento de eventos

@@ -16,6 +16,10 @@ Player::Player()
     showWired = true;
     score = 0;
 }
+
+Player::~Player()
+{
+}
 void Player::ajustaCamera()
 {
     Camera::CameraControl.loop(); //Ajusta timer.

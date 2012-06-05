@@ -5,7 +5,7 @@
 //==============================================================================
 #ifndef _GAME_MANAGER_H_
 #define _GAME_MANAGER_H_
-
+#include <stdlib.h>
 #include "defines.h"
 #include "camera.h"
 #include "framerate.h"
@@ -15,15 +15,19 @@
 #include "player.h"
 #include "minimap.h"
 #include "button.h"
-
+#include "soundAL.h"
 #include "textureloader.h"
+
+///Nota: cleanup no .cpp, chamado por atExit() do stdlib
 class GameManager
 {
     private:
         void inicializa(void);
         void inicializaRender(void);
         void loop(void);
-        void cleanup(void);
+
+        //SoundController... Controla o som
+        SoundAL sc;
     public:
         ~GameManager();
         void render(void);

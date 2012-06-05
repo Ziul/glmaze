@@ -9,7 +9,7 @@
 			<Target title="Debug">
 				<Option output="Projeto - Labirinto" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-Os" />
@@ -56,6 +56,8 @@
 		<Unit filename="notas.txt" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
+		<Unit filename="soundAL.cpp" />
+		<Unit filename="soundAL.h" />
 		<Unit filename="text.cpp" />
 		<Unit filename="text.h" />
 		<Unit filename="textureloader.cpp" />
