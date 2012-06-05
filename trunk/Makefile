@@ -7,12 +7,12 @@ CFLAGS =$(GLFLAGS) -I./ -O3 -Os -g $(PROBLENS)
 PROBLENS=-Wall -pedantic -fpermissive
 UNAME = $(shell uname)
 ifeq ($(UNAME),Linux) # Linux OS
-	GLFLAGS = -lglut -lglui -lGLU -lGL 
+	GLFLAGS = -lglut -lglui -lGLU -lGL -lalut  -lopenal
 	else
 	ifeq ($(UNAME),Darwin) # MAC OS X
 		GLFLAGS = -framework OpenGL -framework GLUT
 	else #Windows
-		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee
+		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee -lalut
 	endif
 endif
 

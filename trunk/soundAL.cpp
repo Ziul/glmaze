@@ -1,4 +1,4 @@
-#include "soundal.h"
+#include "soundAL.h"
 
 SoundAL::buf SoundAL::buffer[BUFFER_SIZE_AL];
 SoundAL::src SoundAL::source[SOURCE_SIZE_AL];
