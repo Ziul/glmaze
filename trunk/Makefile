@@ -34,3 +34,10 @@ check:
 	echo "Nothing to be check."
 	
 .SILENT:
+
+#Obs
+#
+#	Bibliotecas incluidas:
+#
+#	alut-dev
+#	openal-dev
