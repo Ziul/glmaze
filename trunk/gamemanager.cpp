@@ -218,7 +218,7 @@ void GameManager::render(void)
 }
 
 //Quanda chamado cleanup durante o destructor ocorre falha de
-//segmentação somente no delete Entidade
+//segmentacao somente no delete Entidade
 GameManager::~GameManager()
 {
 }

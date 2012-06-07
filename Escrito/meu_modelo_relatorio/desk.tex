@@ -43,25 +43,102 @@ Visando isso, foi feito um arquivo \textit{makefile} que procede com teste semel
 \begin{lstlisting}[language=make,title=\textit{Makefile},firstnumber=8,numbers=none]
 UNAME = $(shell uname)
 ifeq ($(UNAME),Linux) # Linux OS
-	GLFLAGS = -lglut -lglui -lGLU -lGL 
+	GLFLAGS = -lglut -lglui -lGLU -lGL -lalut -lopenal
 	else
 	ifeq ($(UNAME),Darwin) # MAC OS X
 		GLFLAGS = -framework OpenGL -framework GLUT
 	else #Windows
-		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee
+		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee -lalut
 	endif
 endif
 \end{lstlisting}
 
+É valido aproveitar a oportunidade para frisar no trecho mostrado acima do \textit{makefile} a inclusão das flags \textit{-lalut -lopenal} para inclusão de áudio no programa.
+
+\subsubsection{Execução}\label{exe}
+
+\paragraph{\textbf{Windows}}
+
+O programa foi desenvolvido com auxilio da IDE \textit{CodeBlocks}\footnote{Acesse \url{http://www.codeblocks.org/} para maiores informações sobre a IDE.}. Assim, para gerar o executável na plataforma, basta abrir o arquivo \textit{Projeto - Labirinto.cbp} no \textit{CodeBlocks} e mandar compilar/construir o projeto. Na própria IDE haverá meios de executar o arquivo de saída, porém na pasta do projeto será possível localizar também o arquivo \textit{*.exe}.
+
+\paragraph{\textbf{Linux}}
+
+Para se construir o programa na plataforma Linux, é necessário ter algumas bibliotecas instaladas no sistema. Dentre elas é valido destacar as do OpenGL e de áudio (\textit{Alut} e \textit{Openal}). Na pasta onde se encontra os arquivos fontes, é possível localizar o arquivo \textit{makefile}. No terminal, basta executar o comando \textbf{make run} no diretorio contendo o arquivo \textit{makefile} para compilar os arquivos e inicializar o programa corretamente. Caso alguma das bibliotecas necessárias não estejam instaladas, será observado a lista de \textit{warnings/errors}, orientando qual biblioteca deve de ser instalada. É valido lembrar que para instalar as bibliotecas para este fim na plataforma Linux, deve-se buscar pelos nomes com o sufixo \textit{-dev}, garantindo assim que serão instalados os arquivos necessários. A compilação será feita de forma silenciosa e se não tiver problemas, apresentará uma saída semelhante a:
+
+\begin{lstlisting}[language=bash,title=\textit{Saída do terminal - Linux},numbers=none]
+$ make run
+System: Linux OS
+compiling...ok
+Running...
+\end{lstlisting}
+
+\paragraph{\textbf{Mac OS}}
+
+Semelhante aos passos no sistema Linux, o usuário terá que executar o comando \textbf{make run} no diretorio contendo o arquivo \textit{makefile} para compilar os arquivos e inicializar o programa corretamente. Se a compilação ocorrer corretamente, a saída deverá ser semelhante a:
+
+\begin{lstlisting}[language=bash,title=\textit{Saída do terminal - Mac OS},numbers=none]
+$ make run
+System: Darwin
+compiling...ok
+Running...
+\end{lstlisting}
+
+
+\subsubsection{Artefatos}\label{artefatos}
+
+\paragraph{\textbf{Arquivos}}
+
+Arquivos utilizados na construção do programa\footnote{Atualizado em 7 de Junho de 2012}:\\
+
+\begin{itemize}
+	\item button.cpp
+	\item camera.h
+	\item entidade.cpp
+	\item eventos.h 
+	\item gamemanager.cpp  
+	\item map.h        
+	\item minimap.h   
+	\item soundAL.cpp  
+	\item text.h             
+	\item tile.cpp   
+	\item vetor.h
+	\item button.h    
+	\item defines.cpp  
+	\item entidade.h    
+	\item framerate.cpp  
+	\item gamemanager.h    
+	\item maze.h       
+	\item player.cpp  
+	\item soundAL.h    
+	\item textureloader.cpp  
+	\item tile.h
+	\item camera.cpp  
+	\item defines.h    
+	\item eventos.cpp   
+	\item framerate.h    
+	\item map.cpp          
+	\item minimap.cpp  
+	\item player.h    
+	\item text.cpp     
+	\item textureloader.h    
+	\item vetor3d.h
+\end{itemize}
+
+\paragraph{\textbf{README}}
+
+O arquivo README pode ser localizado dentre os arquivos fontes, em \ref{README}.
+
+\subsubsection{Problemas Técnicos}\label{problens}
+
+No decorrer da construção do programa a maior dificuldade foi ...
+
+\textbf{TODO :\\ VERIFICAR ISSO}
 
 %-----------------------------------------------------------------------------------------------------------------
+\textbf{SEGUNDO a professora:\\}
 Na seção desenvolvimento deve ser respondidas as seguintes perguntas:
  
 	\begin{itemize}
-		\item Estrutura do Programa: Qual a estruturação/arquitetura do Programa?
-	 	\item Qual é o procedimento para a execução do programa? 
-	 	\item Quais artefatos são necessários para a execução do programa?
-	 	\item Quais os problemas técnicos enfrentados no desenvolvimento do programa?
 	 	\item Como os pontos relacionados à disciplina foram abordados no problema? Quais as lições aprendidas? Quais as principais dificuldades?
 	 	\item Quais elementos teóricos abordado na disciplina foram implementados no programa?
 	 	\item Quais adaptações, extensões, bibliotecas externas, foram necessários para a solução do problema?

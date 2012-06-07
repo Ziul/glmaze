@@ -236,7 +236,7 @@ void Entidade::executaColisao()
     //Volta o que tinha movido.
     float fator = delta/1000.f;
     posicao = posicao - (velocidade * fator );
-    //Para, e vai na direção oposta
+    //Para, e vai na direcao oposta
     velocidade.x = 0;
     velocidade.z = 0;
     aceleracao.x = -aceleracao.x;

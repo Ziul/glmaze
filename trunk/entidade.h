@@ -1,23 +1,4 @@
-//==============================================================================
-/*
-    Classe que representa uma entidade fisica, isto e, desenhada na tela.
 
-    Utilizada para representar objetos e possivelmente inimigos, tiros.
-
-    Notas sobre flags:
-
-    Utilizar flags = ENTIDADE_TIPO_FISICA;
-    para adiciona flags |= ENTIDADE_TIPO_GHOST;
-
-    testar com if (flags & ENTIDADE_TIPO_GHOST)
-    if (flags ^ ENTIDADE_TIPO_GHOST) checa se NAO tem a flag
-
-
-    NOTA: Z positivo aumenta para direita da posição inicial. (lado menor do mapa)
-          X positivo aumenta para frente
-
-*/
-//==============================================================================
 #ifndef __ENTIDADE_H_
 #define __ENTIDADE_H_
 
@@ -26,7 +7,7 @@
 #include "defines.h"
 #include "map.h"
 #include "camera.h"
-//Lista de flags
+//List of flags
 enum
 {
     ENTIDADE_FLAG_NENHUM =      0,
@@ -62,7 +43,7 @@ class Entidade
         void setPosicao(float x, float y, float z);
         //Ex: int delta = getTicks() - deltaTicks;
         //Ex: posicao = posicao + (velocidade * (delta/1000.f ) );
-        int deltaTicks; //ticks da ultima vez que calculou o movimento
+        int deltaTicks; //ticks from last time that calculated the movement
         Vetor3D posicao;
         Vetor3D velocidade;
         Vetor3D aceleracao;
