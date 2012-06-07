@@ -48,7 +48,15 @@ extern GLuint floorTexture;
 //Menu
 extern bool menuPrincipal;
 extern int status;
-extern bool gameOver;
+
+//Sons
+extern int SOUND_main;
+extern int SOUND_inter1;
+extern int SOUND_inter2;
+extern int SOUND_inter3;
+extern int SFX_die;
+extern int SFX_eat;
+extern int SFX_eat2;
 
 #define STATUS_NORMAL 0
 #define STATUS_VITORIA 1

@@ -26,6 +26,7 @@ class GameManager
     private:
         void inicializa(void);
         void inicializaRender(void);
+        void inicializaSons(void);
         void loop(void);
 
         Entidade* enemy[MAX_ENEMY];

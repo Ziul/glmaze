@@ -7,6 +7,7 @@
 #include "defines.h"
 #include "map.h"
 #include "camera.h"
+#include "soundAL.h"
 //List of flags
 enum
 {

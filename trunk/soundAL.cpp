@@ -103,6 +103,12 @@ void SoundAL::stop(int src_i)
 {
     alSourceStop(source[src_i].source);
 }
+void SoundAL::stopAll()
+{
+    for(int i = 0; i < SOURCE_SIZE_AL; i++)
+        if(source[i].active)
+            alSourceStop(source[i].source);
+}
 
 int SoundAL::getUBuffer()
 {
@@ -120,4 +126,13 @@ int SoundAL::getUSource()
             return i;
 
     return -1;
+}
+
+bool SoundAL::isPlaying(int src_i)
+{
+    ALenum state;
+
+    alGetSourcei(source[src_i].source, AL_SOURCE_STATE, &state);
+
+    return (state == AL_PLAYING);
 }

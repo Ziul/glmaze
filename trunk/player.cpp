@@ -128,10 +128,15 @@ void Player::testaColisao()
         score += PONTOS_BOLA;
         tileBall->typeId = TILE_TIPO_CHAO;
         ///TOCA SOM!!!!
+        SoundAL sc;
+        sc.play(SFX_eat);
 
     } else if ((tileBall = isColisaoMapa(posicao, TILE_TIPO_CHAO_COM_BOLA_ESPECIAL)) ){
         score += PONTOS_BOLA_ESPECIAL;
         tileBall->typeId = TILE_TIPO_CHAO;
+        ///TOCA SOM!!!!
+        SoundAL sc;
+        sc.play(SFX_eat2);
     }
 
     //Executa
@@ -166,6 +171,11 @@ void Player::executaColisao()
     if (vidas <= 0) {
         menuPrincipal = true;
         status = STATUS_DERROTA;
+        SoundAL sc;
+        sc.stopAll();
+        sc.play(SFX_die);
+        alutSleep(2.0f);
+        sc.play(SOUND_inter1);
     }
 
 

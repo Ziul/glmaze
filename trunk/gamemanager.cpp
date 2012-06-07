@@ -8,6 +8,10 @@ void startButtonAction()
     menuPrincipal = false;
 
     game.resetPositions();
+
+    SoundAL sc;
+    sc.stopAll();
+    sc.play(SOUND_inter2);
 }
 void changeSize(int w, int h)
 {
@@ -60,6 +64,8 @@ void GameManager::inicializaRender(void)
 void GameManager::inicializa(void)
 {
     inicializaRender();
+    inicializaSons();
+
 //---------------------------
     //Especifica a cor de fundo
     glClearColor(0.3f,0.3f,0.9f,1.0f);
@@ -98,6 +104,24 @@ void GameManager::inicializa(void)
 
 }
 
+void GameManager::inicializaSons(void)
+{
+    sc.init();
+
+    SOUND_main = sc.loadSound("data/mus/main.wav", 1);
+    SOUND_inter1 = sc.loadSound("data/mus/M1.wav", 1);
+    SOUND_inter2 = sc.loadSound("data/mus/M2.wav", 1);
+    SOUND_inter3 = sc.loadSound("data/mus/M3.wav", 1);
+
+    SFX_die = sc.loadSound("data/sfx/die.wav", 0);
+    SFX_eat = sc.loadSound("data/sfx/eat.wav", 0);
+    SFX_eat2 = sc.loadSound("data/sfx/eat2.wav", 0);
+
+
+    sc.play(SOUND_inter1);
+
+
+}
 void GameManager::resetPositions(void)
 {
     printf("Entidade reset clenaup size: %d\n", Entidade::EntidadeList.size());
@@ -240,6 +264,7 @@ void GameManager::render(void)
 //segmentacao somente no delete Entidade
 GameManager::~GameManager()
 {
+    sc.exit();
 }
 void cleanup(void)
 {

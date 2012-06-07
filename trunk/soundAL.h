@@ -55,6 +55,9 @@ class SoundAL
         void play(int src_i);
         void pause(int src_i);
         void stop(int src_i);
+        void stopAll();
+
+        bool isPlaying(int src_i);
 /*
         void deleteBuffer(unsigned int b);
 
