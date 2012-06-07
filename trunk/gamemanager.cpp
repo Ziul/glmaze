@@ -224,10 +224,10 @@ GameManager::~GameManager()
 }
 void cleanup(void)
 {
-    printf("Entidade cleanup size: %d\n", Entidade::EntidadeList.size());
+    printf("Entidade cleanup size: %lu\n", Entidade::EntidadeList.size());
     for(unsigned int i = 0; i < Entidade::EntidadeList.size();i++)
         delete Entidade::EntidadeList[i];
-    printf("Button cleanup size: %d\n", Button::ButtonList.size());
+    printf("Button cleanup size: %lu\n", Button::ButtonList.size());
     for(unsigned int i = 0; i < Button::ButtonList.size(); i++)
         delete Button::ButtonList[i];
 }
