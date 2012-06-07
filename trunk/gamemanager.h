@@ -18,6 +18,8 @@
 #include "soundAL.h"
 #include "textureloader.h"
 
+#define MAX_ENEMY 5
+
 ///Nota: cleanup no .cpp, chamado por atExit() do stdlib
 class GameManager
 {
@@ -26,9 +28,12 @@ class GameManager
         void inicializaRender(void);
         void loop(void);
 
+        Entidade* enemy[MAX_ENEMY];
+
         //SoundController... Controla o som
         SoundAL sc;
     public:
+        void resetPositions(void);
         ~GameManager();
         void render(void);
         void executa(int argc, char* args[]);

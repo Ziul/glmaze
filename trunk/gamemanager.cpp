@@ -1,13 +1,13 @@
 #include "gamemanager.h"
 #include "eventos.h"
-
+#include <time.h>
 GameManager game;
 
 void startButtonAction()
 {
     menuPrincipal = false;
-    for(unsigned int i = 0;i < Entidade::EntidadeList.size(); i++)
-        Entidade::EntidadeList[i]->init();
+
+    game.resetPositions();
 }
 void changeSize(int w, int h)
 {
@@ -64,10 +64,6 @@ void GameManager::inicializa(void)
     //Especifica a cor de fundo
     glClearColor(0.3f,0.3f,0.9f,1.0f);
 
-
-
-
-
     GLfloat fog_color[4] = {0.0f,0.0f,0.0f,1.0};
     glFogfv(GL_FOG_COLOR, fog_color);
     glFogf(GL_FOG_DENSITY, 0.35f);
@@ -92,36 +88,44 @@ void GameManager::inicializa(void)
 
     Button::ButtonList.push_back(start);
 
-    //testes
-    Entidade* enemy1 = new Entidade();
-    Entidade* enemy2 = new Entidade();
+    for(unsigned int i = 0; i < MAX_ENEMY; i++) {
+        enemy[i] = new Entidade();
+        enemy[i]->addToEntidadeList();
+        enemy[i]->setTamanho(5);
+    }
 
-
-    enemy1->init();
-    enemy1->posicao.x = 12*4;
-    enemy1->posicao.y = 0;
-    enemy1->posicao.z = 12*1;
-
-    enemy1->aceleracao.x = 10.f;
-    enemy1->aceleracao.z = 0.2f;
-
-    enemy1->setTamanho(5);
-    enemy1->addToEntidadeList();
-    //
-    enemy2->init();
-    enemy2->posicao.x = 12*3;
-    enemy2->posicao.y = 0;
-    enemy2->posicao.z = 12*1;
-
-    enemy2->aceleracao.x = 15.f;
-    enemy2->aceleracao.z = 4.2f;
-
-    enemy2->setTamanho(5);
-    enemy2->addToEntidadeList();
-
-    Player::PlayerControl.init();
     Player::PlayerControl.addToEntidadeList();
 
+}
+
+void GameManager::resetPositions(void)
+{
+    printf("Entidade reset clenaup size: %d\n", Entidade::EntidadeList.size());
+
+    srand( time(NULL) );
+
+    for(int i = 0; i < MAX_ENEMY; i++) {
+        bool isOK = false;
+        while(!isOK) {
+            int posX = rand() % Map::MapControl.MAP_WIDTH;
+            int posZ = rand() % Map::MapControl.MAP_HEIGHT;
+
+            //Se a posição for diferente de parede, então chão.... coloca cubo
+            if (Map::MapControl.getTile(posX, posZ)->typeId != TILE_TIPO_PAREDE) {
+                enemy[i]->posicao.x = TAMANHO_BLOCO*posX;
+                enemy[i]->posicao.y = 0;
+                enemy[i]->posicao.z = TAMANHO_BLOCO*posZ;
+                //0 a 10
+                enemy[i]->aceleracao.x = rand() % 11;
+                enemy[i]->aceleracao.z = rand() % 11;
+                enemy[i]->init();
+                isOK = true;
+            }
+        }
+    }
+
+    Player::PlayerControl.init();
+    Player::PlayerControl.resetPosition();
 }
 void desenhaTela(void)
 {
@@ -164,6 +168,20 @@ void GameManager::render(void)
             Button::ButtonList[i]->render();
 
         txt::renderText2dOrtho(30,150,8,"Aperte o grande quadrado branco para comecar!!!");
+
+        switch(status)
+        {
+            case STATUS_DERROTA:
+                txt::renderText2dOrtho(50,130,8,"Derrota!!!");
+                break;
+            case STATUS_NORMAL:
+                txt::renderText2dOrtho(50,130,8,"Novo jogo!!!");
+                break;
+            case STATUS_VITORIA:
+                txt::renderText2dOrtho(50,130,8,"Vitoria!!!");
+                break;
+                default:;
+        }
 
         return; /// IGNORA ABAIXO
     }
@@ -217,6 +235,7 @@ void GameManager::render(void)
 
 }
 
+
 //Quanda chamado cleanup durante o destructor ocorre falha de
 //segmentacao somente no delete Entidade
 GameManager::~GameManager()
@@ -224,10 +243,10 @@ GameManager::~GameManager()
 }
 void cleanup(void)
 {
-    printf("Entidade cleanup size: %lu\n", Entidade::EntidadeList.size());
+    printf("Entidade cleanup size: %u\n", Entidade::EntidadeList.size());
     for(unsigned int i = 0; i < Entidade::EntidadeList.size();i++)
         delete Entidade::EntidadeList[i];
-    printf("Button cleanup size: %lu\n", Button::ButtonList.size());
+    printf("Button cleanup size: %u\n", Button::ButtonList.size());
     for(unsigned int i = 0; i < Button::ButtonList.size(); i++)
         delete Button::ButtonList[i];
 }
@@ -285,8 +304,8 @@ void testSoundALClass()
 int main(int argc, char* args[])
 {
 
-    testOpenAL();
-    testSoundALClass();
+    //testOpenAL();
+    //testSoundALClass();
 
     game.executa(argc, args);
     return 0;

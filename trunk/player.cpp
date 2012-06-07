@@ -6,8 +6,13 @@ Player Player::PlayerControl;
 Player::Player()
 {
     Entidade();
+    resetPosition();
 
-
+}
+void Player::resetPosition()
+{
+    Camera::CameraControl.reset();
+    lastVida = 0;
 
     setTamanho(5);
     posicao.x = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (tamanho.x/2);
@@ -15,6 +20,7 @@ Player::Player()
     posicao.z = ((TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2) - (tamanho.z/2);
     showWired = true;
     score = 0;
+    vidas = 1;
 }
 
 Player::~Player()
@@ -134,6 +140,7 @@ void Player::testaColisao()
 void Player::renderScore()
 {
    txt::renderText2dOrtho(wScreen -100, 10,0,"Pontos:%d",score);
+   txt::renderText2dOrtho(wScreen -160, 10,0,"Vidas:%d",vidas);
 }
 void Player::render()
 {
@@ -147,5 +154,20 @@ void Player::executaColisao()
     Camera::CameraControl.calculaMovimento(-Camera::CameraControl.deltaMove);
     Camera::CameraControl.calculaMovimentoLateral(-Camera::CameraControl.deltaMoveLado);
     setPosicao(Camera::CameraControl.cameraX-(tamanho.x/2), Camera::CameraControl.cameraY-(tamanho.x/2), Camera::CameraControl.cameraZ-(tamanho.x/2));
+
+
+
+    //se tiver passado 1.5 segundos desde a ultima vez que tomou dano.
+    if ( (glutGet(GLUT_ELAPSED_TIME) - lastVida ) > 1500 ) {
+        vidas--;
+        lastVida = glutGet(GLUT_ELAPSED_TIME);
+    }
+
+    if (vidas <= 0) {
+        menuPrincipal = true;
+        status = STATUS_DERROTA;
+    }
+
+
     entidadeColidida.clear();
 }

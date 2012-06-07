@@ -40,7 +40,38 @@ Camera::Camera()
 
 void Camera::reset()
 {
-    Camera();
+    angleX = 90.0f;
+    angleY = 0.0f;
+    angleOffsetX = angleOffsetY = 0;
+
+    lookX = 0.5f;
+    lookY = 0.0f;
+    lookZ = -1.0f;
+
+    cameraX = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
+    cameraY = 5.0f;
+    cameraZ = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
+    //testes
+
+    //testes
+    deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotacao da direcao horizontal e vertical
+
+    deltaMouseX = deltaMouseY = 0.0f;
+
+    deltaMove = deltaMoveLado = 0.0f;
+
+
+    velocidadeMoveAndar = CAMERA_ANDA;
+    velocidadeMoveCorre = CAMERA_CORRE;
+    velocidadeMove = velocidadeMoveAndar;
+    velocidadeVira = 45.f;
+    velocidadeViraMouse = 0.1f;
+
+    xOrigem = -1;
+    yOrigem = -1;
+    ticks = 0;
+
+    calculaDirecao();
     ticks = glutGet(GLUT_ELAPSED_TIME);
 }
 

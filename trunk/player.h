@@ -33,6 +33,7 @@ class Player : public Entidade {
         void setAndar(void);
 
         //Virtuais
+        void resetPosition();
         void loop();
         void testaColisao();
         void executaColisao();
@@ -41,6 +42,8 @@ class Player : public Entidade {
 
         int score;
         void renderScore();
+        int vidas;
+        unsigned int lastVida;
 
     public:
         static Player PlayerControl;

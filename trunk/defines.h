@@ -47,6 +47,12 @@ extern GLuint wallTexture;
 extern GLuint floorTexture;
 //Menu
 extern bool menuPrincipal;
+extern int status;
+extern bool gameOver;
+
+#define STATUS_NORMAL 0
+#define STATUS_VITORIA 1
+#define STATUS_DERROTA 2
 
 
 
