@@ -32,6 +32,10 @@ class Player : public Entidade {
         void setCorrer(void);
         void setAndar(void);
 
+        //Condicoes
+        void verificaVitoria();
+        void verificaDerrota();
+
         //Virtuais
         void resetPosition();
         void loop();

@@ -116,6 +116,7 @@ void Player::loop()
     //deltaTicks = glutGet(GLUT_ELAPSED_TIME);
     //testaColisao();
     ajustaCamera();
+    verificaVitoria();
 
 }
 void Player::testaColisao()
@@ -161,12 +162,39 @@ void Player::executaColisao()
     setPosicao(Camera::CameraControl.cameraX-(tamanho.x/2), Camera::CameraControl.cameraY-(tamanho.x/2), Camera::CameraControl.cameraZ-(tamanho.x/2));
 
 
+    verificaDerrota();
 
+
+
+
+    entidadeColidida.clear();
+}
+
+void Player::verificaVitoria(){
+    int bolas = 0;
+    for(int iy = 0; iy < Map::MapControl.MAP_HEIGHT;iy++)
+        for(int ix = 0; ix < Map::MapControl.MAP_WIDTH;ix++) {
+            if (Map::MapControl.getTile(ix,iy)->typeId == TILE_TIPO_CHAO_COM_BOLA)
+                bolas++;
+        }
+
+    if (bolas <= 0) {
+        menuPrincipal = true;
+        status = STATUS_VITORIA;
+        SoundAL sc;
+        sc.stopAll();
+        sc.play(SOUND_inter3);
+        alutSleep(4.0f);
+        sc.stopAll();
+    }
+}
+void Player::verificaDerrota(){
     //se tiver passado 1.5 segundos desde a ultima vez que tomou dano.
     if ( (glutGet(GLUT_ELAPSED_TIME) - lastVida ) > 1500 ) {
         vidas--;
         lastVida = glutGet(GLUT_ELAPSED_TIME);
     }
+
 
     if (vidas <= 0) {
         menuPrincipal = true;
@@ -177,7 +205,4 @@ void Player::executaColisao()
         alutSleep(2.0f);
         sc.play(SOUND_inter1);
     }
-
-
-    entidadeColidida.clear();
 }

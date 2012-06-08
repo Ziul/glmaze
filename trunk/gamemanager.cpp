@@ -80,8 +80,6 @@ void GameManager::inicializa(void)
     glFogf(GL_FOG_END, TAMANHO_BLOCO*10.0f);
     glEnable(GL_FOG);
 
-    Map::MapControl.load((char*) "map_pacman_new.txt");
-
     //Testes menu
     menuPrincipal = true;
 
@@ -124,7 +122,9 @@ void GameManager::inicializaSons(void)
 }
 void GameManager::resetPositions(void)
 {
-    printf("Entidade reset clenaup size: %d\n", Entidade::EntidadeList.size());
+    printf("Posicoes resetadas: %d\n", Entidade::EntidadeList.size());
+
+    Map::MapControl.load((char*) "map_pacman_new.txt");
 
     srand( time(NULL) );
 
@@ -264,6 +264,7 @@ void GameManager::render(void)
 //segmentacao somente no delete Entidade
 GameManager::~GameManager()
 {
+    sc.stopAll();
     sc.exit();
 }
 void cleanup(void)

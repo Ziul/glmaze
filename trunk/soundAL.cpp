@@ -50,6 +50,7 @@ int SoundAL::loadSound(const char filename[256], int loop)
         return -1;
 
 
+    printf("Som carregado: %s\n",filename);
 
     return src_index;
 }

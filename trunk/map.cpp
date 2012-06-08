@@ -278,6 +278,8 @@ int Map::load(char* filename)
 
 void Map::geraQuadradosOptimizados()
 {
+    listaTilesOptimizados.clear();
+
     for(int iY = 0; iY < MAP_HEIGHT; iY++)
     {
        for(int iX = 0; iX < MAP_WIDTH; iX++) //Testa todos os blocos a depois do atual em X
