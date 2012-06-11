@@ -1,13 +1,13 @@
 #include "player.h"
 
-Player Player::PlayerControl;
+Player* Player::PlayerControl;
 
 //Chame init() para inicializar e colocá-lo na lista
 Player::Player()
 {
     Entidade();
     resetPosition();
-
+    flags = ENTIDADE_FLAG_PLAYER_NORMAL;
 }
 void Player::resetPosition()
 {
@@ -138,11 +138,14 @@ void Player::testaColisao()
         ///TOCA SOM!!!!
         SoundAL sc;
         sc.play(SFX_eat2);
+        //ativa especial
+        attack_mode = 1;
     }
 
     //Executa
 
 }
+
 void Player::renderScore()
 {
    txt::renderText2dOrtho(wScreen -100, 10,0,"Pontos:%d",score);
@@ -157,12 +160,17 @@ void Player::executaColisao()
 {
     if (!isColidido())
         return;
-    Camera::CameraControl.calculaMovimento(-Camera::CameraControl.deltaMove);
-    Camera::CameraControl.calculaMovimentoLateral(-Camera::CameraControl.deltaMoveLado);
-    setPosicao(Camera::CameraControl.cameraX-(tamanho.x/2), Camera::CameraControl.cameraY-(tamanho.x/2), Camera::CameraControl.cameraZ-(tamanho.x/2));
 
+    //so reajusta posicao e verifica derrota se nao estiver com o efeito do especial
+    if (entidadeColidida[0]->flags == ENTIDADE_FLAG_NENHUM)
+    {
+        Camera::CameraControl.calculaMovimento(-Camera::CameraControl.deltaMove);
+        Camera::CameraControl.calculaMovimentoLateral(-Camera::CameraControl.deltaMoveLado);
+        setPosicao(Camera::CameraControl.cameraX-(tamanho.x/2), Camera::CameraControl.cameraY-(tamanho.x/2), Camera::CameraControl.cameraZ-(tamanho.x/2));
 
-    verificaDerrota();
+        verificaDerrota();
+    }
+
 
 
 
@@ -186,6 +194,14 @@ void Player::verificaVitoria(){
         sc.play(SOUND_inter3);
         alutSleep(4.0f);
         sc.stopAll();
+
+        //Reseta especial
+        attack_mode = 0;
+        for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+        {
+            Entidade::EntidadeList[i]->flags = ENTIDADE_FLAG_NENHUM;
+        }
+        Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_NORMAL; // reseta a flag player
     }
 }
 void Player::verificaDerrota(){
@@ -204,5 +220,13 @@ void Player::verificaDerrota(){
         sc.play(SFX_die);
         alutSleep(2.0f);
         sc.play(SOUND_inter1);
+
+        //Reseta especial
+        attack_mode = 0;
+        for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+        {
+            Entidade::EntidadeList[i]->flags = ENTIDADE_FLAG_NENHUM;
+        }
+        Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_NORMAL; // reseta a flag player
     }
 }

@@ -50,7 +50,7 @@ class Player : public Entidade {
         unsigned int lastVida;
 
     public:
-        static Player PlayerControl;
+        static Player* PlayerControl;
 
 };
 

@@ -8,15 +8,16 @@
 #include "map.h"
 #include "camera.h"
 #include "soundAL.h"
-//List of flags
+
 enum
 {
-    ENTIDADE_FLAG_NENHUM =      0,
-    ENTIDADE_FLAG_GRAVIDADE =   0x00000001,
-    ENTIDADE_FLAG_GHOST =       0x00000002,
-    ENTIDADE_FLAG_GHOST_MAP =   0x00000004,
-    ENTIDADE_FLAG_TIRO =        0x00000008,
-    ENTIDADE_FLAG_PORTA =       0x00000016
+    ENTIDADE_FLAG_NENHUM            =   0,
+    ENTIDADE_FLAG_ESPECIAL          =   0x00000001,
+    ENTIDADE_FLAG_PLAYER_NORMAL     =   0x00000002,
+    ENTIDADE_FLAG_PLAYER_ESPECIAL   =   0x00000004,
+    ENTIDADE_FLAG_RESPAWN           =   0x00000008,
+        //nao utilizado
+    ENTIDADE_FLAG_PORTA             =   0x00000016
 };
 
 
@@ -31,6 +32,9 @@ class Entidade
         bool isColidido();
         bool visible;
         bool dead;
+
+        float r,g,b;
+
         int delta;
         std::vector<Entidade*> entidadeColidida;
 
@@ -39,12 +43,16 @@ class Entidade
 
     public:
         void addToEntidadeList();
+        void setRandomPosition();
+        void setColor3f(float fr, float fg, float fb);
+        float getColor(int rgb_i);
         Tile* isColisaoMapa(Vetor3D newPosicao, int type = TILE_TIPO_PAREDE);
         void setColisao(Entidade* ent);
         void setPosicao(float x, float y, float z);
         //Ex: int delta = getTicks() - deltaTicks;
         //Ex: posicao = posicao + (velocidade * (delta/1000.f ) );
-        int deltaTicks; //ticks from last time that calculated the movement
+        unsigned int deltaTicks; //ticks da ultima vez que calculou o movimento
+        unsigned int respawnTicks;// ticks de quando morreu
         Vetor3D posicao;
         Vetor3D velocidade;
         Vetor3D aceleracao;

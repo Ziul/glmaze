@@ -63,17 +63,24 @@ namespace MiniMap
     float tamanhoEntidadeY = float(TAMANHO_INIMIGO)*fator;
     //Desenha inimigos e jogador
     for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++) {
+
+        //se entidade nao visivel... ignora
+        if (Entidade::EntidadeList[i]->isVisible() == false)
+            continue;
+
         tamanhoEntidadeX = Entidade::EntidadeList[i]->tamanho.x * fator;
         tamanhoEntidadeY = Entidade::EntidadeList[i]->tamanho.z * fator;
 
         glPushMatrix();
-            glColor4f(1.0f,0.0f,5.0f,1.0f);
+            glColor4f(Entidade::EntidadeList[i]->getColor(1),
+                      Entidade::EntidadeList[i]->getColor(2),
+                      Entidade::EntidadeList[i]->getColor(3), 1.0f);
                         //Inicio do mapa, posicao fatorada no mapa da entidade
             glTranslatef(posXInit + Entidade::EntidadeList[i]->posicao.x*fator,
                          posYInit + Entidade::EntidadeList[i]->posicao.z*fator, 0.0f);
 
             //Se for o jogador
-            if(Entidade::EntidadeList[i] == &Player::PlayerControl){
+            if(Entidade::EntidadeList[i] == Player::PlayerControl){
                 glColor4f(1.0f,1.0f,1.0f,1.0f);
                 glBegin(GL_QUADS);
                     glVertex2f(-1.0f, -1.0f);

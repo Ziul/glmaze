@@ -5,7 +5,7 @@
 //==============================================================================
 #ifndef _GAME_MANAGER_H_
 #define _GAME_MANAGER_H_
-#include <stdlib.h>
+#include <cstdlib>
 #include "defines.h"
 #include "camera.h"
 #include "framerate.h"
@@ -33,6 +33,8 @@ class GameManager
 
         //SoundController... Controla o som
         SoundAL sc;
+
+        unsigned int ticksAttack;
     public:
         void resetPositions(void);
         ~GameManager();

@@ -24,6 +24,9 @@ Entidade::Entidade()
     dead = false;
     showWired = false;
 
+    r = 1.0f;
+    g = b = 0.0f;
+
     maxVelocidade.x = maxVelocidade.y = maxVelocidade.z = 50.f;
     entidadeColidida.clear();
 
@@ -38,7 +41,6 @@ Entidade::~Entidade()
 }
 void Entidade::cleanup()
 {
-    //removeFromEntidadeList();
 }
 bool Entidade::isColisaoObjeto(Entidade* objeto)
 {
@@ -128,13 +130,19 @@ bool Entidade::carregaModelo(char* file){return true;}
 //==============================================================================
 void Entidade::loop()
 {
+    //passou 3 segundos do respawn
+    if ( (flags == ENTIDADE_FLAG_RESPAWN) && ( (glutGet(GLUT_ELAPSED_TIME) - respawnTicks) > 3000) )
+    {
+        dead = false;
+        visible = true;
+        setRandomPosition();
+        flags = ENTIDADE_FLAG_NENHUM;
+    }
+
     if(dead) return;
     //deltaTicks reseta o render
     delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
     float fator = delta/1000.f;
-
-    if (flags & ENTIDADE_FLAG_GRAVIDADE)
-        aceleracao.y = -15.f;// sistemas de coordenadas do openGL -y baixo
 
     //Calcula aceleracoes
     if ( velocidade.x + aceleracao.x <= maxVelocidade.x)
@@ -174,10 +182,16 @@ void Entidade::loop()
 }
 void Entidade::render()
 {
+    if (!isVisible())
+        return;
+
     int tamanhoCubo = tamanho.x; //Temp, enquanto utilizar glutCube
     glPushMatrix();
     //Centraliza devido ao GLUT
-    glColor3f(1.0f, 0.0f, 0.0f);
+    if (flags == ENTIDADE_FLAG_ESPECIAL)
+        glColor3f( getColor(1), getColor(2), getColor(3) );
+    else
+        glColor3f(r,g,b);
     glTranslated(posicao.x+tamanho.x/2,
                  posicao.y+tamanho.y/2,
                  posicao.z+tamanho.z/2);
@@ -233,6 +247,8 @@ void Entidade::executaColisao()
     if ( !isColidido() )
         return; // sem colisoes
 
+
+
     //Volta o que tinha movido.
     float fator = delta/1000.f;
     posicao = posicao - (velocidade * fator );
@@ -242,7 +258,40 @@ void Entidade::executaColisao()
     aceleracao.x = -aceleracao.x;
     aceleracao.z = -aceleracao.z;
 
+    if ( (flags == ENTIDADE_FLAG_ESPECIAL) && (entidadeColidida[0]->flags == ENTIDADE_FLAG_PLAYER_ESPECIAL) )
+    {
+        flags = ENTIDADE_FLAG_RESPAWN;
+        respawnTicks = glutGet(GLUT_ELAPSED_TIME);
+        dead = true;
+        visible = false;
+        SoundAL sc;
+        sc.play(SFX_eat2);
+    }
+
     entidadeColidida.clear();
+}
+
+void Entidade::setRandomPosition()
+{
+    bool isOK = false;
+        while(!isOK) {
+            int posX = rand() % Map::MapControl.MAP_WIDTH;
+            int posZ = rand() % Map::MapControl.MAP_HEIGHT;
+
+            //Se a posição for diferente de parede, então chão.... coloca cubo
+            if (Map::MapControl.getTile(posX, posZ)->typeId != TILE_TIPO_PAREDE) {
+                //nota (TAMANHO_BLOCO/2 - tamanho.x/2)  serve para achar o meio do chao
+                posicao.x = (TAMANHO_BLOCO/2 - tamanho.x/2) + TAMANHO_BLOCO*posX;
+                posicao.y = 0;
+                posicao.z = (TAMANHO_BLOCO/2 - tamanho.z/2) + TAMANHO_BLOCO*posZ;
+                //1 a 10
+                aceleracao.x = 1 + rand() % 10;
+                aceleracao.z = 1 + rand() % 10;
+                init();
+                isOK = true;
+                ///Possivel adicionar verificacao se a entidade nao ficou no mesmo lugar usando isColisao e clear() da lista de colisoes
+            }
+        }
 }
 
 bool Entidade::isVisible()
@@ -258,4 +307,33 @@ void Entidade::setPosicao(float x, float y, float z)
     posicao.x = x;
     posicao.y = y;
     posicao.z = z;
+}
+void Entidade::setColor3f(float fr, float fg, float fb)
+{
+    r = fr;
+    g = fg;
+    b = fb;
+}
+float Entidade::getColor(int rgb_i)
+{
+    float color = 0.0f;
+    switch(rgb_i)
+    {
+        case 1:
+            color = r;
+            if (flags == ENTIDADE_FLAG_ESPECIAL)
+                color -= 0.55f;
+            break;
+        case 2:
+            color = g;
+            if (flags == ENTIDADE_FLAG_ESPECIAL)
+                color += 1;
+            break;
+        case 3:
+            color = b;
+            if (flags == ENTIDADE_FLAG_ESPECIAL)
+                color += 0.95f;
+            break;
+    }
+    return color;
 }

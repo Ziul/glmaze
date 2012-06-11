@@ -98,7 +98,8 @@ void GameManager::inicializa(void)
         enemy[i]->setTamanho(5);
     }
 
-    Player::PlayerControl.addToEntidadeList();
+    Player::PlayerControl = new Player();
+    Player::PlayerControl->addToEntidadeList();
 
 }
 
@@ -110,10 +111,12 @@ void GameManager::inicializaSons(void)
     SOUND_inter1 = sc.loadSound("data/mus/M1.wav", 1);
     SOUND_inter2 = sc.loadSound("data/mus/M2.wav", 1);
     SOUND_inter3 = sc.loadSound("data/mus/M3.wav", 1);
+    SOUND_attack = sc.loadSound("data/mus/atk.wav", 1);
 
     SFX_die = sc.loadSound("data/sfx/die.wav", 0);
     SFX_eat = sc.loadSound("data/sfx/eat.wav", 0);
     SFX_eat2 = sc.loadSound("data/sfx/eat2.wav", 0);
+    SFX_alert = sc.loadSound("data/sfx/alert.wav", 0);
 
 
     sc.play(SOUND_inter1);
@@ -129,27 +132,11 @@ void GameManager::resetPositions(void)
     srand( time(NULL) );
 
     for(int i = 0; i < MAX_ENEMY; i++) {
-        bool isOK = false;
-        while(!isOK) {
-            int posX = rand() % Map::MapControl.MAP_WIDTH;
-            int posZ = rand() % Map::MapControl.MAP_HEIGHT;
-
-            //Se a posição for diferente de parede, então chão.... coloca cubo
-            if (Map::MapControl.getTile(posX, posZ)->typeId != TILE_TIPO_PAREDE) {
-                enemy[i]->posicao.x = TAMANHO_BLOCO*posX;
-                enemy[i]->posicao.y = 0;
-                enemy[i]->posicao.z = TAMANHO_BLOCO*posZ;
-                //0 a 10
-                enemy[i]->aceleracao.x = rand() % 11;
-                enemy[i]->aceleracao.z = rand() % 11;
-                enemy[i]->init();
-                isOK = true;
-            }
-        }
+        enemy[i]->setRandomPosition();
     }
 
-    Player::PlayerControl.init();
-    Player::PlayerControl.resetPosition();
+    Player::PlayerControl->init();
+    Player::PlayerControl->resetPosition();
 }
 void desenhaTela(void)
 {
@@ -175,6 +162,48 @@ void GameManager::loop(void)
     for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
     {
         Entidade::EntidadeList[i]->executaColisao();
+    }
+
+
+    //Verifica mudança de estados sobre a bola especial
+    if(attack_mode == 1) //notificou mudanca e toca musica
+    {
+        //Seta flag ESPECIAL ativa para todas as Entidades. Inclusive o player
+        for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+        {
+            Entidade::EntidadeList[i]->flags = ENTIDADE_FLAG_ESPECIAL;
+        }
+        Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_ESPECIAL; // reseta a flag player
+        ticksAttack = glutGet(GLUT_ELAPSED_TIME);
+        sc.stopAll();
+        sc.play(SFX_alert);
+        attack_mode = 2;
+    } else
+    if (attack_mode == 2)
+    {
+        //passados 3 segundos
+        if( (glutGet(GLUT_ELAPSED_TIME) - ticksAttack) > 3000 )
+        {
+            sc.stopAll();
+            sc.play(SOUND_attack);
+            attack_mode = 3;
+            ticksAttack = glutGet(GLUT_ELAPSED_TIME);
+        }
+    } else
+    if (attack_mode == 3)
+    {
+        //acabou o efeito da bola, 10 segundos + os 3 do sfx anterior
+        if( (glutGet(GLUT_ELAPSED_TIME) - ticksAttack) > 10000)
+        {
+            sc.stopAll();
+            sc.play(SOUND_inter2);
+            attack_mode = 0;
+            for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
+            {
+                Entidade::EntidadeList[i]->flags = ENTIDADE_FLAG_NENHUM;
+            }
+            Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_NORMAL; // reseta a flag player
+        }
     }
 
 }
@@ -269,12 +298,15 @@ GameManager::~GameManager()
 }
 void cleanup(void)
 {
-    printf("Entidade cleanup size: %u\n", Entidade::EntidadeList.size());
-    for(unsigned int i = 0; i < Entidade::EntidadeList.size();i++)
+    unsigned int sizeEnt = Entidade::EntidadeList.size();
+    unsigned int sizeBtn = Button::ButtonList.size();
+    printf("Entidade cleanup size: %u\n", sizeEnt);
+    for(unsigned int i = 0; i < sizeEnt; i++)
         delete Entidade::EntidadeList[i];
-    printf("Button cleanup size: %u\n", Button::ButtonList.size());
-    for(unsigned int i = 0; i < Button::ButtonList.size(); i++)
+    printf("Button cleanup size: %u\n", sizeBtn);
+    for(unsigned int i = 0; i < sizeBtn; i++)
         delete Button::ButtonList[i];
+    printf("EXIT\n");
 }
 void testOpenAL()
 {
