@@ -125,7 +125,7 @@ void GameManager::inicializaSons(void)
 }
 void GameManager::resetPositions(void)
 {
-    printf("Posicoes resetadas: %d\n", Entidade::EntidadeList.size());
+    printf("Posicoes resetadas: %lu\n", Entidade::EntidadeList.size());
 
     Map::MapControl.load((char*) "map_pacman_new.txt");
 
