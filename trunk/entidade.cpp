@@ -278,7 +278,7 @@ void Entidade::setRandomPosition()
             int posX = rand() % Map::MapControl.MAP_WIDTH;
             int posZ = rand() % Map::MapControl.MAP_HEIGHT;
 
-            //Se a posição for diferente de parede, então chão.... coloca cubo
+            //Se a posicao for diferente de parede, entao chao.... coloca cubo
             if (Map::MapControl.getTile(posX, posZ)->typeId != TILE_TIPO_PAREDE) {
                 //nota (TAMANHO_BLOCO/2 - tamanho.x/2)  serve para achar o meio do chao
                 posicao.x = (TAMANHO_BLOCO/2 - tamanho.x/2) + TAMANHO_BLOCO*posX;

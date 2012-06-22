@@ -165,7 +165,7 @@ void GameManager::loop(void)
     }
 
 
-    //Verifica mudança de estados sobre a bola especial
+    //Verifica mudanca de estados sobre a bola especial
     if(attack_mode == 1) //notificou mudanca e toca musica
     {
         //Seta flag ESPECIAL ativa para todas as Entidades. Inclusive o player
