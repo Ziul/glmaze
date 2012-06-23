@@ -16,11 +16,19 @@ ifeq ($(UNAME),Linux) # Linux OS
 	endif
 endif
 
-all:*.cpp
+all: 
+	if $(MAKE) compiling ;\
+	then \
+		echo "ok" ;\
+	else \
+		echo  "Error on compiling! Probably some package is missing"; \
+		$(MAKE) check;\
+	fi;
+
+compiling:*.cpp
 	echo "System: "$(UNAME) "OS"
 	echo -n "compiling..."
 	$(CC) *.cpp -o prog $(CFLAGS) 
-	echo "ok" 
 	
 clean:
 	echo "cleaning..."
@@ -31,7 +39,55 @@ run: all
 	./prog
 
 check:
-	echo "Nothing to be check."
+	echo "Checking if all dev packages are installed"
+#	OPENGL
+	echo -n "opengl "
+	if dpkg -l | grep -qi "opengl.*dev" ;\
+	then \
+		echo "[OK]";\
+	else \
+		echo "[MISSING!]" ;\
+	fi;
+#	OPENAL
+	echo -n "openal "
+	if dpkg -l | grep -qi "openal.*dev" ;\
+	then \
+		echo "[OK]";\
+	else \
+		echo "[MISSING!]" ;\
+	fi;
+#	GLUT
+	echo -n "glut "
+	if dpkg -l | grep -qi "glut.*dev" ;\
+	then \
+		echo "[OK]";\
+	else \
+		echo "[MISSING!]" ;\
+	fi;
+#	GLUI
+	echo -n "glui "
+	if dpkg -l | grep -qi "glui.*dev" ;\
+	then \
+		echo "[OK]";\
+	else \
+		echo "[MISSING!]" ;\
+	fi;
+#	ALUT
+	echo -n "alut "
+	if dpkg -l | grep -qi "alut.*dev" ;\
+	then \
+		echo "[OK]";\
+	else \
+		echo "[MISSING!]" ;\
+	fi;
+#	GLEE
+	echo -n "glee "
+	if dpkg -l | grep -qi "glee.*dev" ;\
+	then \
+		echo "[OK]";\
+	else \
+		echo "[MISSING!]" ;\
+	fi;
 	
 .SILENT:
 
@@ -41,3 +97,7 @@ check:
 #
 #	alut-dev
 #	openal-dev
+#
+#	Descobrindo pacotes instalados:
+# $ dpkg -l | grep alut
+
