@@ -37,6 +37,12 @@ clean:
 run: all
 	echo "Running..."
 	./prog
+	
+valgrind: *.cpp
+	$(CC) -g *.cpp -o prog $(GLFLAGS) 
+	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./prog -q
+	echo "Valgrind files available: (newer first)"
+	ls -t| egrep -i grind
 
 check:
 	echo "Checking if all dev packages are installed"
