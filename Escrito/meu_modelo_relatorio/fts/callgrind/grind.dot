@@ -1,0 +1,37 @@
+digraph "callgraph" {
+  F1a5de18 [label="(below main)\n829 932 865"];
+  F1fa5d08 [label="0x00000000053c08e0\n83 454 303"];
+  F1895008 [label="0x0000000000402a10\n829 935 215"];
+  F1a60258 [label="main\n829 922 145"];
+  F2317598 [label="(anonymous namespace)::auto_ar...\n98 673 696"];
+  F2318648 [label="texture::loadBMP(char const*)\n278 317 420"];
+  F2320448 [label="texture::loadTextureBMP(char c...\n305 533 780"];
+  F2368c68 [label="Map::renderTileOptimizado(unsi...\n293 426 780"];
+  F23820b8 [label="Map::renderBloco(float, float,...\n157 933 435"];
+  F23873d8 [label="Map::render()\n307 991 906"];
+  F239b8c8 [label="MiniMap::renderMiniMap()\n124 755 287"];
+  F23fedf8 [label="GameManager::inicializaRender(...\n305 537 904"];
+  F2402788 [label="desenhaTela()\n489 679 607"];
+  F2402f08 [label="GameManager::render()\n488 164 152"];
+  F240b098 [label="GameManager::inicializa()\n312 824 389"];
+  F240ecd8 [label="GameManager::executa(int, char...\n829 922 135"];
+  F2384428 [label="glutSolidSphere\n86 242 865"];
+  F2419778 [label="glutMainLoop\n503 035 577"];
+  F1895008 -> F1a5de18 [weight=3,label="829 932 865 (1x)"];
+  F1a5de18 -> F1a60258 [weight=3,label="829 922 145 (1x)"];
+  F1a60258 -> F240ecd8 [weight=3,label="829 922 135 (1x)"];
+  F2318648 -> F2317598 [weight=2,label="98 673 696 (8 970 336x)"];
+  F2320448 -> F2318648 [weight=2,label="278 317 420 (2x)"];
+  F2368c68 -> F23820b8 [weight=2,label="157 933 435 (8 782x)"];
+  F2368c68 -> F2384428 [weight=2,label="86 242 865 (3 412x)"];
+  F23820b8 -> F1fa5d08 [weight=2,label="83 454 303 (17 565x)"];
+  F23873d8 -> F2368c68 [weight=2,label="293 426 780 (12 966x)"];
+  F23fedf8 -> F2320448 [weight=2,label="305 533 780 (2x)"];
+  F2402788 -> F2402f08 [weight=2,label="488 164 152 (64x)"];
+  F2402f08 -> F23873d8 [weight=2,label="307 991 906 (16x)"];
+  F2402f08 -> F239b8c8 [weight=2,label="124 755 287 (16x)"];
+  F240b098 -> F23fedf8 [weight=2,label="305 537 904 (1x)"];
+  F240ecd8 -> F240b098 [weight=2,label="312 824 389 (1x)"];
+  F240ecd8 -> F2419778 [weight=2,label="503 035 577 (1x)"];
+  F2419778 -> F2402788 [weight=2,label="489 679 607 (63x)"];
+}

@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage[x11names, rgb]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+%
+%
+
+%
+
+%
+
+\begin{document}
+\pagestyle{empty}
+%
+%
+%
+
+\enlargethispage{100cm}
+% Start of code
+\begin{tikzpicture}[>=latex',line join=bevel,]
+%%
+\node (F2419778) at (492bp,727bp) [draw,ellipse] {glutMainLoop$\backslash$n503 035 577};
+  \node (F2317598) at (185bp,263bp) [draw,ellipse] {(anonymous namespace)::auto\_ar...$\backslash$n98 673 696};
+  \node (F2402f08) at (561bp,495bp) [draw,ellipse] {GameManager::render()$\backslash$n488 164 152};
+  \node (F23fedf8) at (224bp,611bp) [draw,ellipse] {GameManager::inicializaRender(...$\backslash$n305 537 904};
+  \node (F2320448) at (210bp,495bp) [draw,ellipse] {texture::loadTextureBMP(char c...$\backslash$n305 533 780};
+  \node (F23873d8) at (561bp,379bp) [draw,ellipse] {Map::render()$\backslash$n307 991 906};
+  \node (F239b8c8) at (795bp,379bp) [draw,ellipse] {MiniMap::renderMiniMap()$\backslash$n124 755 287};
+  \node (F240b098) at (237bp,727bp) [draw,ellipse] {GameManager::inicializa()$\backslash$n312 824 389};
+  \node (F1fa5d08) at (430bp,31bp) [draw,ellipse] {0x00000000053c08e0$\backslash$n83 454 303};
+  \node (F23820b8) at (430bp,147bp) [draw,ellipse] {Map::renderBloco(float, float,...$\backslash$n157 933 435};
+  \node (F2318648) at (189bp,379bp) [draw,ellipse] {texture::loadBMP(char const*)$\backslash$n278 317 420};
+  \node (F1a60258) at (332bp,959bp) [draw,ellipse] {main$\backslash$n829 922 145};
+  \node (F2368c68) at (565bp,263bp) [draw,ellipse] {Map::renderTileOptimizado(unsi...$\backslash$n293 426 780};
+  \node (F2384428) at (700bp,147bp) [draw,ellipse] {glutSolidSphere$\backslash$n86 242 865};
+  \node (F1895008) at (332bp,1191bp) [draw,ellipse] {0x0000000000402a10$\backslash$n829 935 215};
+  \node (F1a5de18) at (332bp,1075bp) [draw,ellipse] {(below main)$\backslash$n829 932 865};
+  \node (F240ecd8) at (332bp,843bp) [draw,ellipse] {GameManager::executa(int, char...$\backslash$n829 922 135};
+  \node (F2402788) at (523bp,611bp) [draw,ellipse] {desenhaTela()$\backslash$n489 679 607};
+  \draw [->] (F240b098) ..controls (232.02bp,682.52bp) and (230.24bp,666.67bp)  .. (F23fedf8);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (293.5bp,669bp) node {305 537 904 (1x)};
+  \draw [->] (F23fedf8) ..controls (218.63bp,566.52bp) and (216.72bp,550.67bp)  .. (F2320448);
+  \draw (279.5bp,553bp) node {305 533 780 (2x)};
+  \draw [->] (F2320448) ..controls (201.95bp,450.52bp) and (199.08bp,434.67bp)  .. (F2318648);
+  \draw (262.5bp,437bp) node {278 317 420 (2x)};
+  \draw [->] (F2318648) ..controls (187.47bp,334.52bp) and (186.92bp,318.67bp)  .. (F2317598);
+  \draw (276.5bp,321bp) node {98 673 696 (8 970 336x)};
+  \draw [->] (F1a60258) ..controls (332bp,914.52bp) and (332bp,898.67bp)  .. (F240ecd8);
+  \draw (393.5bp,901bp) node {829 922 135 (1x)};
+  \draw [->] (F2368c68) ..controls (512.3bp,217.72bp) and (491.46bp,199.81bp)  .. (F23820b8);
+  \draw (583bp,205bp) node {157 933 435 (8 782x)};
+  \draw [->] (F240ecd8) ..controls (398.34bp,807.33bp) and (408.68bp,800.75bp)  .. (418bp,794bp) .. controls (430.9bp,784.66bp) and (444.07bp,773.39bp)  .. (F2419778);
+  \draw (501.5bp,785bp) node {503 035 577 (1x)};
+  \draw [->] (F2402788) ..controls (537.55bp,566.58bp) and (542.87bp,550.36bp)  .. (F2402f08);
+  \draw (610bp,553bp) node {488 164 152 (64x)};
+  \draw [->] (F23873d8) ..controls (562.53bp,334.52bp) and (563.08bp,318.67bp)  .. (F2368c68);
+  \draw (644.5bp,321bp) node {293 426 780 (12 966x)};
+  \draw [->] (F2368c68) ..controls (646.22bp,228.71bp) and (655.87bp,221.87bp)  .. (664bp,214bp) .. controls (671.84bp,206.42bp) and (678.37bp,196.75bp)  .. (F2384428);
+  \draw (750.5bp,205bp) node {86 242 865 (3 412x)};
+  \draw [->] (F2419778) ..controls (503.92bp,682.39bp) and (508.21bp,666.36bp)  .. (F2402788);
+  \draw (576bp,669bp) node {489 679 607 (63x)};
+  \draw [->] (F2402f08) ..controls (658.89bp,463.46bp) and (679.01bp,455.2bp)  .. (697bp,446bp) .. controls (714.34bp,437.13bp) and (732.23bp,425.68bp)  .. (F239b8c8);
+  \draw (794bp,437bp) node {124 755 287 (16x)};
+  \draw [->] (F1895008) ..controls (332bp,1146.5bp) and (332bp,1130.7bp)  .. (F1a5de18);
+  \draw (393.5bp,1133bp) node {829 932 865 (1x)};
+  \draw [->] (F240ecd8) ..controls (295bp,797.82bp) and (280.83bp,780.52bp)  .. (F240b098);
+  \draw (352.5bp,785bp) node {312 824 389 (1x)};
+  \draw [->] (F1a5de18) ..controls (332bp,1030.5bp) and (332bp,1014.7bp)  .. (F1a60258);
+  \draw (393.5bp,1017bp) node {829 922 145 (1x)};
+  \draw [->] (F2402f08) ..controls (561bp,450.52bp) and (561bp,434.67bp)  .. (F23873d8);
+  \draw (627bp,437bp) node {307 991 906 (16x)};
+  \draw [->] (F23820b8) ..controls (430bp,102.52bp) and (430bp,86.669bp)  .. (F1fa5d08);
+  \draw (507bp,89bp) node {83 454 303 (17 565x)};
+%
+\end{tikzpicture}
+% End of code
+
+%
+\end{document}
+%
+
+
+
