@@ -108,9 +108,9 @@ void GameManager::inicializaSons(void)
     sc.init();
 
     SOUND_main = sc.loadSound("data/mus/main.wav", 1);
-    SOUND_inter1 = sc.loadSound("data/mus/M1.wav", 1);
-    SOUND_inter2 = sc.loadSound("data/mus/M2.wav", 1);
-    SOUND_inter3 = sc.loadSound("data/mus/M3.wav", 1);
+    SOUND_inter1 = sc.loadSound("data/mus/M1.WAV", 1);	//Linux & MAC are sensitive case 
+    SOUND_inter2 = sc.loadSound("data/mus/M2.WAV", 1);
+    SOUND_inter3 = sc.loadSound("data/mus/M3.WAV", 1);
     SOUND_attack = sc.loadSound("data/mus/atk.wav", 1);
 
     SFX_die = sc.loadSound("data/sfx/die.wav", 0);

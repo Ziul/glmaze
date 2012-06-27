@@ -28,9 +28,10 @@ int SoundAL::loadSound(const char filename[256], int loop)
 {
     int buf_value = alutCreateBufferFromFile(filename);
 
-    if (alutGetError() != ALUT_ERROR_NO_ERROR)
+	//if couldn't load the file
+	if(!buf_value)		
     {
-        printf("Erro ao carregar arquivo de som: %s", alutGetErrorString(alutGetError()));
+        printf("Erro ao carregar arquivo de som(%s): %s\n",filename, alutGetErrorString(alutGetError()));
         return -1;
     }
 
@@ -45,7 +46,7 @@ int SoundAL::loadSound(const char filename[256], int loop)
 
     int src_index = createSource(buf_index);
 
-    //Erro ao carregar source, printf na funcão createSource
+    //Erro ao carregar source, printf na funcao createSource
     if (src_index == -1)
         return -1;
 
