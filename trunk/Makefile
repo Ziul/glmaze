@@ -6,13 +6,17 @@ CFLAGS =$(GLFLAGS) -I./ -O3 -Os -g $(PROBLENS)
 
 PROBLENS=-Wall -pedantic -fpermissive
 UNAME = $(shell uname)
+
 ifeq ($(UNAME),Linux) # Linux OS
 	GLFLAGS = -lglut -lglui -lGLU -lGL -lalut  -lopenal
+	SEARCH = dpkg -l
 	else
 	ifeq ($(UNAME),Darwin) # MAC OS X
 		GLFLAGS = -framework OpenGL -framework GLUT
+		SEARCH = pkgutil --pkgs
 	else #Windows
 		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee -lalut
+		SEARCH=
 	endif
 endif
 
@@ -48,7 +52,7 @@ check:
 	echo "Checking if all dev packages are installed"
 #	OPENGL
 	echo -n "opengl "
-	if dpkg -l | grep -qi "opengl.*dev" ;\
+	if $(SEARCH) | grep -qi "opengl.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
@@ -56,7 +60,7 @@ check:
 	fi;
 #	OPENAL
 	echo -n "openal "
-	if dpkg -l | grep -qi "openal.*dev" ;\
+	if $(SEARCH) | grep -qi "openal.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
@@ -64,7 +68,7 @@ check:
 	fi;
 #	GLUT
 	echo -n "glut "
-	if dpkg -l | grep -qi "glut.*dev" ;\
+	if $(SEARCH) | grep -qi "glut.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
@@ -72,7 +76,7 @@ check:
 	fi;
 #	GLUI
 	echo -n "glui "
-	if dpkg -l | grep -qi "glui.*dev" ;\
+	if $(SEARCH) | grep -qi "glui.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
@@ -80,7 +84,7 @@ check:
 	fi;
 #	ALUT
 	echo -n "alut "
-	if dpkg -l | grep -qi "alut.*dev" ;\
+	if $(SEARCH) | grep -qi "alut.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
@@ -88,7 +92,7 @@ check:
 	fi;
 #	GLEE
 	echo -n "glee "
-	if dpkg -l | grep -qi "glee.*dev" ;\
+	if $(SEARCH) | grep -qi "glee.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
