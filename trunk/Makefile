@@ -6,6 +6,13 @@ CFLAGS =$(GLFLAGS) -I./ -O3 -Os -g $(PROBLENS)
 
 PROBLENS=-Wall -pedantic -fpermissive
 UNAME = $(shell uname)
+OUTPUT = Amaze.out
+
+define PROGRAM_template
+$(1): $(addsuffix .o,$(1))
+endef
+$(foreach t,$(compiling),$(eval $(call PROGRAM_template,$(t))))
+
 
 ifeq ($(UNAME),Linux) # Linux OS
 	GLFLAGS = -lglut -lglui -lGLU -lGL -lalut  -lopenal
@@ -20,10 +27,12 @@ ifeq ($(UNAME),Linux) # Linux OS
 	endif
 endif
 
-all: 
+all: *.cpp
 	if $(MAKE) compiling ;\
 	then \
-		echo "ok" ;\
+		echo -n "ok\nCleaning..." ;\
+		rm *.o ;\
+		echo "done.\nRun "$(OUTPUT) ;\
 	else \
 		echo  "Error on compiling! Probably some package is missing"; \
 		$(MAKE) check;\
@@ -31,16 +40,18 @@ all:
 
 compiling:*.cpp
 	echo "System: "$(UNAME) "OS"
-	echo -n "compiling..."
-	$(CC) *.cpp -o prog $(CFLAGS) 
+	echo -n "Compiling..."
+	$(CC) *.cpp -c $(CFLAGS)
+	$(CC) *.cpp -MM $(CFLAGS) > depends.d
+	$(CC) *.o -o $(OUTPUT) $(CFLAGS) 
 	
 clean:
-	echo "cleaning..."
-	rm -rfv prog *.o
+	echo "Cleaning all..."
+	rm -rfv $(OUTPUT) *.o *.d
 
 run: all
 	echo "Running..."
-	./prog
+	./$(OUTPUT)	
 	
 valgrind: *.cpp
 	$(CC) -g *.cpp -o prog $(GLFLAGS) 
