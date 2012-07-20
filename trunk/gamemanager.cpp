@@ -15,24 +15,24 @@ void startButtonAction()
 }
 void changeSize(int w, int h)
 {
-    //Previne divisao por zero
+    //Prevents division by zero
     if ( h == 0)
         h = 1;
 
     float ratio = w*1.0 / h;
 
-    //Usa matriz de projecao
+    //Uses projection matrix
     glMatrixMode(GL_PROJECTION);
     //Reseta matriz
     glLoadIdentity();
 
-    //Arruma viewport para janela inteira
+    //Arranges viewport to entire window
     glViewport(0,0,w,h);
 
-    //Arruma a perspectiva correta
+    //Arranges the right perspective
     gluPerspective(45.0f, ratio, 1, GAME_FOV*TAMANHO_BLOCO);
 
-    //Volta para o modelView
+    //Back to modelView
     glMatrixMode(GL_MODELVIEW);
 
     wScreen = w;
@@ -40,20 +40,20 @@ void changeSize(int w, int h)
 }
 void GameManager::inicializaRender(void)
 {
-    //Transparencia
+    //transparency
     glBlendFunc(GL_SRC_ALPHA,GL_ONE);
 
-    glEnable(GL_LIGHTING); //Habilita luz
-    glEnable(GL_LIGHT0); //Habilita luz #0
-    glEnable(GL_LIGHT1); //Habilita luz #0
+    glEnable(GL_LIGHTING); //enables light
+    glEnable(GL_LIGHT0); //enables light #0
+    glEnable(GL_LIGHT1); //enables lightz #0
 	glEnable(GL_NORMALIZE); //Automatically normalize normals
 	glEnable(GL_COLOR_MATERIAL);
-	//glEnable(GL_LIGHT1); //Habilita luz #1
+	//glEnable(GL_LIGHT1); //enables light #1
 
     glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH); //Shading
 
-    glEnable(GL_CULL_FACE); //Reduz quantidade de triangulos desenhados.
+    glEnable(GL_CULL_FACE); //Reduces the amount of triangles drawn.
     glCullFace(GL_CW);
 
     wallTexture = texture::loadTextureBMP("data/wall.bmp");
@@ -67,7 +67,7 @@ void GameManager::inicializa(void)
     inicializaSons();
 
 //---------------------------
-    //Especifica a cor de fundo
+    //Specifies the background color
     glClearColor(0.3f,0.3f,0.9f,1.0f);
 
     GLfloat fog_color[4] = {0.0f,0.0f,0.0f,1.0};
@@ -80,7 +80,7 @@ void GameManager::inicializa(void)
     glFogf(GL_FOG_END, TAMANHO_BLOCO*10.0f);
     glEnable(GL_FOG);
 
-    //Testes menu
+    //Tests menu
     menuPrincipal = true;
 
     Button* start = new Button();
@@ -165,15 +165,15 @@ void GameManager::loop(void)
     }
 
 
-    //Verifica mudanca de estados sobre a bola especial
-    if(attack_mode == 1) //notificou mudanca e toca musica
+    //Verifies change of states on the special ball
+    if(attack_mode == 1) //notified change and play music
     {
-        //Seta flag ESPECIAL ativa para todas as Entidades. Inclusive o player
+        //Ste SPECIAL flag active for all entities. Even the player
         for(unsigned int i = 0; i < Entidade::EntidadeList.size(); i++)
         {
             Entidade::EntidadeList[i]->flags = ENTIDADE_FLAG_ESPECIAL;
         }
-        Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_ESPECIAL; // reseta a flag player
+        Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_ESPECIAL; // resets the player's flag
         ticksAttack = glutGet(GLUT_ELAPSED_TIME);
         sc.stopAll();
         sc.play(SFX_alert);
@@ -181,7 +181,7 @@ void GameManager::loop(void)
     } else
     if (attack_mode == 2)
     {
-        //passados 3 segundos
+        //after 3 seconds
         if( (glutGet(GLUT_ELAPSED_TIME) - ticksAttack) > 3000 )
         {
             sc.stopAll();
@@ -192,7 +192,7 @@ void GameManager::loop(void)
     } else
     if (attack_mode == 3)
     {
-        //acabou o efeito da bola, 10 segundos + os 3 do sfx anterior
+        //over the end of the ball efects 10 seconds + 3 the preceding sfx
         if( (glutGet(GLUT_ELAPSED_TIME) - ticksAttack) > 10000)
         {
             sc.stopAll();
@@ -202,7 +202,7 @@ void GameManager::loop(void)
             {
                 Entidade::EntidadeList[i]->flags = ENTIDADE_FLAG_NENHUM;
             }
-            Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_NORMAL; // reseta a flag player
+            Player::PlayerControl->flags = ENTIDADE_FLAG_PLAYER_NORMAL; // resets the player's flag
         }
     }
 
@@ -236,13 +236,13 @@ void GameManager::render(void)
                 default:;
         }
 
-        return; /// IGNORA ABAIXO
+        return; 
     }
 
 
 
 
-    //Iluminacao
+    //Lighting
     GLfloat ambientLight[] = {0.1f, 0.1f, 0.1f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
 	GLfloat directedLight[] = {0.7f, 0.7f, 0.7f, 0.0f};
@@ -253,13 +253,13 @@ void GameManager::render(void)
 	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, light);
 	glLightfv(GL_LIGHT1, GL_POSITION, lightPos);
-    //Fim Iluminacao
+    //end of lighting
 
 
-    //Calcula iteracoes
+    //calculates iterations
     this->loop();
 
-    //Imprime SOL's
+    //Print SOL's
     glPushMatrix();
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(directedLightPos[0],directedLightPos[1],directedLightPos[2]);
@@ -289,8 +289,8 @@ void GameManager::render(void)
 }
 
 
-//Quanda chamado cleanup durante o destructor ocorre falha de
-//segmentacao somente no delete Entidade
+// when called during cleanup destructor,
+// segmentation fault occurs only delete the Entity
 GameManager::~GameManager()
 {
     sc.stopAll();
@@ -392,7 +392,7 @@ void GameManager::executa(int argc, char* args[])
     atexit(cleanup);
 
     glutIgnoreKeyRepeat(0);
-    //Entra no loop de processamento de eventos
+    //Get in the loop processing events
     glutMainLoop();
 }
 

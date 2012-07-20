@@ -6,12 +6,12 @@
 
 
 //==============================================================================
-// Variaveis estaticas
+// static variables
 //==============================================================================
 std::vector<Entidade*> Entidade::EntidadeList;
 
 //==============================================================================
-// Construtores
+// constructors
 //==============================================================================
 Entidade::Entidade()
 {
@@ -44,8 +44,8 @@ void Entidade::cleanup()
 }
 bool Entidade::isColisaoObjeto(Entidade* objeto)
 {
-    //Nota, o ponto posicao marca 0.... ex: posicao 0 comeco do bloco final do bloco em x,y,z
-    //Tal que y mais abaixo = y e y mais alto = y+tamanhoY
+    //Note: The point marks position 0 .... ex: position 0 beginning of the block end of the block in the x, y, z
+    //Such that y lower = y ; y highest = y+tamanhoY
     int baixo1 = this->posicao.y;
     int cima1 = this->posicao.y + this->tamanho.y;
     int esquerda1 = this->posicao.x;
@@ -76,18 +76,18 @@ bool Entidade::isColisaoObjeto(Entidade* objeto)
 
 }
 //==============================================================================
-// Retorna true se estiver colidindo com o mapa
+// Returns true if colliding with the map
 //==============================================================================
 Tile* Entidade::isColisaoMapa(Vetor3D newPosicao, int type)
 {
-    //Calcula o Id do tile que deve ser testado
-    //Ex: X = 5 tal que startX = 0,41 = 0 endX = 1,3 = 1
+    //Calculates Id tile to be tested
+    //Ex: X = 5 Such that startX = 0,41 = 0 endX = 1,3 = 1
     int startX = (newPosicao.x) / TAMANHO_BLOCO;
     int startZ = (newPosicao.z) / TAMANHO_BLOCO;
     int endX = (newPosicao.x + (tamanho.x)) / TAMANHO_BLOCO;
     int endZ = (newPosicao.z + (tamanho.z)) / TAMANHO_BLOCO;
 
-    //Checa colisoes com os tiles
+    //Check collisions with tiles
     for(int iZ = startZ; iZ <= endZ; iZ++) {
         for(int iX = startX; iX <= endX; iX++) {
             Tile* bloco = Map::MapControl(iX, iZ);
@@ -126,11 +126,11 @@ void Entidade::addToEntidadeList()
 
 bool Entidade::carregaModelo(char* file){return true;}
 //==============================================================================
-// Executa acoes do loop, aceleracao, velocidade.
+// Performs actions of the loop, acceleration, speed.
 //==============================================================================
 void Entidade::loop()
 {
-    //passou 3 segundos do respawn
+    //3 seconds has the spawn
     if ( (flags == ENTIDADE_FLAG_RESPAWN) && ( (glutGet(GLUT_ELAPSED_TIME) - respawnTicks) > 3000) )
     {
         dead = false;
@@ -140,11 +140,11 @@ void Entidade::loop()
     }
 
     if(dead) return;
-    //deltaTicks reseta o render
+    //deltaTicks reset the surrender
     delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
     float fator = delta/1000.f;
 
-    //Calcula aceleracoes
+    //calculates accelerations
     if ( velocidade.x + aceleracao.x <= maxVelocidade.x)
         velocidade.x += (aceleracao.x * fator);
     if ( velocidade.y + aceleracao.y <= maxVelocidade.y)
@@ -185,9 +185,9 @@ void Entidade::render()
     if (!isVisible())
         return;
 
-    int tamanhoCubo = tamanho.x; //Temp, enquanto utilizar glutCube
+    int tamanhoCubo = tamanho.x; //Temp while using glutCube
     glPushMatrix();
-    //Centraliza devido ao GLUT
+    //Centers due to GLUT
     if (flags == ENTIDADE_FLAG_ESPECIAL)
         glColor3f( getColor(1), getColor(2), getColor(3) );
     else
@@ -214,23 +214,23 @@ void Entidade::testaColisao()
             thisID = i;
             break;
         }
-    //Testa com todas as entidades desta para frente.
+    //Tests with all the entities of this forward.
     //Ex:    lista: 1 2 3 4
-    // thisID =1,  testa com 2, 3 , 4
-    // thisID = 2  testa com 3, 4      desta, forma, thisID = 2 nao testa colisoes com 1 pois ja foi testado anteriormente.
+    // thisID =1,  tests with 2, 3 , 4
+    // thisID = 2  tests with 3, 4      this way, thisID = 2 no collisions with 1 as has already been tested previously.
     for (unsigned int i = thisID+1; i < EntidadeList.size(); i++)
     {
         if (EntidadeList[i] != this && !EntidadeList[i]->dead)
         {
             if(isColisaoObjeto(EntidadeList[i]) )
-            {   //adiciona colisoes tanto neste elemento quanto no testado
+            {   //adds this element collisions so as tested in
                 setColisao(EntidadeList[i]);
                 EntidadeList[i]->setColisao(this);
             }
         }
     }
 }
-//Seta colisao atraves de metodo publico
+//Set collision through the public method
 void Entidade::setColisao(Entidade* ent)
 {
     entidadeColidida.push_back(ent);
@@ -245,14 +245,14 @@ bool Entidade::isColidido()
 void Entidade::executaColisao()
 {
     if ( !isColidido() )
-        return; // sem colisoes
+        return; // no collisions
 
 
 
-    //Volta o que tinha movido.
+    //Back what had moved.
     float fator = delta/1000.f;
     posicao = posicao - (velocidade * fator );
-    //Para, e vai na direcao oposta
+    //For, and go in the opposite direction
     velocidade.x = 0;
     velocidade.z = 0;
     aceleracao.x = -aceleracao.x;
@@ -278,18 +278,18 @@ void Entidade::setRandomPosition()
             int posX = rand() % Map::MapControl.MAP_WIDTH;
             int posZ = rand() % Map::MapControl.MAP_HEIGHT;
 
-            //Se a posicao for diferente de parede, entao chao.... coloca cubo
+            //If the position is different from the wall, then ground .... put cube
             if (Map::MapControl.getTile(posX, posZ)->typeId != TILE_TIPO_PAREDE) {
-                //nota (TAMANHO_BLOCO/2 - tamanho.x/2)  serve para achar o meio do chao
+                //Note: (TAMANHO_BLOCO/2 - tamanho.x/2)  is used to find the center of the floor
                 posicao.x = (TAMANHO_BLOCO/2 - tamanho.x/2) + TAMANHO_BLOCO*posX;
                 posicao.y = 0;
                 posicao.z = (TAMANHO_BLOCO/2 - tamanho.z/2) + TAMANHO_BLOCO*posZ;
-                //1 a 10
+                //1 to 10
                 aceleracao.x = 1 + rand() % 10;
                 aceleracao.z = 1 + rand() % 10;
                 init();
                 isOK = true;
-                ///Possivel adicionar verificacao se a entidade nao ficou no mesmo lugar usando isColisao e clear() da lista de colisoes
+                ///Possible to add verification that the entity was not in the same place using isColisao and clear() from list of collisions
             }
         }
 }

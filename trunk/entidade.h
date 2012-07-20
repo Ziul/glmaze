@@ -16,7 +16,7 @@ enum
     ENTIDADE_FLAG_PLAYER_NORMAL     =   0x00000002,
     ENTIDADE_FLAG_PLAYER_ESPECIAL   =   0x00000004,
     ENTIDADE_FLAG_RESPAWN           =   0x00000008,
-        //nao utilizado
+        //not used
     ENTIDADE_FLAG_PORTA             =   0x00000016
 };
 
@@ -51,8 +51,8 @@ class Entidade
         void setPosicao(float x, float y, float z);
         //Ex: int delta = getTicks() - deltaTicks;
         //Ex: posicao = posicao + (velocidade * (delta/1000.f ) );
-        unsigned int deltaTicks; //ticks da ultima vez que calculou o movimento
-        unsigned int respawnTicks;// ticks de quando morreu
+        unsigned int deltaTicks; //ticks from the last time you calculated the movement
+        unsigned int respawnTicks;// ticks when he died
         Vetor3D posicao;
         Vetor3D velocidade;
         Vetor3D aceleracao;

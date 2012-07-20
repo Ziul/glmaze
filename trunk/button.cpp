@@ -2,8 +2,8 @@
 
 Classe Button,
 
-Possui um ponteiro de função que aponta para a ação do clique sobre o
-botão.
+It has a function pointer that points to the action of clicking on the
+button.
 
 *********************************************************************/
 
@@ -12,7 +12,7 @@ botão.
 
 std::vector<Button*> Button::ButtonList;
 
-//Desenha na tela
+//Draw on the screen
 void Button::render()
 {
     switch(status)
@@ -28,8 +28,8 @@ void Button::render()
             break;
     }
 
-    ///Desenha textura na tela
-    if(textureIndex) // se diferente de 0
+    ///Draw texture on the screen
+    if(textureIndex) // if !=0
     {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureIndex);
@@ -62,33 +62,33 @@ void Button::render()
 
 }
 
-//Executa loop
+//Loops
 void Button::handleMouse(int button, int state, int mouseX, int mouseY)
 {
-    //solta botão esquerdo
+    //release the left button
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
         isHolding = false;
 
     if (mouseX > posX && mouseY > posY
         && mouseX < posX + clip.w
         && mouseY < posY + clip.h)
-    {/// Dentro do botão
-        //botão esquerdo pressionado e segurando
+    {/// Within the button
+        //pressing and holding the left button
         if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
             isHolding = true;
 
 
-        /// Segurado
-            if(isHolding && frames > 2) // Se botão esquerdo pressionado
+        /// holding
+            if(isHolding && frames > 2) // If the left button
             {
                 status = BUTTON_STATE_PRESSED;
             }
             else
             {
                 if (frames > 1)
-                    status = BUTTON_STATE_OVER; //não está segurando ou só tem 2 estados
+                    status = BUTTON_STATE_OVER; //is not holding or has only two states
                 else
-                    status =  BUTTON_STATE_OUTSIDE; //só tem 1 estado
+                    status =  BUTTON_STATE_OUTSIDE; //has only one state
             }
             /// Clicked
             if (state == GLUT_DOWN)
@@ -109,7 +109,7 @@ void Button::handleMouse(int button, int state, int mouseX, int mouseY)
 
 }
 
-//Carrega imagem do botão, e numero de estados e textura
+//Push button image, and the number of states and texture
 void Button::setEstados(int num_estados, int imgWidth, int imgHeight, int indexTextura)
 {
     if (indexTextura >= 0)
@@ -131,7 +131,7 @@ void Button::setEstados(int num_estados, int imgWidth, int imgHeight, int indexT
 
 }
 
-//-1 mantem posição
+// Hold position
 void Button::setXY(int x, int y)
 {
     if ( x >= 0 )

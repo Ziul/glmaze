@@ -39,17 +39,17 @@
 
 
 
-//Tamanho da tela atual
+//Size of the current screen
 extern float wScreen;
 extern float hScreen;
-//Texturas
+//textures
 extern GLuint wallTexture;
 extern GLuint floorTexture;
 //Menu
 extern bool menuPrincipal;
 extern int status;
 
-//Sons
+//Sounds
 extern int SOUND_main;
 extern int SOUND_inter1;
 extern int SOUND_inter2;
@@ -59,7 +59,7 @@ extern int SFX_die;
 extern int SFX_eat;
 extern int SFX_eat2;
 extern int SFX_alert;
-//Globais de gameplay
+//Global from gameplay
 extern int attack_mode;
 
 #define STATUS_NORMAL 0

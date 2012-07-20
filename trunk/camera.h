@@ -33,8 +33,8 @@ class Camera
         Camera();
         static Camera CameraControl;
 
-        void ajustaCamera(); //seta posicao e direcao da camera
-        void loop();  //ajusta timer
+        void ajustaCamera(); //Set position and direction of the camera
+        void loop();  //set timer
         void reset();
 
         void moveFrente(bool mover);
@@ -49,10 +49,10 @@ class Camera
 
         void setMouse(int x, int y);
         void moveMouse(int x, int y);
-        //temp como public
+        //temp as public
         void calculaDirecao(void);
 
-        //Liga ou desliga correr
+        //Turns run
         void setCorrer(void);
         void setAndar(void);
 

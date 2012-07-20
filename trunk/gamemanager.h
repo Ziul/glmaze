@@ -20,7 +20,7 @@
 
 #define MAX_ENEMY 20
 
-///Nota: cleanup no .cpp, chamado por atExit() do stdlib
+///Note: the cleanup .cpp is called by atExit() in stdlib
 class GameManager
 {
     private:
@@ -31,7 +31,7 @@ class GameManager
 
         Entidade* enemy[MAX_ENEMY];
 
-        //SoundController... Controla o som
+        //SoundController ... Controls sound
         SoundAL sc;
 
         unsigned int ticksAttack;

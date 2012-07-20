@@ -1,9 +1,9 @@
 /*********************************************************************
 
-Classe Button que herda de Drawable,
+Button class that inherits from Drawable,
 
-Possui um ponteiro de função que aponta para a ação do clique sobre o
-botão.
+It has a function pointer that points to the action of clicking on the
+button.
 
 *********************************************************************/
 
@@ -45,25 +45,25 @@ class Button
             r = g = b = 1.0f;
             ClickAction = 0;
         }
-        //Desenha
+        //Drows
         void render();
 
-        //Executa loop
+        //Loops
         void handleMouse(int button, int state, int mouseX, int mouseY);
 
-        //Ação do botão
+        //Action Button
         void (*ClickAction)(void);
         //void (Drawable::*ClickActionBattle)(void);
 
-        //-1 mantem posição, COORDENADAS SDL
+        //Hold position, COORDINATE SDL
         void setXY(int x, int y);
 
         void setColor(float fr, float fg, float fb);
 
-        //Seta o numero de estados e o tamanho da textura usada para os botões
+        //Sets the number of states and the size of the texture used for the buttons
         void setEstados(int num_estados, int imgWidth, int imgHeight, int indexTextura = 0);
 
-        //se ativo falso, não executa click
+        //if ativo is false, does not run click
         bool ativo;
 
     private:

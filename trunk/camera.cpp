@@ -15,10 +15,10 @@ Camera::Camera()
     cameraX = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
     cameraY = 5.0f;
     cameraZ = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
-    //testes
+    //tests
 
-    //testes
-    deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotacao da direcao horizontal e vertical
+    //tests
+    deltaAngleX = deltaAngleY = 0.0f; //Angle of rotation of the horizontal and vertical direction
 
     deltaMouseX = deltaMouseY = 0.0f;
 
@@ -51,10 +51,10 @@ void Camera::reset()
     cameraX = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
     cameraY = 5.0f;
     cameraZ = (TAMANHO_BLOCO*1) + TAMANHO_BLOCO/2;
-    //testes
+    //tests
 
-    //testes
-    deltaAngleX = deltaAngleY = 0.0f; //Angulo de rotacao da direcao horizontal e vertical
+    //tests
+    deltaAngleX = deltaAngleY = 0.0f; //Angle of rotation of the horizontal and vertical direction
 
     deltaMouseX = deltaMouseY = 0.0f;
 
@@ -76,7 +76,7 @@ void Camera::reset()
 }
 
 
-//Chamada internamente por Player.
+//Called internally by Player.
 void Camera::ajustaCamera()
 {
 
@@ -101,13 +101,13 @@ void Camera::calculaDirecao(void)
     angleX += deltaAngleX*fator;
     angleY += deltaAngleY*fator;
 
-    //corrige angulo
+    //correct angle
     if ( angleX+angleOffsetX >= 360 )
         angleX -= 360;
     if ( angleX+angleOffsetX < 0)
         angleX += 360;
 
-    //So permite rotacionar 180 graus em Y
+    //Only allows to rotate 180 degrees Y
     if ( angleY+angleOffsetY >= 90 )
         angleY = 90-angleOffsetY;
     if ( angleY+angleOffsetY <= -90)
@@ -121,10 +121,10 @@ void Camera::calculaDirecao(void)
 }
 void Camera::calculaMovimento(float delta)
 {
-    //Adiciona ao movimento
+    //Add the movement
     float fator = deltaTicks/1000.f;
 
-    //Fator delta vezes direcao. 0.1f para ajustar velocidade.
+    //Factor delta times direction. 0.1f to adjust speed.
     cameraX += (delta*fator) * lookX;
     cameraZ += (delta*fator) * lookZ;
 }
@@ -134,8 +134,8 @@ void Camera::calculaMovimentoLateral(float delta)
 
     float lateralX = sin( (angleX-90)*M_PI/180);
     float lateralZ = cos( (angleX-90)*M_PI/180);
-    //Adiciona ao movimento
-    //Fator delta vezes direcao. 0.1f para ajustar velocidade.
+    //Add the movement
+    //Factor delta times direction. 0.1f to adjust speed.
     cameraX += (delta*fator) * (lateralX);
     cameraZ += (delta*fator) * (lateralZ);
 }
@@ -205,7 +205,7 @@ void Camera::setMouse(int x, int y)
     xOrigem = x;
     yOrigem = y;
 
-    if (xOrigem == -1) // Ambos serao -1 necessariamente
+    if (xOrigem == -1) //Both will be necessarily -1
     {
         angleX +=angleOffsetX;
         angleY +=angleOffsetY;
@@ -216,7 +216,7 @@ void Camera::setMouse(int x, int y)
 void Camera::moveMouse(int x, int y)
 {
     deltaMouseX = deltaMouseY = 0;
-    //Se houve deslocamento
+    //If there was displacement
     if (xOrigem>0)
     {
         angleOffsetX = (xOrigem-x) * 0.1f;

@@ -9,7 +9,7 @@ bool gameOver = false;
 GLuint wallTexture;
 GLuint floorTexture;
 
-//sons
+//sounds
 int SOUND_main = -1;
 int SOUND_inter1 = -1;
 int SOUND_inter2 = -1;
