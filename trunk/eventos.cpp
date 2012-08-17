@@ -6,6 +6,9 @@
 
 void teclasNormais(unsigned char key, int x, int y)
 {
+			if(key==GLUT_KEY_ESC)
+				exit(0);
+
     if (menuPrincipal)
         return; /// IGNORA ABAIXO
 
@@ -17,7 +20,7 @@ void teclasNormais(unsigned char key, int x, int y)
 
     switch(key)
     {
-        case 27:  //ESC
+        case GLUT_KEY_ESC:  //ESC
             exit(0);
             break;
         case 'W':
@@ -105,11 +108,17 @@ void teclasNormais(unsigned char key, int x, int y)
 }
 void teclasNormaisUp(unsigned char key, int x, int y)
 {
+	if(key==GLUT_KEY_ESC)
+		exit(0);
+				
     if (menuPrincipal)
         return; /// IGNORA ABAIXO
 
     switch(key)
     {
+    	case GLUT_KEY_ESC:  //ESC
+            exit(0);
+            break;
         case 'W':
         case 'w':
             Player::PlayerControl->moveFrente(false);
@@ -145,11 +154,16 @@ void teclasNormaisUp(unsigned char key, int x, int y)
 
 void teclasEspeciais(int key, int x, int y )
 {
+	if(key==GLUT_KEY_ESC)
+		exit(0);
     if (menuPrincipal)
         return; /// IGNORA ABAIXO
 
     switch(key)
     {
+    	case GLUT_KEY_ESC:  //ESC
+            exit(0);
+            break;
         case GLUT_KEY_UP: Player::PlayerControl->moveFrente(true); break;
         case GLUT_KEY_DOWN: Player::PlayerControl->moveTraz(true); break;
         case GLUT_KEY_LEFT: Player::PlayerControl->giraEsquerda(true); break;
@@ -162,11 +176,17 @@ void teclasEspeciais(int key, int x, int y )
 
 void teclasEspeciaisSoltar(int key, int x, int y)
 {
+	if(key==GLUT_KEY_ESC)
+		exit(0);
+		
     if (menuPrincipal)
         return; /// IGNORA ABAIXO
 
     switch(key)
     {
+    	case GLUT_KEY_ESC:  //ESC
+            exit(0);
+            break;
         case GLUT_KEY_UP: Player::PlayerControl->moveFrente(false); break;
         case GLUT_KEY_DOWN: Player::PlayerControl->moveTraz(false); break;
         case GLUT_KEY_LEFT: Player::PlayerControl->giraEsquerda(false); break;
