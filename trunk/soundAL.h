@@ -12,10 +12,7 @@
 #ifndef _SOUND_AL_
 #define _SOUND_AL_
 
-#include <stdio.h>
-#include <AL/al.h>
-#include <AL/alc.h>
-#include <AL/alut.h>
+#include "defines.h"
 
 #define BUFFER_SIZE_AL 256
 #define SOURCE_SIZE_AL 256

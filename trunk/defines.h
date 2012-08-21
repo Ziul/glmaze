@@ -4,6 +4,10 @@
 
 #if defined (__APPLE__) || defined (MACOSX) /*MAC OS*/
     #include <GLUT/glut.h>
+	#include <OpenAL/alut.h>
+	#include <OpenAL/al.h>
+	#include <OpenAL/alc.h>
+    
 #else
     #ifdef _WIN32                           /* Windows */
     	#define WIN32_LEAN_AND_MEAN
@@ -11,6 +15,10 @@
         #include <gl/gl.h>
 		#include <gl/glut.h>
         #include <windows.h>
+        #include <AL/al.h>
+		#include <AL/alc.h>
+		#include <AL/alut.h>
+
         #define sleep(x) Sleep(x)
     #else                                   /*Linux*/
     	#include <cstdarg>
@@ -18,9 +26,17 @@
         #include <GL/gl.h>
         #include <GL/glut.h>
         #include <GL/glu.h>
+        #include <AL/al.h>
+		#include <AL/alc.h>
+		#include <AL/alut.h>
+
         #define Sleep(x) usleep(x<1000000?10000+300*x:x)
     #endif
 #endif
+
+#include <stdio.h>
+#include <stdlib.h>
+
 
 #define SCREEN_WIDTH            800
 #define SCREEN_HEIGHT           600
