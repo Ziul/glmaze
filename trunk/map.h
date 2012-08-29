@@ -34,8 +34,8 @@ class Map
         int MAP_HEIGHT;
         int MAP_WIDTH;
 
-        float origemX; //Posicao aonde o mapa comeca a renderizar,
-        float origemZ; //Tile 0,0, aumenta pra direita-baixo
+        float origemX; // Where the map start to render
+        float origemZ; //Tile 0,0, growls on right-down
 
         void setWired(int wired);
         bool isWire();
@@ -49,7 +49,7 @@ class Map
         //void iniciaDisplayList();
         GLuint dlMap;
 
-        //Usado pra outras classes obterem info sobre o mapa.
+        //Used to others classes to get info about the map
         static Map MapControl;
 
 
@@ -63,8 +63,6 @@ class Map
 
 
 };
-
-
 
 
 #endif

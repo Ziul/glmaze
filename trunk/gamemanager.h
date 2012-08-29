@@ -1,6 +1,7 @@
 //==============================================================================
 /*
     Classe que contera o metodo main e gerenciara o jogo.
+    Class that will have the main method and care the game
 */
 //==============================================================================
 #ifndef _GAME_MANAGER_H_
@@ -18,7 +19,7 @@
 #include "soundAL.h"
 #include "textureloader.h"
 
-#define MAX_ENEMY 20
+#define MAX_ENEMY 15
 
 ///Note: the cleanup .cpp is called by atExit() in stdlib
 class GameManager

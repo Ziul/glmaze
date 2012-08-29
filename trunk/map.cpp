@@ -1,10 +1,9 @@
 #include "map.h"
 
-//Usado pra outras classes obterem info sobre o mapa.
+//Used by others classes to get info about the map
 Map Map::MapControl;
 
-
-//Pega o Tile na posicao x,y do mapa.
+//Take the Title in position x,y of the map
 //Ex: Map 1 2 3   vector sera 1 2 3 4 5 6
 //        4 5 6
 Tile* Map::getTile(int x, int y)
@@ -137,7 +136,7 @@ glDisable(GL_TEXTURE_2D);
         glVertex3f(w, h, -f);
 	}
 
-    ///Nao precisa imprimir fundo
+	// Don't need background
     /*
 	//Bottom
 	glNormal3f(0.0f, -1.0f, 0.0f);
@@ -157,7 +156,9 @@ void Map::render()
 {
     glPushMatrix();
     float offset = (float)TAMANHO_BLOCO/2.0f;
-    glTranslated(offset, offset, offset); //Pois o glut imprime a partir do centro
+    
+    // Glut start printing starting from the center
+    glTranslated(offset, offset, offset); 
     glColor3f(COR_PAREDE);
 
     int indexX = (Camera::CameraControl.cameraX / TAMANHO_BLOCO);
@@ -193,7 +194,7 @@ void Map::render()
 }
 void Map::renderTileOptimizado(unsigned int i)
 {
-    //Camera no centro do quadrado 0,0,0
+    //Camera on center of square 0,0,0
     glTranslated(listaTilesOptimizados[i].posX * TAMANHO_BLOCO,
                  listaTilesOptimizados[i].posY * TAMANHO_BLOCO,
                  listaTilesOptimizados[i].posZ * TAMANHO_BLOCO);
@@ -207,7 +208,7 @@ void Map::renderTileOptimizado(unsigned int i)
                     RENDER_MODE);
 
     }
-    else //Imprime chao
+    else //Print ground
     {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, floorTexture);
@@ -256,7 +257,7 @@ int Map::load(char* filename)
 
     MAP_HEIGHT = MAP_WIDTH = 0;
 
-    //Pega o tamanho do mapa, quanto por quantos blocos
+    // Take the map size (blocks)
     int error = fscanf(file, "%d-%d\n", &MAP_WIDTH, &MAP_HEIGHT);
 
     for (int y = 0; y < MAP_HEIGHT; y++)
@@ -271,7 +272,7 @@ int Map::load(char* filename)
         error = fscanf(file, "\n");
     }
     fclose(file);
-    ///TESTE
+    ///TEST
     geraQuadradosOptimizados();
     return error;
 }
@@ -282,7 +283,7 @@ void Map::geraQuadradosOptimizados()
 
     for(int iY = 0; iY < MAP_HEIGHT; iY++)
     {
-       for(int iX = 0; iX < MAP_WIDTH; iX++) //Testa todos os blocos a depois do atual em X
+       for(int iX = 0; iX < MAP_WIDTH; iX++) //Test all the blocks after this one in X
        {
            Tile retangulo;
            int index = iX + MAP_WIDTH*iY;
@@ -296,25 +297,25 @@ void Map::geraQuadradosOptimizados()
            }
 
             retangulo.top = true;
-            //Se parede, verifica fora de bordas
+            //If wall, check out of the boards
             if (index-1 < 0)
                 retangulo.left = true;
-            else //Se for chao, entao tem parede naquela direcao
+            else // If ground, than have any wall in this direction
                 if (listaTiles[index-1].typeId != TILE_TIPO_PAREDE)
                     retangulo.left = true;
             if (index - MAP_WIDTH < 0)
                 retangulo.back = true;
-            else //Se for chao, entao tem parede naquela direcao
+            else // If ground, than have any wall in this direction
                 if (listaTiles[index - MAP_WIDTH].typeId != TILE_TIPO_PAREDE)
                     retangulo.back = true;
             if (index +1 >= (int)listaTiles.size())
                 retangulo.right = true;
-            else //Se for chao, entao tem parede naquela direcao
+            else // If ground, than have any wall in this direction
                 if (listaTiles[index +1].typeId != TILE_TIPO_PAREDE)
                     retangulo.right = true;
             if (index + MAP_WIDTH >= (int)listaTiles.size())
                 retangulo.front = true;
-            else //Se for chao, entao tem parede naquela direcao
+            else // If ground, than have any wall in this direction
                 if (listaTiles[index + MAP_WIDTH].typeId != TILE_TIPO_PAREDE)
                     retangulo.front = true;
 

@@ -22,7 +22,6 @@ ifeq ($(UNAME),Linux) # Linux OS
 	else
 	ifeq ($(UNAME),Darwin) # MAC OS X
 		GLFLAGS = -framework OpenGL -framework GLUT -framework OpenAL
-#		SEARCH = pkgutil --pkgs	#¬¬ inutil
 		SEARCH = ls /System/Library/Frameworks | grep -i
 	else #Windows
 		GLFLAGS = -lopengl32 -lglu32 -lglut32 -lglee -lalut

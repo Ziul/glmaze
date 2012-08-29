@@ -247,7 +247,8 @@ void Entidade::executaColisao()
     if ( !isColidido() )
         return; // no collisions
 
-
+	
+/*
 
     //Back what had moved.
     float fator = delta/1000.f;
@@ -257,7 +258,7 @@ void Entidade::executaColisao()
     velocidade.z = 0;
     aceleracao.x = -aceleracao.x;
     aceleracao.z = -aceleracao.z;
-
+*/
     if ( (flags == ENTIDADE_FLAG_ESPECIAL) && (entidadeColidida[0]->flags == ENTIDADE_FLAG_PLAYER_ESPECIAL) )
     {
         flags = ENTIDADE_FLAG_RESPAWN;
