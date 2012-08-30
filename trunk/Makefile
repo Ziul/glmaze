@@ -56,8 +56,10 @@ run: all
 	./$(OUTPUT)	
 	
 valgrind: *.cpp
-	$(CC) -g *.cpp -o prog $(GLFLAGS) 
-	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./prog -q
+#	$(CC) -g -c *.cpp
+#	ar rc libAmaze.a *.o
+#	$(CC) -g gamemanager.cpp -o ToGring $(GLFLAGS) -L./ -lAmaze
+	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./ToGring -q --fullpath-after=string  --show-possibly-lost=yes --trace-children=yes -v
 	echo "Valgrind files available: (newer first)"
 	ls -t| egrep -i grind
 	
