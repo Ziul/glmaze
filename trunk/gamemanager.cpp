@@ -225,13 +225,13 @@ void GameManager::render(void)
         switch(status)
         {
             case STATUS_DERROTA:
-                txt::renderText2dOrtho(50,130,8,"Derrota!!!");
+                txt::renderText2dOrtho(30,130,8,"Derrota!!!");
                 break;
             case STATUS_NORMAL:
-                txt::renderText2dOrtho(50,130,8,"Novo jogo!!!");
+                txt::renderText2dOrtho(30,130,8,"Novo jogo!!!");
                 break;
             case STATUS_VITORIA:
-                txt::renderText2dOrtho(50,130,8,"Vitoria!!!");
+                txt::renderText2dOrtho(30,130,8,"Vitoria!!!");
                 break;
                 default:;
         }

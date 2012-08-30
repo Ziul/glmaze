@@ -19,7 +19,7 @@
 #include "soundAL.h"
 #include "textureloader.h"
 
-#define MAX_ENEMY 15
+#define MAX_ENEMY 8
 
 ///Note: the cleanup .cpp is called by atExit() in stdlib
 class GameManager
