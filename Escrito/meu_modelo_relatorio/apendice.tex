@@ -63,7 +63,7 @@
 
 \begin{figure}[h]
 	\centering
-	\includegraphics [scale=0.5,angle=0,keepaspectratio=true]{./fts/callgrind/img}
+	\includegraphics [scale=0.5,angle=0,keepaspectratio=true]{./fts/callgrind/img3}
 	\caption{Saída gerada pelo Valgrind}
 	\label{valgrind}
 \end{figure}
@@ -127,3 +127,60 @@
 
 %\end{multicols}
 
+
+%\setcounter{diagheight}{50}
+%\begin{chart}
+%\reqfullcourse 50,45:{ }{GameManager::Loop}{gamemanager.cpp}
+%\reqhalfcourse 30,30:{2813}{Loop()}{MWF 8:30}
+%  \prereq 50,45,30,30:
+%
+%\reqhalfcourse 20,20:{2813}{testColisao()}{MWF 8:30}
+%  \prereq 30,30,20,20:
+%\end{chart}
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+
+%\begin{figure}
+%    \centering
+%\begin{tikzpicture}[node distance = 2cm, auto]
+%	
+%	\node [block] (init) {Manager\\executa()};
+%	
+%\end{tikzpicture}
+%\caption{Diagrama de Fluxo}
+%\end{figure}
+
+%-------------------------------------------------------------------------------
+
+%\begin{figure}
+%    \centering
+%\begin{tikzpicture}[node distance = 2cm, auto]
+%    % Place nodes
+%    \node [block] (init) {initialize model};
+%    \node [cloud, left of=init] (expert) {expert};
+%    \node [cloud, right of=init] (system) {system};
+%    \node [block, below of=init] (identify) {identify candidate models};
+%    \node [block, below of=identify] (evaluate) {evaluate candidate models};
+%    \node [block, left of=evaluate, node distance=3cm] (update) {update model};
+%    \node [decision, below of=evaluate] (decide) {is best candidate better?};
+%    \node [block, below of=decide, node distance=3cm] (stop) {stop};
+%    % Draw edges
+%    \path [line] (init) -- (identify);
+%    \path [line] (identify) -- (evaluate);
+%    \path [line] (evaluate) -- (decide);
+%    \path [line] (decide) -| node [near start] {yes} (update);
+%    \path [line] (update) |- (identify);
+%    \path [line] (decide) -- node {no}(stop);
+%    \path [line,dashed] (expert) -- (init);
+%    \path [line,dashed] (system) -- (init);
+%    \path [line,dashed] (system) |- (evaluate);
+%\end{tikzpicture}
+%\caption{Diagrama de Fluxo}
+%\end{figure}

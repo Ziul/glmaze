@@ -37,8 +37,15 @@
 
 \input nomes
 
-
-
+\usepackage{verbatim}
+\usepackage{lmodern}
+\usepackage{emp}
+\ifx\pdftexversion\undefined
+\usepackage[dvips]{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
 
 %%------------------------------------------------------------------------------
 %%	Resolveu o problema de a linguagem não estar declarada
@@ -96,6 +103,8 @@ morecomment=[s]{/*}{*/},
 
 \ifCLASSINFOpdf
 \usepackage{tikz}
+\usepackage{prerex}
+\usepackage{helvet}
 \usetikzlibrary{positioning,shapes,shadows,arrows}
 % \usepackage{tikzgraphicx}
 %  \usepackage[pdftex]{graphicx}  
