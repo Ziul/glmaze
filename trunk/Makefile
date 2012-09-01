@@ -56,9 +56,9 @@ run: all
 	./$(OUTPUT)	
 	
 valgrind: *.cpp
-#	$(CC) -g -c *.cpp
-#	ar rc libAmaze.a *.o
-#	$(CC) -g gamemanager.cpp -o ToGring $(GLFLAGS) -L./ -lAmaze
+	$(CC) -g -c *.cpp
+	ar rc libAmaze.a *.o
+	$(CC) -g gamemanager.cpp -o ToGring $(GLFLAGS) -L./ -lAmaze
 	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./ToGring -q --fullpath-after=string  --show-possibly-lost=yes --trace-children=yes -v
 	echo "Valgrind files available: (newer first)"
 	ls -t| egrep -i grind
@@ -105,7 +105,8 @@ check:
 	fi;
 #	ALUT
 	echo -n "alut "
-#	if $(SEARCH) | grep -qi "alut.*dev" ;\ #Como deveria de ser pra ficar otimo!
+#Como deveria de ser pra buscar por suporte para desenvolvedores
+#	if $(SEARCH) | grep -qi "alut.*dev" ;\ 
 	if $(SEARCH)  "alut" ;\
 	then \
 		echo "[OK]";\

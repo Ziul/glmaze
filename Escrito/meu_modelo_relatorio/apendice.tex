@@ -1,3 +1,80 @@
+\section{Tabelas}\label{tabelas}
+
+\subsection{Estudos de Caso}\label{cases}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+Caso de teste & C01 - Inicio do jogo e sistema de movimento\tabularnewline
+\hline 
+Pré-condições & Ter iniciado o programa\tabularnewline
+\hline 
+ & 1. Apertar sobre o botão quadrado no centro\\ & para iniciar o jogo.\tabularnewline
+Procedimentos 
+& 2. Usar as teclas ASWD para se movimentar.\tabularnewline
+& 3. Segurar o botão esquerdo do mouse e \\ &movimenta-lo para mover a direção
+da camera.\tabularnewline
+\hline 
+Resultado Esperado 
+& A musica é alterada. Mostra a camera do\\ 
+& jogador e permite move-la com ASWD. \\ 
+& Permite mover a direção da camera com o \\ 
+& mouse ao apertá-lo. \tabularnewline
+\hline 
+\end{tabular}
+\caption{Estudo de caso 1 \\ Inicio do jogo e sistema de movimento}
+\label{C01}
+\end{center}
+\end{table}
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+Caso de teste & C02 - Colisão com muro\tabularnewline
+\hline 
+Pré-condições & Ter iniciado o programa e o jogo.\tabularnewline
+\hline 
+Procedimentos & 1. Usar o mouse para apontar a camera para a \\ & direção de um muro.\tabularnewline
+ & 2. Usar a telca W para seguir em frente e tentar \\ & atrávessar o muro.\tabularnewline
+\hline 
+Resultado Esperado & O programa não deixo a camera do jogador \\ & ultrapassar o muro e para
+o seu movimento.\tabularnewline
+\hline 
+Pós-condições & Camera do jogador parada olhando para o muro.\tabularnewline
+\hline 
+\end{tabular}
+\caption{Estudo de caso 2 \\ Colisão com muro}
+\label{C02}
+\end{center}
+\end{table}
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+Caso de teste & C03 - Derrota\tabularnewline
+\hline 
+Pré-condições & Ter iniciado o programa e o jogo.\tabularnewline
+\hline 
+Procedimentos & 1. Usando as teclas ASWD e o mouse, andar na \\ & direção de um inimigo.\tabularnewline
+\cline{1-1} 
+ & 2. Colidir com o inimigo.\tabularnewline
+\hline 
+Resultado Esperado & Musica de derrota é tocada. Jogador perde uma\\ & vida e retorna para
+a tela principal com\\ & uma mensagem de derrota.\tabularnewline
+\hline 
+Pós-condições & Tela principal com uma mensagem de derrota.\tabularnewline
+\hline 
+\end{tabular}
+\caption{Estudo de caso 3 \\ Derrota}
+\label{C03}
+\end{center}
+\end{table}
+
 \section{Códigos Fontes}\label{src}
 
 %------------------------------------------------------------------------------%		
@@ -28,6 +105,8 @@
 \lstinputlisting[language=C++]{../../trunk/defines.h}
 \subsubsection{Eventos}
 \lstinputlisting[language=C++]{../../trunk/eventos.h}
+\subsubsection{Game Maneger}
+\lstinputlisting[language=C++]{../../trunk/gamemanager.h}
 \subsubsection{Text}
 \lstinputlisting[language=C++]{../../trunk/text.h}
 

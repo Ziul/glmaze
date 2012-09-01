@@ -290,7 +290,8 @@ void Entidade::setRandomPosition()
                 aceleracao.z = 1 + rand() % 10;
                 init();
                 isOK = true;
-                ///Possible to add verification that the entity was not in the same place using isColisao and clear() from list of collisions
+                ///Possible to add verification that the entity was not in the same place using 
+                //isColisao and clear() from list of collisions
             }
         }
 }
