@@ -18,22 +18,22 @@ ensuring that the necessary files will be installed. The compilation will be don
 
 * Example of compiling
 
-	@$ make@	
+bc.. puts "$ make"
 	
-	@System: Linux OS@
-	@Compiling...ok@
-	@Cleaning...done.@
-	@Run Amaze.out@
+puts	"System: Linux OS"
+puts	"Compiling...ok"
+puts	"Cleaning...done."
+puts	"Run Amaze.out"
 
 	
-@	$ make check 
-Checking if all dev packages are installed
-opengl [OK]
-openal [OK]
-glut [OK]
-glui [OK]
-alut [OK]
-glee [OK]@
+bc.. puts "$ make check "
+puts	"Checking if all dev packages are installed"
+puts	"opengl [OK]"
+puts	"openal [OK]"
+puts	"glut [OK]"
+puts	"glui [OK]"
+puts	"alut [OK]"
+puts	"glee [OK]"
 
 	
 # Mac OS 
