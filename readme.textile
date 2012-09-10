@@ -22,14 +22,12 @@ ensuring that the necessary files will be installed. The compilation will be don
 
 * Example of compiling
 
-bc.. puts
-		$ make
+bc.. puts	$ make
 	System: Linux OS
 	Compiling...ok
 	Cleaning...done.
 	Run Amaze.out
 
-	
 		$ make check 
 	Checking if all dev packages are installed
 	opengl [OK]
