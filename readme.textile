@@ -22,7 +22,7 @@ ensuring that the necessary files will be installed. The compilation will be don
 
 * Example of compiling
 
-bc..
+bc.. puts
 		$ make
 	System: Linux OS
 	Compiling...ok
