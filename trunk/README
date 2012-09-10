@@ -8,8 +8,7 @@ own the means of implementing the output file, but the project folder you can al
  
  # Mac OS 
 
-	-Similar to the steps on the Linux system, the user must run the command "make run" in the directory containing 
-the makefile to compile the files and start the program correctly.-
+	-Similar to the steps on the Linux system, the user must run the command "make run" in the directory containing the makefile to compile the files and start the program correctly.-
 
 	Not supported yet.
  
