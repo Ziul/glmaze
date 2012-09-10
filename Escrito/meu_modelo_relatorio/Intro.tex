@@ -33,18 +33,31 @@ Devido ao OpenGL ser uma ferramenta bastante conhecida, é extremamente fácil e
 	\item \textbf{Portabilidade}. O conhecimento de que o OpenGL não se restringia apenas a plataforma $Windows$ acabou gerando o desejo de produzir um código que pudesse ser compilado em qualquer computador, seja $Windows$, $Mac$ ou $Linux$.
 \end{itemize}
 
+\end{multicols}
+\begin{figure}[h]
+\begin{center}
+  \centering
+  \includegraphics[scale=0.45]{./fts/lvl1}
+  \caption{Pac-Man.\\O clássico dos anos 80 só foi ter um score perfeito - máximo de pontos, sem falhas ou mortes - em 1999, quando \textit{Billy Mitchell} consegui a incrível marca de $3,333,360$ pontos, após vencer os consecutivos 256 leveis do jogo.}
+  \label{pac1}
+\end{center}
+\end{figure}
+\begin{multicols}{2}
+
 \subsection{Entradas e Saídas}\label{inputs}
 
 Inicialmente, o grupo precisava de uma sala complexa, com varias paredes e corredores. Assim poderíamos levantar estruturas de colisões, movimentação, iluminação e texturas. De inicio, foi utilizado um algoritmo chamado e \textit{"Growing Tree"}, utilizado para a criação de labirintos. Inicialmente foram escolhidos dois programas base para a criação de um labirinto randômico e posteriormente a exportação do labirinto para o programa.
 
-Com a evolução do programa e as ferramentas feitas, foi adotado um labirinto fixo, que tivesse as características dos jogos clássicos de PAC-MAN.
+Com a evolução do programa e as ferramentas feitas, foi adotado um labirinto fixo, que tivesse as características dos jogos clássicos de PAC-MAN, que pode ser observado na figura \ref{pac1}.
 
-\begin{SCfigure}[1][h] %%Cuidado..ela não se mantem no lugar
-  \centering
-  \includegraphics[width=4cm]{./fts/lvl1}
-  \caption{Pac-Man.\\O clássico dos anos 80 só foi ter um score perfeito - máximo de pontos, sem falhas ou mortes - em 1999, quando \textit{Billy Mitchell} consegui a incrível marca de $3,333,360$ pontos, após vencer os consecutivos 256 leveis do jogo.}
-  \label{pac1}
-\end{SCfigure}
+%\end{multicols}
+%\begin{SCfigure}[5][h] %%Cuidado..ela não se mantem no lugar
+%	\centering
+%	\includegraphics[scale=0.3]{./fts/lvl1}
+%	\caption{Pac-Man.\\O clássico dos anos 80 só foi ter um score perfeito - máximo de pontos, sem falhas ou mortes - em 1999, quando \textit{Billy Mitchell} consegui a incrível marca de $3,333,360$ pontos, após vencer os consecutivos 256 leveis do jogo.}
+%	\label{pac1}
+%\end{SCfigure}
+%\begin{multicols}{2}
 
 O programa ainda continua fazendo leituras do teclado e do mouse para a movimentação do usuário, apresentando apenas como saída o \textit{framebuffer} na tela do usuário.
 

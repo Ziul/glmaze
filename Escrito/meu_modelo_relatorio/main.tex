@@ -12,6 +12,9 @@
 %\providecommand{\tabularnewline}{\\}
 
 \usepackage{indentfirst}
+\usepackage{multicol}
+\usepackage[table]{xcolor}
+%\usepackage[center]{caption}
 
 %%--------------------Colocados por minha vontade própria-----------------------
 \usepackage{marvosym}
@@ -21,7 +24,7 @@
 \usepackage{wasysym}				% setas
 \usepackage{picinpar}				% figuras onde eu quero, problemas com referencias
 \usepackage{sidecap}				% legenda ao lado da figura
-\usepackage[small,bf]{caption}
+\usepackage[small,center,bf]{caption}
 \usepackage{lipsum}					% Pra encher linguiça
 \usepackage{ifthen}
 \setcounter{secnumdepth}{6}
@@ -274,12 +277,17 @@ morecomment=[s]{/*}{*/},
 %		\keyw %,\LaTeX.
 %	\end{IEEEkeywords}}
 	% make the title area
-%\onecolumn		%Conferir se pode ser feito em duas colunas
+\onecolumn		%Conferir se pode ser feito em duas colunas
+
+
+	
 
 	\maketitle
 
 	\IEEEdisplaynotcompsoctitleabstractindextext
 	\IEEEpeerreviewmaketitle
+
+\begin{multicols}{2}
 
 	\selectlanguage{brazil}		%voltando para o português.
 	%\tableofcontents			% Sumario
@@ -323,6 +331,11 @@ morecomment=[s]{/*}{*/},
 	%\end{thebibliography}
 	%\fi
 
+\end{multicols}
+
+\vfill %Force to get in the end of a page
+\begin{multicols}{3}
+	
 	\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./fts/luiz}}]{\luiz}\label{luizbio}
 	
 	Matricula: \luizmatricula
@@ -343,6 +356,7 @@ morecomment=[s]{/*}{*/},
 	
 	E-mail: \efay
 	\end{IEEEbiography}
+\end{multicols}
 
 %\newpage
 \onecolumn
