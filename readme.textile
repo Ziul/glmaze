@@ -6,6 +6,10 @@ h1. README
 just open the project file - Labirinto.cbp in CodeBlocks and have compile / build the project. In the IDE will 
 own the means of implementing the output file, but the project folder you can also locate the *.exe. 
  
+ # Mac OS 
+
+	Not supported yet.
+ 
 # Linux 
 
 	To build the program on the Linux platform, you need some libraries installed on your system. Among them is 
@@ -18,14 +22,15 @@ ensuring that the necessary files will be installed. The compilation will be don
 
 * Example of compiling
 
-bc.		$ make
+bc..
+		$ make
 	System: Linux OS
 	Compiling...ok
 	Cleaning...done.
 	Run Amaze.out
 
 	
-bc. 	$ make check 
+		$ make check 
 	Checking if all dev packages are installed
 	opengl [OK]
 	openal [OK]
@@ -33,9 +38,3 @@ bc. 	$ make check
 	glui [OK]
 	alut [OK]
 	glee [OK]
-
-	
-# Mac OS 
-
-	Similar to the steps on the Linux system, the user must run the command "make run" in the directory containing 
-the makefile to compile the files and start the program correctly.
