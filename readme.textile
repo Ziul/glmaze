@@ -1,3 +1,27 @@
-h1. Assembla.readme
+h1. README
 
-In assembla you can use "textile(Textile Basics)":http://bit.ly/textile-basics, "html(Html Basics)":http://bit.ly/html-basics or "markdown(Markdown Basics)":http://bit.ly/markdown-basics to add some sugar to your readme files. Just add the extention to your readme file, so we can recognize the markup you want to use!
+# Windows
+
+	The program was developed with the assistance of CodeBlocks IDE. To generate the executable on the platform, 
+just open the project file - Labirinto.cbp in CodeBlocks and have compile / build the project. In the IDE will 
+own the means of implementing the output file, but the project folder you can also locate the *.exe. 
+ 
+# Linux 
+
+	To build the program on the Linux platform, you need some libraries installed on your system. Among them is 
+valid highlight of OpenGL and audio (ALUT and OpenAL). In the folder where the source files, you can find the 
+makefile. In the terminal, just run the command "make run" in the directory containing the makefile to compile 
+the files and start the program correctly. If any of the required libraries are not installed, it will be seen 
+the list of warnings/errors, guiding which library should be installed. It is valid to remember that to install 
+the libraries for this purpose on the Linux platform, you should seek the names with the suffix "-dev", thereby 
+ensuring that the necessary files will be installed. The compilation will be done on silent mode.
+
+## Example of compiling
+
+@$ make@	
+	
+	
+# Mac OS 
+
+	Similar to the steps on the Linux system, the user must run the command "make run" in the directory containing 
+the makefile to compile the files and start the program correctly.
