@@ -1,8 +1,17 @@
+h1. README
+
 # Windows
 
 	The program was developed with the assistance of CodeBlocks IDE. To generate the executable on the platform, 
 just open the project file - Labirinto.cbp in CodeBlocks and have compile / build the project. In the IDE will 
 own the means of implementing the output file, but the project folder you can also locate the *.exe. 
+ 
+ # Mac OS 
+
+	-Similar to the steps on the Linux system, the user must run the command "make run" in the directory containing 
+the makefile to compile the files and start the program correctly.-
+
+	Not supported yet.
  
 # Linux 
 
@@ -13,8 +22,20 @@ the files and start the program correctly. If any of the required libraries are 
 the list of warnings/errors, guiding which library should be installed. It is valid to remember that to install 
 the libraries for this purpose on the Linux platform, you should seek the names with the suffix "-dev", thereby 
 ensuring that the necessary files will be installed. The compilation will be done on silent mode.
-	
-# Mac OS 
 
-	Similar to the steps on the Linux system, the user must run the command "make run" in the directory containing 
-the makefile to compile the files and start the program correctly.
+* Example of compiling
+
+	$ make
+	System: Linux OS
+	Compiling...ok
+	Cleaning...done.
+	Run Amaze.out
+
+	$ make check 
+	Checking if all dev packages are installed
+	opengl [OK]
+	openal [OK]
+	glut [OK]
+	glui [OK]
+	alut [OK]
+	glee [OK]
