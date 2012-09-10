@@ -16,10 +16,25 @@ the list of warnings/errors, guiding which library should be installed. It is va
 the libraries for this purpose on the Linux platform, you should seek the names with the suffix "-dev", thereby 
 ensuring that the necessary files will be installed. The compilation will be done on silent mode.
 
-## Example of compiling
+* Example of compiling
 
-@$ make@	
+	@$ make@	
 	
+	@System: Linux OS@
+	@Compiling...ok@
+	@Cleaning...done.@
+	@Run Amaze.out@
+
+	
+@	$ make check 
+Checking if all dev packages are installed
+opengl [OK]
+openal [OK]
+glut [OK]
+glui [OK]
+alut [OK]
+glee [OK]@
+
 	
 # Mac OS 
 
