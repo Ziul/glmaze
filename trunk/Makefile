@@ -10,6 +10,21 @@ PROBLENS=-Wall -pedantic -fpermissive
 UNAME = $(shell uname)
 OUTPUT = Amaze.out
 
+SRC = button.cpp  defines.cpp   eventos.cpp  minimap.cpp  soundAL.cpp  textureloader.cpp \
+camera.cpp  entidade.cpp  framerate.cpp  map.cpp          player.cpp   text.cpp     tile.cpp
+
+
+###
+#	libghc-opengl-dev
+#	libghc-openal-dev
+#	freeglut3-dev
+#	libglui-dev
+#	libalut-dev
+#	glee-dev
+####
+
+
+
 define PROGRAM_template
 $(1): $(addsuffix .o,$(1))
 endef
@@ -43,23 +58,28 @@ all: *.cpp
 compiling:*.cpp
 	echo "System: "$(UNAME) "OS"
 	echo -n "Compiling..."
-	$(CC) *.cpp -c $(CFLAGS)
+	$(CC) *.cpp -c -g $(CFLAGS)
+	ar rc libAmaze.a *.o
 	$(CC) *.cpp -MM $(CFLAGS) > depends.d
-	$(CC) *.o -o $(OUTPUT) $(CFLAGS) 
+#	$(CC) *.o -o $(OUTPUT) $(CFLAGS) 
+	$(CC) gamemanager.cpp -o $(OUTPUT) $(CFLAGS) -L./ -lAmaze
 	
 clean:
 	echo "Cleaning all..."
-	rm -rfv $(OUTPUT) *.o *.d
+	rm -rfv $(OUTPUT) *.o *.d *.a
 
-run: all
+libAmaze.a:compiling
+	true
+
+run: libAmaze.a
 	echo "Running..."
 	./$(OUTPUT)	
 	
 valgrind: *.cpp
-	$(CC) -g -c *.cpp
+	$(CC) -g -c $(SRC) #*.cpp
 	ar rc libAmaze.a *.o
 	$(CC) -g gamemanager.cpp -o ToGring $(GLFLAGS) -L./ -lAmaze
-	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./ToGring -q --fullpath-after=string  --show-possibly-lost=yes --trace-children=yes -v
+	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./ToGring -q --fullpath-after=string  --show-possibly-lost=yes --trace-children=yes -v --main-stacksize=512MB
 	echo "Valgrind files available: (newer first)"
 	ls -t| egrep -i grind
 	
@@ -73,53 +93,53 @@ check:
 	echo "Checking if all dev packages are installed"
 #	OPENGL
 	echo -n "opengl "
-	if $(SEARCH) "opengl" ;\
+	if $(SEARCH) "opengl.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
-		echo "[MISSING!]" ;\
+		echo "[MISSING!] - Install libghc-opengl-dev" ;\
 	fi;
 #	OPENAL
 	echo -n "openal "
-	if $(SEARCH) "openal" ;\
+	if $(SEARCH) "openal.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
-		echo "[MISSING!]" ;\
+		echo "[MISSING!] - Install libghc-openal-dev" ;\
 	fi;
 #	GLUT
 	echo -n "glut "
-	if $(SEARCH)  "glut" ;\
+	if $(SEARCH)  "glut.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
-		echo "[MISSING!]" ;\
+		echo "[MISSING!] - Install freeglut3-dev" ;\
 	fi;
 #	GLUI
 	echo -n "glui "
-	if $(SEARCH)  "glui" ;\
+	if $(SEARCH)  "glui.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
-		echo "[MISSING!]" ;\
+		echo "[MISSING!] - Install libglui-dev" ;\
 	fi;
 #	ALUT
 	echo -n "alut "
 #Como deveria de ser pra buscar por suporte para desenvolvedores
 #	if $(SEARCH) | grep -qi "alut.*dev" ;\ 
-	if $(SEARCH)  "alut" ;\
+	if $(SEARCH)  "alut.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
-		echo "[MISSING!]" ;\
+		echo "[MISSING!] - Install libalut-dev" ;\
 	fi;
 #	GLEE
 	echo -n "glee "
-	if $(SEARCH)  "glee" ;\
+	if $(SEARCH)  "glee.*dev" ;\
 	then \
 		echo "[OK]";\
 	else \
-		echo "[MISSING!]" ;\
+		echo "[MISSING!] - Install glee-dev" ;\
 	fi;
 	
 .SILENT:

@@ -20,7 +20,7 @@ import numpy as np
 from numpy.random import random_integers as rnd
 import matplotlib.pyplot as plt
 
-def maze(width=80, height=40, complexity=.75, density =.75):
+def maze(width=129, height=131, complexity=.75, density =.75):
     # Only odd shapes
     shape = ((height//2)*2+1, (width//2)*2+1)
     # Adjust complexity and density relative to maze size
@@ -49,23 +49,23 @@ def maze(width=80, height=40, complexity=.75, density =.75):
                     x, y = x_, y_
     return Z
 
-tfile = open("exportTEST.txt", "w")
-mapa = maze(81,41)
-tfile.write("81-41\n")
-for i in range(0,41):
-    for j in range(0,81):
-        tfile.write("[")
-        if(mapa[i,j]):
-            tfile.write("1")
-        else:
-            tfile.write("2")
-        tfile.write("] ")
-    tfile.write("\n")
+#tfile = open("exportTEST.txt", "w")
+#mapa = maze(81,41)
+#tfile.write("81-41\n")
+#for i in range(0,41):
+#    for j in range(0,81):
+#        tfile.write("[")
+#        if(mapa[i,j]):
+#            tfile.write("1")
+#        else:
+#            tfile.write("2")
+#        tfile.write("] ")
+#    tfile.write("\n")
 
-tfile
-tfile.close()
+#tfile
+#tfile.close()
 
 plt.figure(figsize=(10,5))
-plt.imshow(maze(80,40),cmap=plt.cm.binary,interpolation='nearest')
+plt.imshow(maze(129,131),cmap=plt.cm.binary,interpolation='nearest')
 plt.xticks([]),plt.yticks([])
 plt.show()

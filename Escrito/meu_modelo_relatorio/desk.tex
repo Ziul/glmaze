@@ -87,7 +87,16 @@ Running...
 \paragraph{\textbf{Valgrind/Callgrind}}
 
 No intuito de melhor observar como o programa se comportava durante sua execução, utilizamos da ferramenta do \textit{Valgrind} para visualizar a sequencia de chamadas efetuadas no programa.
-Para isso foi incorporado no \textit{Makefile} a chamada para o Valgrind, onde uma nova compilação ocorre sem as chamadas de otimização e verificação de erros seguida da chamada do Valgrind para a geração de um arquivo \textit{Callgrind.out}. Este arquivo pode ser utilizado para gerar um gráfico com as chamadas realizadas pelo programa \textit{KCachegrind} semelhante ao gerado na imagem \ref{valgrind}. É valido lembrar que o Valgrind roda com memoria limitada. Por este motivo, ele não permite realizar o monitoramento do programa por períodos muito extensos. O gráfico apresentado na figura \ref{valgrind} foi gerado disponibilizando apenas 16MB para captura de dados no Valgrind.
+Para isso foi incorporado no \textit{Makefile} a chamada para o Valgrind, onde uma nova compilação ocorre sem as chamadas de otimização e verificação de erros seguida da chamada do Valgrind para a geração de um arquivo \textit{Callgrind.out}. Este arquivo pode ser utilizado para gerar um gráfico com as chamadas realizadas pelo programa \textit{KCachegrind} semelhante ao gerado na imagem \ref{valgrind}. É valido lembrar que o Valgrind roda com memoria limitada. Por este motivo, ele não permite realizar o monitoramento do programa por períodos muito extensos. O gráfico apresentado na figura \ref{valgrind} foi gerado disponibilizando apenas 16MB para captura de dados no Valgrind \cite{valgrind}, como pode ser observado no trecho do manual:
+
+\selectlanguage{english}
+\begin{quote}
+	\textit{By default, Valgrind uses the current "ulimit" value for the stack size, or 16 MB, whichever is lower. In many cases this gives a stack size in the
+           range 8 to 16 MB, which almost never overflows for most applications.}\cite{valgrind}
+\end{quote}
+\selectlanguage{brazil}
+
+Normalmente, faríamos da seguinte forma para usar o Valgrind:
 
 \begin{lstlisting}[language=bash,title=\textit{Gerando arquivo callgrind.out},numbers=none]
 $ make valgrind
@@ -95,6 +104,37 @@ $ make valgrind
 	valgrind --tool=callgrind --dsymutil=yes 
 		--trace-jump=yes ./prog
 \end{lstlisting}
+
+Porém algumas opções foram incluídas para ter uma resposta mais apropriada. A primeira alteração trata-se da forma de compilação. Ao invés de compilar todos os arquivos diretamente, foi criado uma biblioteca dinâmica, para que o executável final carregue apenas as funções que realmente foram usadas - já que nosso código ainda carrega algumas funções para debug.
+
+\begin{lstlisting}[language=bash,title=\textit{Gerando uma biblioteca dinâmica},numbers=none]
+	g++ -g -c button.cpp  defines.cpp   eventos.cpp  minimap.cpp  soundAL.cpp  textureloader.cpp camera.cpp  entidade.cpp  framerate.cpp  map.cpp          player.cpp   text.cpp     tile.cpp
+	ar rc libAmaze.a *.o
+\end{lstlisting}
+
+Em seguida, utilizamos a biblioteca dinâmica para compilar o arquivo principal do jogo. Essa atitude permite que o binário carregue menos informações, o que implica em uma quantidade de memoria menor reservada no Valgrind.
+
+\begin{lstlisting}[language=bash,title=\textit{Compilando com a biblioteca dinâmica},numbers=none]
+	g++ -g gamemanager.cpp -o ToGring -lglut -lglui -lGLU 
+-lGL -lalut  -lopenal -L./ -lAmaze
+\end{lstlisting}
+
+Assim, temos um novo binario - ToGrind - contendo apenas as funções realmente utilizadas no programa. Por fim, chamamos o Valgrind, passando algumas opções a mais:
+
+\begin{lstlisting}[language=bash,title=\textit{Chamada personalizada do Valgrind},numbers=none]
+	valgrind --tool=callgrind --dsymutil=yes ./ToGring -q 
+--fullpath-after=string  --show-possibly-lost=yes 
+--trace-children=yes -v --main-stacksize=512MB
+\end{lstlisting}
+
+Seguem a lista de alterações passadas para o Valgrind:
+
+\begin{enumerate}
+	\item \textbf{fullpath-after:} Essa opção é importante para programas que contenham muitos arquivos em distintos diretórios.
+	\item \textbf{show-possibly-lost:} Mostra possíveis blocos de memoria perdidos.
+	\item \textbf{trace-children:} Caso o programa produza processos filhos, eles serão acompanhados também.
+	\item \textbf{main-stacksize:} Altera o tamanho de memoria reservado para captura de dados.
+\end{enumerate}
 
 \subsubsection{Artefatos}\label{artefatos}
 
