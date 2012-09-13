@@ -8,6 +8,7 @@
 #include <vector>
 #include <stdio.h>
 #include <math.h>
+#include "model_obj.h"
 
 
 class Map
@@ -31,11 +32,6 @@ class Map
         Tile* getTile(int x, int y);
         inline int getX(int i);
         inline int getY(int i);
-        int MAP_HEIGHT;
-        int MAP_WIDTH;
-
-        float origemX; // Where the map start to render
-        float origemZ; //Tile 0,0, growls on right-down
 
         void setWired(int wired);
         bool isWire();
@@ -46,20 +42,30 @@ class Map
         void render();
         int load(char* filename);
 
-        //void iniciaDisplayList();
-        GLuint dlMap;
-
         //Used to others classes to get info about the map
         static Map MapControl;
-
-
-
         //Operator overload
         inline Tile* operator ()  (const int x, const int y)
         {
             return this->getTile(x,y);
         }
+        //Propriedades publicas
+    public:
+        int MAP_HEIGHT;
+        int MAP_WIDTH;
 
+        float origemX; // Where the map start to render
+        float origemZ; //Tile 0,0, growls on right-down
+
+        GLuint dlMap;
+
+        Model_OBJ coin;
+        Model_OBJ bigCoin;
+
+        float coinRotate;
+        float coinVelocidade;
+        //Usa pra calcular rotate
+        unsigned int deltaTicks;
 
 
 };

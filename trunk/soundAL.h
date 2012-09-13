@@ -47,7 +47,7 @@ class SoundAL
         void init(void);
         void exit(void);
 
-        int loadSound(const char filename[256], int loop);
+        int loadSound(const char* filename, int loop);
 
         void play(int src_i);
         void pause(int src_i);

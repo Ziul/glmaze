@@ -66,6 +66,12 @@ void GameManager::inicializa(void)
     inicializaRender();
     inicializaSons();
 
+//---Testes
+
+    coin.Load((char*)"suzane.obj");
+
+    Map::MapControl.coin.Load((char*)"suzane.obj");
+    Map::MapControl.bigCoin.Load((char*)"suzane.obj");
 //---------------------------
     //Specifies the background color
     glClearColor(0.3f,0.3f,0.9f,1.0f);
@@ -96,6 +102,7 @@ void GameManager::inicializa(void)
         enemy[i] = new Entidade();
         enemy[i]->addToEntidadeList();
         enemy[i]->setTamanho(5);
+        enemy[i]->createModel((char*)"suzane.obj");
     }
 
     Player::PlayerControl = new Player();
@@ -108,7 +115,7 @@ void GameManager::inicializaSons(void)
     sc.init();
 
     SOUND_main = sc.loadSound("data/mus/main.wav", 1);
-    SOUND_inter1 = sc.loadSound("data/mus/M1.WAV", 1);	//Linux & MAC are sensitive case 
+    SOUND_inter1 = sc.loadSound("data/mus/M1.WAV", 1);	//Linux & MAC are sensitive case
     SOUND_inter2 = sc.loadSound("data/mus/M2.WAV", 1);
     SOUND_inter3 = sc.loadSound("data/mus/M3.WAV", 1);
     SOUND_attack = sc.loadSound("data/mus/atk.wav", 1);
@@ -125,7 +132,7 @@ void GameManager::inicializaSons(void)
 }
 void GameManager::resetPositions(void)
 {
-    printf("Posicoes resetadas: %lu\n", Entidade::EntidadeList.size());
+    printf("Posicoes resetadas: %u\n", Entidade::EntidadeList.size());
 
     Map::MapControl.load((char*) "map_pacman_new.txt");
 
@@ -138,11 +145,30 @@ void GameManager::resetPositions(void)
     Player::PlayerControl->init();
     Player::PlayerControl->resetPosition();
 }
+
+void GameManager::Testes()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glPushMatrix();
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(2.0f, 0.0f, -10.0f);
+        glRotated(120, 0,1,0);
+        //glutSolidSphere(10.0f, 18.0f, 18.0f);
+        glDisable(GL_CULL_FACE);
+        coin.Draw();
+        glEnable(GL_CULL_FACE);
+	glPopMatrix();
+}
 void desenhaTela(void)
 {
 
     game.render();
 
+    //game.Testes();
 
     glutSwapBuffers();
 }
@@ -236,7 +262,7 @@ void GameManager::render(void)
                 default:;
         }
 
-        return; 
+        return;
     }
 
 
@@ -295,6 +321,9 @@ GameManager::~GameManager()
 {
     sc.stopAll();
     sc.exit();
+    coin.Release();
+    Map::MapControl.coin.Release();
+    Map::MapControl.bigCoin.Release();
 }
 void cleanup(void)
 {
@@ -302,7 +331,10 @@ void cleanup(void)
     unsigned int sizeBtn = Button::ButtonList.size();
     printf("Entidade cleanup size: %u\n", sizeEnt);
     for(unsigned int i = 0; i < sizeEnt; i++)
+    {
         delete Entidade::EntidadeList[i];
+    }
+
     printf("Button cleanup size: %u\n", sizeBtn);
     for(unsigned int i = 0; i < sizeBtn; i++)
         delete Button::ButtonList[i];

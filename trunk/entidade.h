@@ -8,6 +8,7 @@
 #include "map.h"
 #include "camera.h"
 #include "soundAL.h"
+#include "model_obj.h"
 
 enum
 {
@@ -41,7 +42,11 @@ class Entidade
 
 
 
+
+
     public:
+        Model_OBJ obj;
+        void createModel(char* filename){obj.Load(filename);}
         void addToEntidadeList();
         void setRandomPosition();
         void setColor3f(float fr, float fg, float fb);
@@ -51,8 +56,8 @@ class Entidade
         void setPosicao(float x, float y, float z);
         //Ex: int delta = getTicks() - deltaTicks;
         //Ex: posicao = posicao + (velocidade * (delta/1000.f ) );
-        unsigned int deltaTicks; //ticks from the last time you calculated the movement
-        unsigned int respawnTicks;// ticks when he died
+        unsigned int deltaTicks; //quantos ms desde a ultima vez
+        unsigned int respawnTicks;// o tempo em q ele morreu
         Vetor3D posicao;
         Vetor3D velocidade;
         Vetor3D aceleracao;

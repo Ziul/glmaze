@@ -31,6 +31,7 @@ class GameManager
         void loop(void);
 
         Entidade* enemy[MAX_ENEMY];
+        Model_OBJ coin;
 
         //SoundController ... Controls sound
         SoundAL sc;
@@ -41,6 +42,7 @@ class GameManager
         ~GameManager();
         void render(void);
         void executa(int argc, char* args[]);
+        void Testes();
 };
 
 

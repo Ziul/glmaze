@@ -29,6 +29,8 @@ Map::Map()
     origemZ = -TAMANHO_BLOCO;
     mostraWired = false;
     RENDER_MODE = 0x0007; //GL_QUADS
+    coinRotate = 0;
+    coinVelocidade = 180;
 }
 
 void Map::renderBloco(float width, float height, float flatness, bool left,
@@ -156,9 +158,9 @@ void Map::render()
 {
     glPushMatrix();
     float offset = (float)TAMANHO_BLOCO/2.0f;
-    
+
     // Glut start printing starting from the center
-    glTranslated(offset, offset, offset); 
+    glTranslated(offset, offset, offset);
     glColor3f(COR_PAREDE);
 
     int indexX = (Camera::CameraControl.cameraX / TAMANHO_BLOCO);
@@ -194,7 +196,18 @@ void Map::render()
 }
 void Map::renderTileOptimizado(unsigned int i)
 {
-    //Camera on center of square 0,0,0
+    //Gera fator para a rotação da moeda
+    int delta = glutGet(GLUT_ELAPSED_TIME) - deltaTicks;
+    float fator = delta/1000.f;
+    deltaTicks = glutGet(GLUT_ELAPSED_TIME);
+
+    coinRotate += coinVelocidade*fator;
+
+    if ( coinRotate > 360 )
+        coinRotate-=360;
+
+
+    //Camera centra em 0,0,0
     glTranslated(listaTilesOptimizados[i].posX * TAMANHO_BLOCO,
                  listaTilesOptimizados[i].posY * TAMANHO_BLOCO,
                  listaTilesOptimizados[i].posZ * TAMANHO_BLOCO);
@@ -202,6 +215,7 @@ void Map::renderTileOptimizado(unsigned int i)
 
     if(listaTilesOptimizados[i].typeId == TILE_TIPO_PAREDE )
     {
+        glColor3f(COR_PAREDE);
         renderBloco(listaTilesOptimizados[i].tamanho, listaTilesOptimizados[i].tamanho, listaTilesOptimizados[i].tamanho,
                     listaTilesOptimizados[i].left,listaTilesOptimizados[i].right,listaTilesOptimizados[i].front,
                     listaTilesOptimizados[i].back,listaTilesOptimizados[i].top,
@@ -228,18 +242,24 @@ void Map::renderTileOptimizado(unsigned int i)
                 glTexCoord2f(1.0f, 0.0f);
             glVertex3f(offset, -offset, -offset);
         glEnd();
-        glColor3f(COR_PAREDE);
+
         glDisable(GL_TEXTURE_2D);
         if (listaTilesOptimizados[i].typeId == TILE_TIPO_CHAO_COM_BOLA)
         {
             glTranslated(0,-2,0);
-            glutSolidSphere(1,8,8);
+            //glutSolidSphere(1,8,8);
+            glRotatef(coinRotate, 0, 1, 0);
+            glColor3f(COR_COIN);
+            coin.Draw();
         }
         else
         if (listaTilesOptimizados[i].typeId == TILE_TIPO_CHAO_COM_BOLA_ESPECIAL)
         {
             glTranslated(0,-2,0);
-            glutSolidSphere(3,8,8);
+            //glutSolidSphere(3,8,8);
+            glRotatef(coinRotate, 0, 1, 0);
+            glColor3f(COR_BIG_COIN);
+            bigCoin.Draw();
         }
 
     }

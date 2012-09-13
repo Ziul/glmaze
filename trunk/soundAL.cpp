@@ -14,6 +14,7 @@ void SoundAL::init()
 {
     alutInit(NULL, 0);
 
+
     for(int i = 0; i < BUFFER_SIZE_AL;i++)
         buffer[i].active=0;
 
@@ -24,12 +25,31 @@ void SoundAL::init()
     alutGetError();
 }
 
-int SoundAL::loadSound(const char filename[256], int loop)
+int SoundAL::loadSound(const char* filename, int loop = 0)
 {
-    int buf_value = alutCreateBufferFromFile(filename);
 
+    //AO RODAR COM alutCreateBufferFromFile, gera erro de renderização quando executar. Porém ao usar a versão depreciada, funciona corretamente);
+    ALuint buf_value = 0;//alutCreateBufferFromFile(filename);
+
+    /** VERSAO DEPRECIADA... FUNCIONA **/
+    ALenum format;
+	ALbyte * data;
+	ALsizei size, freq;
+	ALuint name;
+
+	alutLoadWAVFile((ALbyte*)filename, &format, (ALvoid **)&data, &size, &freq, NULL);
+	#ifdef DEBUG
+	printf("DEBUG{%s >> format: %d; size: %d; freq: %d}\n",
+	       filename, format, size, freq);
+        #endif
+
+	alGenBuffers(1, &name);
+	alBufferData(name, format, data, size, freq);
+
+	buf_value = name;
+    /** FIM DA VERSAO **/
 	//if couldn't load the file
-	if(!buf_value)		
+	if(!buf_value)
     {
         printf("Erro ao carregar arquivo de som(%s): %s\n",filename, alutGetErrorString(alutGetError()));
         return -1;

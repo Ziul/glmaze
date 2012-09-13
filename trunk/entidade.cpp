@@ -38,6 +38,7 @@ void Entidade::init()
 }
 Entidade::~Entidade()
 {
+
 }
 void Entidade::cleanup()
 {
@@ -198,7 +199,13 @@ void Entidade::render()
     if (showWired)
         glutWireCube(tamanhoCubo);
     else
-        glutSolidCube(tamanhoCubo);
+    {
+        //glutSolidCube(tamanhoCubo);
+        glScaled(2.0f, 2.0f, 2.0f);
+        obj.Draw();
+
+    }
+
     glPopMatrix();
 
 
@@ -247,7 +254,7 @@ void Entidade::executaColisao()
     if ( !isColidido() )
         return; // no collisions
 
-	
+
 /*
 
     //Back what had moved.
@@ -290,7 +297,7 @@ void Entidade::setRandomPosition()
                 aceleracao.z = 1 + rand() % 10;
                 init();
                 isOK = true;
-                ///Possible to add verification that the entity was not in the same place using 
+                ///Possible to add verification that the entity was not in the same place using
                 //isColisao and clear() from list of collisions
             }
         }

@@ -7,7 +7,7 @@
 	#include <OpenAL/alut.h>
 	#include <OpenAL/al.h>
 	#include <OpenAL/alc.h>
-    
+
 #else
     #ifdef _WIN32                           /* Windows */
     	#define WIN32_LEAN_AND_MEAN
@@ -46,6 +46,8 @@
 #define TAMANHO_BLOCO           12
 #define COR_PAREDE              1.0f, 1.0f, 1.0f
 #define COR_CHAO                1.0f, 1.0f, 1.0f
+#define COR_COIN                1.0f, 1.0f, 1.0f
+#define COR_BIG_COIN            0.6f, 0.9f, 0.5f
 #define GAME_FOV                28
 
 #define PONTOS_BOLA             10

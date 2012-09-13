@@ -11,7 +11,7 @@ Em testa colisões -> verifica colisões de entidade com entidade, caso colisa, 
 Em executa colisões -> faz ações baseado no tipo de entidade colidida.
 
 
-
+"Besides, the ALUT function for loading Wave files is deprecated, so I assume developers are not supposed to use it for new code"  http://stackoverflow.com/questions/1077374/openal-programming-links-to-get-started-and-playing-wav
 
 
 void Map::geraListaRetangulos()
