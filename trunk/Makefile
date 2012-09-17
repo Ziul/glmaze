@@ -10,10 +10,24 @@ PROBLENS=-Wall -pedantic -fpermissive
 UNAME = $(shell uname)
 OUTPUT = Amaze.out
 
-SRC = button.cpp  defines.cpp   eventos.cpp  minimap.cpp  soundAL.cpp  textureloader.cpp \
-camera.cpp  entidade.cpp  framerate.cpp  map.cpp          player.cpp   text.cpp     tile.cpp
+SRC = 	button.cpp  \
+		defines.cpp   \
+		eventos.cpp    \
+		minimap.cpp    \
+		player.cpp   \
+		text.cpp           \
+		tile.cpp \
+		camera.cpp  \
+		entidade.cpp  \
+		framerate.cpp  \
+		map.cpp          \
+		model_obj.cpp  \
+		soundAL.cpp  \
+		textureloader.cpp
 
+OBJS = ${SRC:.cpp=.o}
 
+.SUFFIXES:.c.o
 ###
 #	libghc-opengl-dev
 #	libghc-openal-dev
@@ -44,42 +58,60 @@ ifeq ($(UNAME),Linux) # Linux OS
 	endif
 endif
 
-all: *.cpp
-	if $(MAKE) compiling ;\
+all: system out
+
+debug: config
+
+system:
+	echo "System: "$(UNAME) "OS"
+	echo -n "Compiling..."
+
+system_debug:
+	echo "System: "$(UNAME) "OS"
+	if rm *.o;\
 	then \
-		echo -n "ok\nCleaning..." ;\
-		rm *.o ;\
-		echo "done.\nRun "$(OUTPUT) ;\
+		echo -n "Cleaning && ";\
+	fi;
+	echo -n "Compiling..."
+
+config: system_debug
+	if $(MAKE) out ;\
+	then \
+		echo " " ;\
 	else \
-		echo  "Error on compiling! Probably some package is missing"; \
+	echo  "Error on compiling! Probably some package is missing"; \
 		$(MAKE) check;\
 	fi;
 
-compiling:*.cpp
-	echo "System: "$(UNAME) "OS"
-	echo -n "Compiling..."
-	$(CC) *.cpp -c -g $(CFLAGS)
-	ar rc libAmaze.a *.o
-	$(CC) *.cpp -MM $(CFLAGS) > depends.d
-#	$(CC) *.o -o $(OUTPUT) $(CFLAGS) 
-	$(CC) gamemanager.cpp -o $(OUTPUT) $(CFLAGS) -L./ -lAmaze
+.c.o:
+	echo -n "compiling..." $<
+	$(CC) $< -c -g $(CFLAGS) $(GLFLAGS)
+	echo  "Done"
+
+compiling: $(OBJS)
+	
+lib: compiling
+	echo  "Done"
+	echo -n "Making lib..."
+	ar rcs libAmaze.a *.o
+	
+out: lib
+	$(CC) gamemanager.cpp -o $(OUTPUT) $(CFLAGS) -L./ -lAmaze $(GLFLAGS)
+	echo "Done.\nRun "$(OUTPUT) ;\
 	
 clean:
 	echo "Cleaning all..."
 	rm -rfv $(OUTPUT) *.o *.d *.a
 
-libAmaze.a:compiling
-	true
-
-run: libAmaze.a
+run: out
 	echo "Running..."
 	./$(OUTPUT)	
 	
 valgrind: *.cpp
-	$(CC) -g -c $(SRC) #*.cpp
+	$(CC) -g -c $(SRC) $(CFLAGS) $(GLFLAGS)
 	ar rc libAmaze.a *.o
 	$(CC) -g gamemanager.cpp -o ToGring $(GLFLAGS) -L./ -lAmaze
-	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./ToGring -q --fullpath-after=string  --show-possibly-lost=yes --trace-children=yes -v --main-stacksize=512MB
+#	valgrind --tool=callgrind --dsymutil=yes --trace-jump=yes ./ToGring -q --fullpath-after=string  --show-possibly-lost=yes --trace-children=yes -v --main-stacksize=512MB
 	echo "Valgrind files available: (newer first)"
 	ls -t| egrep -i grind
 	

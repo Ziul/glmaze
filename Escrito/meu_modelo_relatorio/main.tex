@@ -15,6 +15,11 @@
 \usepackage{multicol}
 \usepackage[table]{xcolor}
 %\usepackage[center]{caption}
+%\usepackage{CJKutf8}
+\usepackage[encapsulated]{CJK}
+\usepackage{ucs}
+%\usepackage[utf8]{inputenc}
+\newcommand{\cjktext}[1]{\begin{CJK}{UTF8}{cyberbit}#1\end{CJK}}
 
 %%--------------------Colocados por minha vontade própria-----------------------
 \usepackage{marvosym}
@@ -337,7 +342,7 @@ morecomment=[s]{/*}{*/},
 \begin{multicols}{3}
 	
 	\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./fts/luiz}}]{\luiz}\label{luizbio}
-	
+
 	Matricula: \luizmatricula
 	
 	E-mail: \eluiz
