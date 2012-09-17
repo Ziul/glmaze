@@ -12,9 +12,60 @@
 
 No intuito de manter o jogo compatível com qualquer sistema operacional, foi decidido centralizar as inclusões de bibliotecas em um único arquivo. Para essa função foi criado o arquivo \textit{"defines.h"}, que é responsável por reconhecer o sistema em que esta sendo compilado e incluir os devidos \textit{headers}.
 
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+
+%\end{multicols}
+%\begin{figure}[h]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {Amaze}
+    child { node {Windows}
+    	child { node {Glee}}
+    	child { node {OpenGL}}
+    	child { node {GLUT}}
+    	child { node {OpenAL}}
+    	child { node {Windows library}}
+    }
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}
+    child [missing] {}				
+    child [missing] {}    
+    child { node {Linux}
+    	child { node {OpenGL}}
+    	child { node {GLUT}}
+    	child { node {OpenAL}}
+    	child { node {cSTDarg}}
+    	child { node {UniSTD}}
+    }
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}
+    child [missing] {}				
+    child [missing] {}   
+    child { node {Mac}
+	    child { node {OpenGL}}
+    	child { node {GLUT}}
+    	child { node {OpenAL}}
+    };
+\end{tikzpicture}
+%\caption{Diagrama de dependências simplificado}
+%\end{figure}
+%\begin{multicols}{2}
+
+Com base nas dependências de cada sistema operacional, foi montado então o \textit{header} da seguinte forma:
+
 \begin{lstlisting}[language=C++,title=\textit{defines.h},firstnumber=5,numbers=none]
 #if defined (__APPLE__) || defined (MACOSX) /*MAC OS*/
     #include <GLUT/glut.h>
+	#include <OpenAL/alut.h>
+	#include <OpenAL/al.h>
+	#include <OpenAL/alc.h>
+
 #else
     #ifdef _WIN32                           /* Windows */
     	#define WIN32_LEAN_AND_MEAN
@@ -22,6 +73,10 @@ No intuito de manter o jogo compatível com qualquer sistema operacional, foi de
         #include <gl/gl.h>
 		#include <gl/glut.h>
         #include <windows.h>
+        #include <AL/al.h>
+		#include <AL/alc.h>
+		#include <AL/alut.h>
+
         #define sleep(x) Sleep(x)
     #else                                   /*Linux*/
     	#include <cstdarg>
@@ -29,6 +84,10 @@ No intuito de manter o jogo compatível com qualquer sistema operacional, foi de
         #include <GL/gl.h>
         #include <GL/glut.h>
         #include <GL/glu.h>
+        #include <AL/al.h>
+		#include <AL/alc.h>
+		#include <AL/alut.h>
+
         #define Sleep(x) usleep(x<1000000?10000+300*x:x)
     #endif
 #endif
@@ -36,24 +95,29 @@ No intuito de manter o jogo compatível com qualquer sistema operacional, foi de
 
 No trecho mostrado acima, podemos ver como o programa reconhece em qual sistema esta sendo compilado e em qual endereço irá procurar pelas bibliotecas. A decisão é tomada de forma bem simples e objetiva, buscando apenas saber se as definições \textbf{MACOSX} ou \textbf{\_WIN32} existem. Com estas duas definições é suficiente para dividir entre os três sistemas operacionais que o programa se propõe a dar suporte. 
 
-Porém este não é o único problema enfrentado quando se trata de um programa multiplataforma, mas também existem as dificuldades com a própria compilação.
+Porém este não é o único problema enfrentado quando se trata de um programa multiplataforma, mas também existem as dificuldades com a própria compilação e funções de espera. Assim, pode-se observar algumas adaptações da função \textbf{sleep()} no trecho acima.
 
-Visando isso, foi feito um arquivo \textit{makefile} que procede com teste semelhante ao feito no \textit{defines.h} para verificar em que sistema se encontra e assim efetuar os links corretamente. Um trecho do \textit{makefile} pode ser observado a seguir:
+Visando o problema de compilação, foi feito um arquivo \textit{makefile} que procede com teste semelhante ao feito no \textit{defines.h} para verificar em que sistema se encontra e assim efetuar os links corretamente. Um trecho do \textit{makefile} pode ser observado a seguir:
 
-\begin{lstlisting}[language=make,title=\textit{Makefile},firstnumber=8,numbers=none]
+\begin{lstlisting}[language=make,title=\textit{Makefile},firstnumber=48,numbers=none]
 UNAME = $(shell uname)
 ifeq ($(UNAME),Linux) # Linux OS
-	GLFLAGS = -lglut -lglui -lGLU -lGL -lalut -lopenal
+	GLFLAGS=-lglut -lglui -lGLU -lGL -lalut -lopenal
+	SEARCH=dpkg -l | grep -iq
 	else
 	ifeq ($(UNAME),Darwin) # MAC OS X
-		GLFLAGS=-framework OpenGL -framework GLUT
+		GLFLAGS=-framework OpenGL -framework GLUT \
+			 -framework OpenAL
+		SEARCH=ls /System/Library/Frameworks | grep -i
 	else #Windows
-		GLFLAGS=-lopengl32 -lglu32 -lglut32 -lalut
+		GLFLAGS=-lopengl32 -lglut32 -lglee -lalut
+		SEARCH=
 	endif
 endif
 \end{lstlisting}
 
 É valido aproveitar a oportunidade para frisar no trecho mostrado acima do \textit{makefile} a inclusão das flags \textit{-lalut -lopenal} para inclusão de áudio no programa.
+
 
 \subsubsection{Execução}\label{exe}
 
