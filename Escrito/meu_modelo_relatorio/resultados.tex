@@ -12,19 +12,26 @@
 %em forma de texto, tabelas e gráficos, como visto na figura \ref{caption} ou na figura \ref{caption1}. Também pode ser incluida nos anexos, como a figura \ref{unb}.
 %\lipsum[2]
 
+\subsection{Aprendizagem}\label{learning}
+
+A matéria de Introdução a Computação Gráfica trouxe grande aprendizagem para o grupo quanto a questões de representação de figuras tridimensionais em programas, porém o jogo  serviu não apenas para lapidar os conhecimentos ofertados na matéria, mas também para aumentar ainda mais a gama de ferramentas que poderiam ser utilizadas em conjunto. Foi graças ao jogo que o grupo teve contato com OpenAL, uma biblioteca de áudio \textit{open-source} que tornou possível a simplificação e cross-compilação entre os distintos sistemas operacionais. Não o bastante, este projeto serviu também para fixar o uso de ferramentas como o Apache Subversion (também conhecido por SVN), um sistema de controle de versão que permitiu com que o grupo trabalhasse de forma independente do desenvolvimento dos demais membros, acelerando assim a produção final não apenas do código fonte, mas os relatórios e apresentações. Por ultimo, e não menos importante esta o uso de diversos sistemas operacionais para um mesmo código. Este desafio foi fundamental para policiar a forma de programação que o grupo praticaria, obrigando a todos os membros a respeitar alguns tópicos fundamentais, que é exposto por muitas as empresas de jogos, como a Valve, em seu fórum de desenvolvedores\cite{valve}, onde recomenda não apenas o uso de ferramentas como o SVN ou Git, mas que seja implementado um controle do código, com estruturas como $\#ifndef$ ou $\#ifdef$ que são parâmetros fundamentais para que em momento de compilação, o compilador possa tomar decisões de quais bibliotecas serão incluídas. Infelizmente, muitas dicas uteis citadas no site da Valve\cite{valve} não foram implementadas no jogo, como o  uso de multi-threads ou sinais de controle, e ficarão marcadas como sugestões para futuras implementações. Mesmo assim, o grupo entrega o jogo como um produto finalizado, pois estamos satisfeitos com os resultados obtidos ate então, e deixamos as futuras implementações como um convite para que os membros não se distancie deste nível de programação que nos trouce tanto prazer.
+
 \subsection{Dificuldades encontradas}\label{dificuldades}
 
 \begin{itemize}
-	\item Dificuldades em discubrir o modo com que o glut atrubui as funções e gerencia os eventos.
+	\item Dificuldades em descobrir o modo com que o glut atribui as funções e gerencia os eventos.
 	\item Dificuldades em tornar o jogo jogável por multiplataformas; especificamente no tratamento de sons.
-	\item Dificuldade em imprimir objetos 2d por cima do cenario 3d (minimap)
+	\item Dificuldade em imprimir objetos 2d por cima do cenário 3d (minimap)
 \end{itemize}
+
 
 \subsection{Sugestões}\label{sugest}
 
 \begin{itemize}
 	\item Multiplayer para 2 jogadores Alternados.
-	\item Registro de nome para usuarios que concluirem um nível com sua respectiva potuação.
+	\item Registro de nome para usuários que concluírem um nível com sua respectiva pontuação.
+	\item Uso de multi-threads no código no intuito de conseguir melhor desempenho.
+	\item Inclusão de verificação de sinais, com o intuito de que o código possa ter melhor controle de si mesmo, e que erros inesperados não sejam motivo de acumulo de lixo na memoria após uma quebra forçada do programa.
 \end{itemize}
 
 %\subsubsection{Pontos relevantes abortados}\label{relevantes} %que seriam uteis na prática e a relevância de tais conceitos (Exemplo de aplicações que tais conceitos seriam úteis). Com citações  se necessário.
