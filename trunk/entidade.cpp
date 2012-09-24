@@ -201,7 +201,7 @@ void Entidade::render()
     else
     {
         //glutSolidCube(tamanhoCubo);
-        glScaled(2.0f, 2.0f, 2.0f);
+        glScaled(2.0f, 2.4f, 2.0f);
         obj.Draw();
 
     }

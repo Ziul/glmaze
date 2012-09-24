@@ -102,7 +102,7 @@ void GameManager::inicializa(void)
         enemy[i] = new Entidade();
         enemy[i]->addToEntidadeList();
         enemy[i]->setTamanho(5);
-        enemy[i]->createModel((char*)"suzane.obj");
+        enemy[i]->createModel((char*)"ghost.obj");
     }
 
     Player::PlayerControl = new Player();
@@ -266,8 +266,6 @@ void GameManager::render(void)
     }
 
 
-
-
     //Lighting
     GLfloat ambientLight[] = {0.1f, 0.1f, 0.1f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
@@ -277,6 +275,7 @@ void GameManager::render(void)
 	GLfloat lightPos[] = {100.0f, 30.0f, -10.0f, 1.0f};
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, directedLight);
 	glLightfv(GL_LIGHT0, GL_POSITION, directedLightPos);
+
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, light);
 	glLightfv(GL_LIGHT1, GL_POSITION, lightPos);
     //end of lighting
