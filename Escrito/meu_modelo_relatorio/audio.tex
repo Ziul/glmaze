@@ -1,0 +1,60 @@
+\subsubsection{Audio - OpenAL}\label{openal}
+%oi
+O som do sistema é reproduzido por uma biblioteca chamada \textbf{OpenAL}, que permite a criação e reprodução de sons através dos seus buffers e sources. Além disso, ainda foi utilizado o \textbf{alut}, que é uma biblioteca auxiliar para o openAL. 
+	O alut consta de funções que efetivamente decodificam e carregam o arquivo de audio para os buffers do openAL e a criação das sources utilizadas para a reprodução a partir destes buffers..
+
+	O openAL é capaz de reproduzir sons em diversas frequencias e velocidades, com direção em um espaço 3d. No sistema porém é apenas utilizada uma versão super-simplificada disso, ou seja, consta apenas de um som estático. Não importa aonde o jogador se encontre, o som seja sempre ouvido da mesma forma.
+
+	Como comentado acima, o alut, assim como o openAL, trabalha emcima de buffers and sources. Primeiramente o arquivo de audio é decodificado e jogado num buffer. Após isso, caso o buffer teja sido criado com sucesso, é atribuido este buffer para uma nova source. 
+	As sources podem conter diversos atributos como direção, posição, velocidade e etc para a representação dos sons nos espaços 3d. Porém no caso do sistema, como o som ouvido é sem direção e posição, basta setarmos o seu buffer e quando o source for chamado o som será ouvido.
+	
+\subsubsection{Sistema}\label{system-arq}
+
+	
+A arquitetura do sistema é relativamente simples e consta somente de dois grandes elementos e suas variações.
+	Primeiro temos a classe \textbf{Map}. Está classe é responsável por carregar um mapa através de um arquivo .map e coloca-lo em uma lista de \textbf{Tiles} que basicamente guardam a posição X, Y e o tipo de bloco que está ocupando. (O sistema possui um optimizador de Tiles que grava nos tiles também quais lados das paredes devem ser impressos caso o tile seja uma parede. Isto ajuda muito no framerate final do sistema.)
+
+	A otra importante classe que temos são os elementos que se movem do sistema. Isto é, elementos da classe \textbf{Entidade} e suas duas outras derivações \textbf{Player} e  \textbf{Enemy}.
+	A classe Entidade consta de todo e quaisquer elementos do sistema que se movem e possam ou não colidir entre si. Os elementos desta classe também possuem conhecimento do \textbf{Map} e a partir deste conhecimento é calculado aonde podem ou não se moverem.
+
+	A moedas que o jogador deve coletar não são um objeto do sistema, e sim apesar uma definição do \textbf{Tile}. Desta forma, não é necessário calcular uma colisão entre o jogador e as moedas. Caso o jogador esteja próximo ao centro de um \textbf{Tile} com uma moeda, será detectado que o jogador pegou a moeda e o \textbf{Tile} agora será de um chão vazio.
+	
+\subsubsection{O loop do jogo}\label{loop}
+
+O \textit{“loop”} do jogo significa tudo aquilo que é feito durante cada frame mostrado na tela. As teclas pressionadas, os cálculos de novas posições, detecção de colisões, desenho do mapa, desenha das entidades e etc.
+
+\begin{enumerate}
+	\item A iteração começa calculando as novas velocidades e acelerações, assim como as posições para todas as \textbf{Entidades}. Isso também já testa as posições do mapa para garantir que está em um espaço que possa se mover.
+	\begin{enumerate}
+		\item Caso haja uma colisão com o mapa a entidade simplesmente para de se mover.
+	\end{enumerate}
+%	
+	\item É chamado o método que testa as colisões entre \textbf{Entidade} e \textbf{Entidade}.
+	\begin{enumerate}
+		\item Caso haja uma colisão entre outra entidade, é gerado uma notificação para tanto a classe que achou a colisão quanto para a classe que sofreu esta colisão. E nada é feito.
+	\end{enumerate}
+%
+	\item É chamado o método que executa as colisões em todas as \textbf{Entidades}.
+	\begin{enumerate}
+		\item Este método irá verificar se foi notificada uma colisão para o objeto.
+		\begin{enumerate}
+			\item Caso haja uma colisão é calculado a reação mais apropriada. \\\textit{No exemplo do \textbf{Player} colidindo com um \textbf{Enemy}: o sistema irá verificar se o jogador está em sua forma especial, caso esteja, o \textbf{Enemy} é destruído caso não esteja, o inverso acontece.}
+			\item Após as reações, é então limpado as notificações de colisão.
+		\end{enumerate}
+	\end{enumerate}
+%
+	\item É calculado em qual modo o \textbf{Player} se encontra. E modificado a música de acordo.
+	\begin{enumerate}
+		\item Ao comer uma moeda especial, a música atual para, é tocado um efeito por 5 segundos e outra música começa a ser tocada até o final do efeito.
+	\end{enumerate}
+%
+	\item É executado o Render.
+	\begin{enumerate}
+		\item As luzes são setadas nas suas posições iniciais.
+		\item O mapa que está até vinte quadrados de distancia do jogador é processado e construído de acordo com os valores dos \textbf{Tiles}. Isso inclui as texturas e moedas.
+		\item Os inimigos são renderizados.
+		\item É renderizado o mini-mapa 2d sobre uma projeção ortho2d.
+	\end{enumerate}
+\end{enumerate}
+
+Esse processo é repetido a cada frame do programa.

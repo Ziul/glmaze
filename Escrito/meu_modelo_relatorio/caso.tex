@@ -2,6 +2,8 @@
 %Nessa seção deve ser apresentado pelo menos um exemplo de caso de teste. Se não for especificado na descrição do problema, ela deve definida, explicada e ilustrada pelos autores.
 
 %Os exemplos de estudos de casos podem ser observados no apêndice \ref{cases}, onde estão apresentados os seguintes estudos de caso:
+
+
 \rowcolors{1}{lightgray}{white}
 
 Foram feitos três estudos de casos referentes ao programa em sí.
@@ -9,8 +11,9 @@ Foram feitos três estudos de casos referentes ao programa em sí.
 \subsection{Sistema de derrota}\label{label}
 
 Para o primeiro caso é estudado a situação de derrota. É a situação onde o jogador colide com um fantasma.\\
-	
-\begin{tabular}{>{\centering}p{3.5cm}<{\centering}p{3.5cm}}
+
+\setlength{\extrarowheight}{1.5pt}
+\begin{tabularx}{0.45\textwidth}{lX}
 \hline
 Pré-condições  & Ter iniciado o programa
 \tabularnewline
@@ -22,13 +25,15 @@ Procedimentos
 Resultado Esperado & Musica de derrota é tocada. Jogador perde uma vida e retorna para a tela principal com uma mensagem de derrota.
 \tabularnewline\hline
 Pós-condições & Câmera do jogador parada olhando para o muro.
-\end{tabular}
+\end{tabularx}
 
 \subsection{Sistema de movimento}\label{mov}
 
 Neste segundo estudo é verificado a condição primaria do programa, ou seja, iniciar o jogo e movimentar-se pelo cenário.\\
 
-\begin{tabular}{>{\centering}p{3.5cm}<{\centering}p{3.5cm}}
+%\begin{tabular}{>{\centering}p{3.5cm}<{\centering}p{3.5cm}}
+\setlength{\extrarowheight}{1.5pt}
+\begin{tabularx}{0.45\textwidth}{lX}
 \hline
 Pré-condições  & Ter iniciado o programa
 \tabularnewline
@@ -42,13 +47,15 @@ Resultado Esperado
 & A musica é alterada. Mostra a câmera do jogador e permite move-la com WSAD.  Permite mover a direção da câmera com o  mouse ao apertá-lo. 
 \tabularnewline\hline
 Pós-condições & É alterada a posição do jogador no ambiente. Ao fazer de uso do mouse, é alterado a direção de visão do jogador.
-\end{tabular}
+\end{tabularx}
 
 \subsection{Sistema de colisão}\label{label}
 
 Neste terceiro estudo é verificado a condição de colisão com objetos. Para tal é verificado a colisão com a parede.\\
 	
-\begin{tabular}{>{\centering}p{3.5cm}<{\centering}p{3.5cm}}
+%\begin{tabular}{>{\centering}p{3.5cm}<{\centering}p{3.5cm}}
+\setlength{\extrarowheight}{1.5pt}
+\begin{tabularx}{0.45\textwidth}{lX}
 \hline
 Pré-condições  & Ter iniciado o programa
 \tabularnewline
@@ -60,6 +67,6 @@ Procedimentos
 Resultado esperado & O programa não deixo a câmera do jogador ultrapassar o muro e para o seu movimento.
 \tabularnewline\hline
 Pós-condições & Câmera do jogador parada olhando para o muro.
-\end{tabular}
+\end{tabularx}
 
 
