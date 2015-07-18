@@ -7,9 +7,6 @@
 #include <stdlib.h>
 #include "defines.h"
 
-#include <glee.h>
-#include <gl/glut.h>
-
 #define POINTS_PER_VERTEX 3
 #define TOTAL_FLOATS_IN_TRIANGLE 9
 

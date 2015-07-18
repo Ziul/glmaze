@@ -12,6 +12,10 @@
 /trunk/exportTEST.txt
 /trunk/obj
 
+*.o
+*.a
+*.out
+*.exe
 # /trunk/data/
 
 # /trunk/data/mus/

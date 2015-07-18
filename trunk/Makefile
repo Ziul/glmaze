@@ -46,7 +46,7 @@ $(foreach t,$(compiling),$(eval $(call PROGRAM_template,$(t))))
 
 
 ifeq ($(UNAME),Linux) # Linux OS
-	GLFLAGS = -lglut -lglui -lGLU -lGL -lalut  -lopenal
+	GLFLAGS = -lglut -lGLU -lGL -lalut  -lopenal
 	SEARCH = dpkg -l | grep -iq
 	else
 	ifeq ($(UNAME),Darwin) # MAC OS X
